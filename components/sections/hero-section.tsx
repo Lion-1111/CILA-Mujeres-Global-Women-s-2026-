@@ -3,30 +3,30 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-const word = "MONO";
+const word = "CILA";
 
 const sideImages = [
   {
-    src: "/images/hero-side-1.png",
-    alt: "Modern architecture with corten steel",
+    src: "/images/art-01.png",
+    alt: "Retrato artístico de mujer con flores",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/hero-side-2.png",
-    alt: "Aerial view of modern home",
+    src: "/images/art-07.png",
+    alt: "Retrato artístico en acuarela de mujer",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/hero-side-3.png",
-    alt: "Interior view with landscape",
+    src: "/images/art-03.png",
+    alt: "Retrato artístico de mujer con patrones geométricos",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/hero-side-4.png",
-    alt: "Modern architecture at night",
+    src: "/images/art-10.png",
+    alt: "Retrato artístico de mujer con hojas de otoño",
     position: "right",
     span: 1,
   },
@@ -76,7 +76,7 @@ export function HeroSection() {
   const sideTranslateY = -(imageProgress * 15); // Move up by 15% when fully expanded
 
   return (
-    <section ref={sectionRef} className="relative bg-background">
+    <section id="hero" ref={sectionRef} className="relative bg-background">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
@@ -148,8 +148,8 @@ export function HeroSection() {
               </div>
               
               <Image
-                src="/images/hero-mono.png"
-                alt="Modern architectural structure with reflection"
+                src="/images/art-05.png"
+                alt="Silueta de mujer sobre el agua al atardecer"
                 fill
                 className="absolute inset-0 z-10 object-cover"
                 priority
@@ -191,13 +191,16 @@ export function HeroSection() {
 
       {/* Tagline Section - Fixed at bottom */}
       <div 
-        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 px-6 pb-12 md:px-12 md:pb-16 lg:px-20 lg:pb-20"
+        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 flex flex-col items-center px-6 pb-12 text-center md:px-12 md:pb-16 lg:px-20 lg:pb-20"
         style={{ opacity: textOpacity }}
       >
-        <p className="mx-auto max-w-2xl text-center text-2xl leading-relaxed text-white md:text-3xl lg:text-[2.5rem] lg:leading-snug">
-          Lightweight, durable
+        <span className="mb-3 inline-block rounded-full bg-accent/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+          CILA Mujeres · Global Women&apos;s 2026
+        </span>
+        <p className="mx-auto max-w-2xl font-serif text-3xl leading-tight text-white md:text-4xl lg:text-[3rem] lg:leading-tight">
+          El encuentro de las mujeres
           <br />
-          and adventure-ready.
+          que mueven Latinoamérica.
         </p>
       </div>
 

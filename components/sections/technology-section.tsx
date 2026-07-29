@@ -66,21 +66,21 @@ function ScrollRevealText({ text }: { text: string }) {
 
 const sideImages = [
   {
-    src: "/images/interior-view.png",
-    alt: "Interior view with landscape",
+    src: "/images/art-12.png",
+    alt: "Retrato artístico de mujer sonriendo",
     position: "left",
   },
   {
-    src: "/images/rusted-metal.png",
-    alt: "Rusted metal texture",
+    src: "/images/art-13.png",
+    alt: "Obra artística en blanco y negro",
     position: "right",
   },
 ];
 
 const textCycles = [
-  "Design & Sustainability.",
-  "Passive Energy.",
-  "Bio-sourced Construction.",
+  "Inspiración.",
+  "Comunidad.",
+  "Liderazgo femenino.",
 ];
 
 export function TechnologySection() {
@@ -89,7 +89,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
   
-  const descriptionText = "Passive architecture reimagining modern living. Triple glazing, reinforced insulation and natural ventilation combine with solar panels to create an energy-autonomous home. Bio-sourced materials like solid wood and hemp wool ensure healthy indoor air and minimal ecological footprint.";
+  const descriptionText = "Global Women's 2026 es un encuentro pensado para reunir a las mujeres que lideran el sector inmobiliario en Latinoamérica. Tres días de conferencias, arte, networking y celebración del talento femenino que transforma la región.";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -145,7 +145,7 @@ export function TechnologySection() {
   const grayscaleAmount = Math.round((1 - textProgress) * 100);
 
   return (
-    <section ref={sectionRef} className="relative bg-foreground">
+    <section id="experiencia" ref={sectionRef} className="relative bg-foreground">
       {/* Sticky container for scroll animation */}
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
@@ -188,8 +188,8 @@ export function TechnologySection() {
               {/* Layered Images - Progressive Fade In */}
               {/* Image 1 - Base layer - Sunrise/Sunset with sun rays */}
               <Image
-                src="/images/mono-1.png"
-                alt="Modern architecture at sunrise"
+                src="/images/art-08.png"
+                alt="Obra artística de mujer sosteniendo un corazón"
                 fill
                 className="object-cover"
                 style={{
@@ -199,8 +199,8 @@ export function TechnologySection() {
               
               {/* Image 2 - Daytime scene - Fades in during first text cycle */}
               <Image
-                src="/images/mono-2.png"
-                alt="Modern architecture in daylight"
+                src="/images/art-09.png"
+                alt="Obra artística de mujer con flores"
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
@@ -211,8 +211,8 @@ export function TechnologySection() {
               
               {/* Image 3 - Dusk/Evening - Fades in during second text cycle */}
               <Image
-                src="/images/mono-3.png"
-                alt="Modern architecture at dusk"
+                src="/images/art-02.png"
+                alt="Obra artística de rostro dorado"
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
@@ -223,8 +223,8 @@ export function TechnologySection() {
               
               {/* Image 4 - Night with stars - Fades in during third text cycle */}
               <Image
-                src="/images/mono-4.png"
-                alt="Modern architecture at night"
+                src="/images/art-06.png"
+                alt="Obra artística de mujer con velo azul"
                 fill
                 className="absolute inset-0 object-cover"
                 style={{

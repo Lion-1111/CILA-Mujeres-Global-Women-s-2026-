@@ -9,10 +9,10 @@ export function GallerySection() {
   const rafRef = useRef<number | null>(null);
 
   const images = [
-    { src: "/images/mono-1.png", alt: "Modern architecture at sunrise" },
-    { src: "/images/mono-2.png", alt: "Modern architecture in daylight" },
-    { src: "/images/mono-3.png", alt: "Modern architecture at dusk" },
-    { src: "/images/mono-4.png", alt: "Modern architecture at night" },
+    { src: "/images/art-07.png", alt: "Obra artística de mujer con cabello púrpura" },
+    { src: "/images/art-01.png", alt: "Obra artística de mujer con flores" },
+    { src: "/images/art-11.png", alt: "Obra artística de mujer sobre arena negra" },
+    { src: "/images/art-04.png", alt: "Obra artística de mujer con arco" },
   ];
 
   const updateTransform = useCallback(() => {
@@ -61,7 +61,7 @@ export function GallerySection() {
 
   return (
     <section 
-      id="gallery"
+      id="galeria"
       ref={galleryRef}
       className="relative bg-black"
       style={{ minHeight: `${(images.length + 1) * 100}vh` }}

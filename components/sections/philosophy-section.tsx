@@ -4,9 +4,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
 
 const titles = [
-  "Sustainable Architecture.",
-  "Built for Tomorrow.",
-  "Eco-Responsible.",
+  "Somos CILA Mujeres.",
+  "Somos red y liderazgo.",
+  "Somos Latinoamérica.",
 ];
 
 export function PhilosophySection() {
@@ -71,7 +71,7 @@ export function PhilosophySection() {
   }, [updateTransforms]);
 
   return (
-    <section id="products" className="bg-background">
+    <section id="nosotras" className="bg-background">
       {/* Scroll-Animated Product Grid */}
       <div ref={sectionRef} className="relative" style={{ height: "200vh" }}>
         <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -145,7 +145,7 @@ export function PhilosophySection() {
         <div className="text-center">
           
           <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            {("A design home that combines contemporary aesthetics and energy performance. Built with eco-friendly materials, it minimizes carbon footprint while offering optimal comfort.").split(" ").map((word, index, array) => {
+            {("CILA Mujeres es la comunidad de mujeres líderes de la Confederación Inmobiliaria Latinoamericana. Impulsamos el liderazgo femenino, la formación y las alianzas entre profesionales inmobiliarias de toda la región.").split(" ").map((word, index, array) => {
               const wordProgress = Math.max(0, Math.min(1, (descriptionProgress * array.length) - index));
               const opacity = wordProgress;
               const blur = (1 - wordProgress) * 40;

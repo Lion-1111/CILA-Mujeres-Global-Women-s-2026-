@@ -1,25 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 const footerLinks = {
   explore: [
-    { label: "Products", href: "#products" },
-    { label: "Technology", href: "#technology" },
-    { label: "Gallery", href: "#gallery" },
-    { label: "Accessories", href: "#accessories" },
+    { label: "Quiénes somos", href: "#nosotras" },
+    { label: "Programa", href: "#programa" },
+    { label: "Galería", href: "#galeria" },
+    { label: "Representantes", href: "#representantes" },
   ],
-  about: [
-    { label: "Our Story", href: "#" },
-    { label: "Team", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#" },
-  ],
-  service: [
-    { label: "FAQ", href: "#" },
-    { label: "Shipping", href: "#" },
-    { label: "Returns", href: "#" },
-    { label: "Warranty", href: "#" },
+  evento: [
+    { label: "Registro", href: "#registro" },
+    { label: "Experiencia", href: "#experiencia" },
+    { label: "Ceremonia", href: "#representantes" },
   ],
 };
 
