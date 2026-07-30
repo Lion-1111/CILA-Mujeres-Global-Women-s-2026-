@@ -195,12 +195,16 @@ export function HeroSection() {
         style={{ opacity: textOpacity }}
       >
         <span className="mb-3 inline-block rounded-full bg-accent/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
-          CILA Mujeres · Global Women&apos;s 2026
+          CILA Mujeres
         </span>
-        <p className="mx-auto max-w-2xl font-serif text-3xl leading-tight text-white md:text-4xl lg:text-[3rem] lg:leading-tight">
-          El encuentro de las mujeres
-          <br />
-          que mueven Latinoamérica.
+        <p className="mx-auto max-w-3xl font-serif text-4xl leading-tight text-white md:text-5xl lg:text-[3.5rem] lg:leading-tight">
+          GLOBAL WOMEN&apos;S 2026
+        </p>
+        <p className="mt-4 text-lg font-medium italic text-sky-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          Connecting Latin America and the World
+        </p>
+        <p className="mt-5 text-xs font-medium uppercase tracking-[0.2em] text-white/60">
+          Fortalecemos, inspiramos y transformamos el liderazgo femenino
         </p>
       </div>
 

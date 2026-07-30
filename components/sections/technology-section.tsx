@@ -89,7 +89,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
   
-  const descriptionText = "Global Women's 2026 es un encuentro pensado para reunir a las mujeres que lideran el sector inmobiliario en Latinoamérica. Tres días de conferencias, arte, networking y celebración del talento femenino que transforma la región.";
+  const descriptionText = "Global Women's 2026 es el encuentro que reunirá a representantes de Latinoamérica, empresarios inmobiliarios, desarrolladores, inversionistas, fondos de inversión, empresas PropTech, instituciones financieras, cámaras empresariales e invitados especiales. Brasil, 27 de agosto de 2026.";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -250,7 +250,7 @@ export function TechnologySection() {
                   return (
                     <h2 
                       key={cycleIndex}
-                      className="absolute max-w-3xl font-medium leading-tight tracking-tight text-white md:text-5xl lg:text-7xl text-5xl"
+                      className="absolute max-w-3xl font-medium leading-tight tracking-tight text-blue-400 drop-shadow-md md:text-5xl lg:text-7xl text-5xl"
                     >
                       {words.map((word, wordIndex) => {
                         let wordOpacity = 0;

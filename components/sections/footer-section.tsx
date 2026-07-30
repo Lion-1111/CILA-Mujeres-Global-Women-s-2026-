@@ -15,6 +15,11 @@ const footerLinks = {
     { label: "Experiencia", href: "#experiencia" },
     { label: "Ceremonia", href: "#representantes" },
   ],
+  contacto: [
+    { label: "Instagram", href: "#" },
+    { label: "Facebook", href: "#" },
+    { label: "WhatsApp", href: "#" },
+  ],
 };
 
 export function FooterSection() {
@@ -50,11 +55,11 @@ export function FooterSection() {
             </ul>
           </div>
 
-          {/* About */}
+          {/* Evento */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">About</h4>
+            <h4 className="mb-4 text-sm font-medium text-foreground">Evento</h4>
             <ul className="space-y-3">
-              {footerLinks.about.map((link) => (
+              {footerLinks.evento.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
@@ -67,11 +72,11 @@ export function FooterSection() {
             </ul>
           </div>
 
-          {/* Service */}
+          {/* Contacto */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Service</h4>
+            <h4 className="mb-4 text-sm font-medium text-foreground">Contacto</h4>
             <ul className="space-y-3">
-              {footerLinks.service.map((link) => (
+              {footerLinks.contacto.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}

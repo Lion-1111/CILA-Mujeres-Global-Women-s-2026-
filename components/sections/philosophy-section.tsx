@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState, useCallback } from "react";
+import { TextRevealScroll } from "@/components/ui/text-reveal-scroll";
 
 const titles = [
   "Somos CILA Mujeres.",
@@ -11,9 +12,7 @@ const titles = [
 
 export function PhilosophySection() {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const descriptionRef = useRef<HTMLDivElement>(null);
   const [titleOpacity, setTitleOpacity] = useState(0);
-  const [descriptionProgress, setDescriptionProgress] = useState(0);
   const rafRef = useRef<number | null>(null);
 
   const updateTransforms = useCallback(() => {
@@ -30,22 +29,6 @@ export function PhilosophySection() {
     
     // Title rotates through 3 texts based on scroll progress
     setTitleOpacity(progress);
-
-    // Description word animation
-    if (descriptionRef.current) {
-      const descRect = descriptionRef.current.getBoundingClientRect();
-      const descTop = descRect.top;
-      const descHeight = descRect.height;
-      
-      // Start animation when element enters viewport
-      const startTrigger = windowHeight * 0.8;
-      const endTrigger = windowHeight * 0.2;
-      
-      if (descTop < startTrigger && descTop > endTrigger - descHeight) {
-        const descProgress = Math.max(0, Math.min(1, (startTrigger - descTop) / (startTrigger - endTrigger)));
-        setDescriptionProgress(descProgress);
-      }
-    }
   }, []);
 
   useEffect(() => {
@@ -119,7 +102,7 @@ export function PhilosophySection() {
                   return (
                     <h2 
                       key={index}
-                      className="absolute inset-0 flex items-center justify-center text-[8vw] sm:text-[7vw] font-medium leading-tight tracking-tighter text-foreground md:text-[6vw] lg:text-[5vw] text-center px-4"
+                      className="absolute inset-0 flex items-center justify-center text-[8vw] sm:text-[7vw] font-medium leading-tight tracking-tighter text-blue-600 md:text-[6vw] lg:text-[5vw] text-center px-4"
                       style={{
                         transform: `rotateX(${rotateX}deg) translateZ(0)`,
                         opacity,
@@ -140,30 +123,62 @@ export function PhilosophySection() {
         </div>
       </div>
 
-      {/* Description */}
-      <div ref={descriptionRef} className="px-6 pt-8 pb-20 md:px-12 md:pt-12 md:pb-28 lg:px-20 lg:pt-16 lg:pb-36">
-        <div className="text-center">
-          
-          <p className="mt-8 leading-relaxed text-muted-foreground text-3xl text-center">
-            {("CILA Mujeres es la comunidad de mujeres líderes de la Confederación Inmobiliaria Latinoamericana. Impulsamos el liderazgo femenino, la formación y las alianzas entre profesionales inmobiliarias de toda la región.").split(" ").map((word, index, array) => {
-              const wordProgress = Math.max(0, Math.min(1, (descriptionProgress * array.length) - index));
-              const opacity = wordProgress;
-              const blur = (1 - wordProgress) * 40;
-              
-              return (
-                <span
-                  key={index}
-                  style={{
-                    opacity,
-                    filter: `blur(${blur}px)`,
-                    transition: 'opacity 0.3s ease, filter 0.3s ease',
-                  }}
-                >
-                  {word}{index < array.length - 1 ? " " : ""}
-                </span>
-              );
-            })}
+      {/* Description using new Text Reveal Animation */}
+      <div className="px-6 pb-20 md:px-12 md:pb-28 lg:px-20 lg:pb-36">
+        <div className="text-center mx-auto max-w-5xl">
+          <TextRevealScroll 
+            text="CILA Mujeres es la comunidad de mujeres líderes de la Confederación Inmobiliaria Latinoamericana. Impulsamos el liderazgo femenino, la formación y las alianzas entre profesionales inmobiliarias de toda la región."
+            className="text-3xl md:text-5xl lg:text-[3.5rem] text-center"
+          />
+        </div>
+
+        {/* Bienvenida */}
+        <div className="mx-auto mt-24 max-w-3xl border-t border-border pt-16">
+          <p className="font-serif text-xl leading-relaxed text-foreground md:text-2xl text-center">
+            &ldquo;Orgullosamente representamos a CILA Mujeres y te invitamos a formar parte de un espacio donde la trayectoria, la unión y la cooperación se convierten en oportunidades que se expanden más allá de nuestras fronteras, comprometidas con un liderazgo ético, innovador, sostenible y humano.&rdquo;
           </p>
+        </div>
+
+        {/* Países y Nos distingue */}
+        <div className="mx-auto mt-24 max-w-5xl grid grid-cols-1 gap-16 md:grid-cols-2 border-t border-border pt-16">
+          
+          {/* Representación */}
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Representación
+            </span>
+            <h3 className="mt-3 font-serif text-2xl leading-snug text-foreground md:text-3xl">
+              Presencia internacional
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              Con representación en España, Costa Rica, Brasil, México, Uruguay, Paraguay, Colombia, República Dominicana, Bolivia, Venezuela, Ecuador, Panamá, El Salvador y Argentina — compartiendo una visión común y un firme compromiso con el fortalecimiento del sector en el ámbito global.
+            </p>
+          </div>
+
+          {/* Nos distingue */}
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              Nos distingue
+            </span>
+            <h3 className="mt-3 font-serif text-2xl leading-snug text-foreground md:text-3xl">
+              Lo que nos define
+            </h3>
+            <ul className="mt-4 space-y-3">
+              {[
+                "Responsabilidad y alto estándar profesional.",
+                "Vinculación entre naciones con lazos sólidos de confianza.",
+                "Modernización del ecosistema inmobiliario con visión estratégica.",
+                "Desarrollo sostenible y consciente.",
+                "Un entorno donde la mujer inspira, respalda y fortalece a otras mujeres.",
+              ].map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>

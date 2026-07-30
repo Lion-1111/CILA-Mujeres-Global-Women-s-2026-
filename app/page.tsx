@@ -1,13 +1,16 @@
 import { Header } from "@/components/header";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PhilosophySection } from "@/components/sections/philosophy-section";
+import { MissionSection } from "@/components/sections/mission-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 import { GallerySection } from "@/components/sections/gallery-section";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { RegistrationSection } from "@/components/sections/registration-section";
 import { FooterSection } from "@/components/sections/footer-section";
+import { WordHeroSection } from "@/components/ui/scroll-hero-section";
 
 export default function Home() {
   return (
@@ -15,12 +18,18 @@ export default function Home() {
       <Header />
       <HeroSection />
       <PhilosophySection />
+      <MissionSection />
       <FeaturedProductsSection />
       <TechnologySection />
       <GallerySection />
+      
+      {/* Dynamic Intro to the Business Circuit */}
+      <WordHeroSection />
+      
       <CollectionSection />
       <EditorialSection />
       <TestimonialsSection />
+      <RegistrationSection />
       <FooterSection />
     </main>
   );

@@ -1,28 +1,26 @@
 "use client";
 
-import { FadeImage } from "@/components/fade-image";
-import { User } from "lucide-react";
+import { CircularTestimonials } from "@/components/ui/circular-testimonials";
 
-// Sección RESERVADA para las representantes de la ceremonia.
-// Deja `image` en null para mostrar el marcador reservado.
-// Cuando tengas las fotos, solo cambia `image` por la ruta (ej: "/images/representante-1.png")
-// y `name` / `role` por los datos de cada participante. La animación se mantiene igual.
-const representatives: {
-  image: string | null;
-  name?: string;
-  role?: string;
-  span: string;
-}[] = [
-  { image: null, span: "col-span-2 row-span-2" },
-  { image: null, span: "col-span-1 row-span-1" },
-  { image: null, span: "col-span-1 row-span-1" },
-  { image: null, span: "col-span-1 row-span-2" },
-  { image: null, span: "col-span-1 row-span-1" },
-  { image: null, span: "col-span-2 row-span-1" },
-  { image: null, span: "col-span-1 row-span-1" },
-  { image: null, span: "col-span-1 row-span-2" },
-  { image: null, span: "col-span-2 row-span-1" },
-  { image: null, span: "col-span-1 row-span-1" },
+const representatives = [
+  {
+    quote: "Nos enorgullece ser parte de este evento y conectar con líderes de toda la región para fortalecer nuestra comunidad y seguir creciendo juntas.",
+    name: "Elena Rodríguez",
+    designation: "Presidenta CILA 2026",
+    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1376&auto=format&fit=crop",
+  },
+  {
+    quote: "Este espacio es vital para el desarrollo sostenible, la innovación y la colaboración en el sector inmobiliario a nivel latinoamericano y mundial.",
+    name: "Sofía Martínez",
+    designation: "Directora de Alianzas Internacionales",
+    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1361&auto=format&fit=crop",
+  },
+  {
+    quote: "Invitamos a todas las mujeres profesionales a sumarse a esta iniciativa que transforma el liderazgo y el futuro en nuestra industria.",
+    name: "Carolina Silva",
+    designation: "Coordinadora General del Evento",
+    src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1364&auto=format&fit=crop",
+  },
 ];
 
 export function FeaturedProductsSection() {
@@ -44,32 +42,25 @@ export function FeaturedProductsSection() {
           </p>
         </div>
 
-        {/* Bento Grid - mantiene la animación de aparición */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 w-full max-w-7xl mx-auto auto-rows-[180px] md:auto-rows-[220px]">
-          {representatives.map((rep, index) => (
-            <div
-              key={index}
-              className={`relative overflow-hidden rounded-lg border border-border ${rep.span}`}
-            >
-              {rep.image ? (
-                <FadeImage
-                  src={rep.image}
-                  alt={rep.name ? `Representante: ${rep.name}` : `Representante ${index + 1}`}
-                  fill
-                  className="object-cover"
-                />
-              ) : (
-                <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-secondary text-center animate-fade-in">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-background/70 text-primary">
-                    <User size={22} aria-hidden="true" />
-                  </span>
-                  <span className="px-3 text-xs font-medium uppercase tracking-widest text-muted-foreground">
-                    Por anunciar
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+        {/* Carrusel Circular de Testimonios/Representantes */}
+        <div className="mx-auto w-full max-w-7xl">
+          <CircularTestimonials
+            testimonials={representatives}
+            autoplay={true}
+            colors={{
+              name: "currentColor",
+              designation: "#888888",
+              testimony: "currentColor",
+              arrowBackground: "#141414",
+              arrowForeground: "#f1f1f7",
+              arrowHoverBackground: "#bd1b5f", // Color acento
+            }}
+            fontSizes={{
+              name: "24px",
+              designation: "16px",
+              quote: "18px",
+            }}
+          />
         </div>
       </div>
     </section>

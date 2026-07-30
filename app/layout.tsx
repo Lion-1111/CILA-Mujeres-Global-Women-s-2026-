@@ -1,7 +1,6 @@
 import React from "react"
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
 const inter = Inter({ subsets: ["latin"], variable: '--font-inter' });
@@ -10,7 +9,7 @@ const playfair = Playfair_Display({ subsets: ["latin"], variable: '--font-playfa
 export const metadata: Metadata = {
   title: "Global Women's 2026 — CILA Mujeres",
   description: 'Global Women\'s 2026, el encuentro internacional de mujeres líderes de la Confederación Inmobiliaria Latinoamericana (CILA Mujeres). Regístrate y sé parte.',
-  generator: 'v0.app',
+  generator: 'CILA Mujeres',
 }
 
 export const viewport: Viewport = {
@@ -28,7 +27,6 @@ export default function RootLayout({
     <html lang="es" className="bg-background">
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
         {children}
-        <Analytics />
       </body>
     </html>
   )
