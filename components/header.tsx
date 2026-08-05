@@ -27,25 +27,19 @@ export function Header() {
 
   return (
     <header 
-      className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-3xl transition-all duration-300 ${isScrolled ? "bg-background/80 backdrop-blur-md rounded-full" : "bg-transparent"}`}
-      style={{
-        boxShadow: isScrolled ? "rgba(14, 63, 126, 0.04) 0px 0px 0px 1px, rgba(42, 51, 69, 0.04) 0px 1px 1px -0.5px, rgba(42, 51, 70, 0.04) 0px 3px 3px -1.5px, rgba(42, 51, 70, 0.04) 0px 6px 6px -3px, rgba(14, 63, 126, 0.04) 0px 12px 12px -6px, rgba(14, 63, 126, 0.04) 0px 24px 24px -12px" : "none"
-      }}
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white/95 shadow-sm"}`}
     >
-      <div className="flex items-center justify-between transition-all duration-300 px-2 pl-4 py-2">
+      <div className="flex items-center justify-between transition-all duration-300 px-6 py-3 md:px-12 lg:px-20">
         {/* Logo */}
-        <Link href="#hero" className="flex items-center gap-2" aria-label="CILA Mujeres — inicio">
-          <span className="relative h-8 w-20 overflow-hidden rounded-md bg-white">
+        <Link href="#hero" className="flex items-center gap-3" aria-label="CILA Mujeres — inicio">
+          <span className="relative h-14 w-36 overflow-hidden rounded-lg bg-white px-1 py-1 flex-shrink-0 shadow-md">
             <Image
               src="/images/cila-logo.png"
-              alt="CILA — Confederación Inmobiliaria Latinoamericana"
+              alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
               className="object-contain"
-              sizes="80px"
+              sizes="144px"
             />
-          </span>
-          <span className="hidden text-sm font-medium tracking-tight text-foreground sm:inline">
-            Mujeres
           </span>
         </Link>
 
@@ -55,7 +49,7 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm transition-colors text-muted-foreground hover:text-foreground"
+              className="text-sm font-medium transition-colors text-gray-600 hover:text-[#1e3a8a]"
             >
               {link.label}
             </Link>
@@ -66,7 +60,7 @@ export function Header() {
         <div className="hidden items-center gap-6 md:flex">
           <Link
             href="#registro"
-            className="px-4 py-2 text-sm font-medium transition-all rounded-full bg-accent text-accent-foreground hover:opacity-90"
+            className="px-6 py-2 text-sm font-semibold transition-all rounded bg-[#1e3a8a] text-white hover:bg-blue-700 shadow-md"
           >
             Registro
           </Link>
@@ -76,22 +70,22 @@ export function Header() {
         <button
           type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="transition-colors md:hidden text-foreground"
+          className="transition-colors md:hidden text-gray-700"
           aria-label="Abrir menú"
         >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="border-t border-border bg-background px-6 py-8 md:hidden rounded-b-2xl">
+        <div className="border-t border-gray-200 bg-white px-6 py-8 md:hidden">
           <nav className="flex flex-col gap-6">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-lg text-foreground"
+                className="text-lg font-medium text-gray-700 hover:text-[#1e3a8a]"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
@@ -99,7 +93,7 @@ export function Header() {
             ))}
             <Link
               href="#registro"
-              className="mt-4 bg-accent px-5 py-3 text-center text-sm font-medium text-accent-foreground rounded-full"
+              className="mt-4 bg-blue-700 px-5 py-3 text-center text-sm font-bold text-white rounded shadow-md"
               onClick={() => setIsMenuOpen(false)}
             >
               Registro

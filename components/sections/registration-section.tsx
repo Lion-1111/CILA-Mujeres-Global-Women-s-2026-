@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { supabase } from "@/lib/supabase";
 
 const fields = [
   { id: "nombre", label: "Nombre completo", type: "text", autoComplete: "name", placeholder: "Tu nombre y apellidos" },
@@ -32,7 +33,6 @@ const mesas = [
   { mesa: 18, pais: "Honduras",        bandera: "🇭🇳" },
 ];
 
-// Simulate round-robin assignment based on timestamp
 function assignMesa(): typeof mesas[number] {
   const index = Math.floor(Date.now() / 1000) % mesas.length;
   return mesas[index];
@@ -40,11 +40,41 @@ function assignMesa(): typeof mesas[number] {
 
 export function RegistrationSection() {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [mesaAsignada, setMesaAsignada] = useState<typeof mesas[number] | null>(null);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const form = e.currentTarget;
+    const data = {
+      nombre:   (form.elements.namedItem("nombre")   as HTMLInputElement).value,
+      pais:     (form.elements.namedItem("pais")     as HTMLInputElement).value,
+      empresa:  (form.elements.namedItem("empresa")  as HTMLInputElement).value,
+      email:    (form.elements.namedItem("email")    as HTMLInputElement).value,
+      telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
+    };
+
     const asignacion = assignMesa();
+
+    const { error: dbError } = await supabase.from("registros").insert({
+      ...data,
+      mesa_numero:  asignacion.mesa,
+      mesa_pais:    asignacion.pais,
+      mesa_bandera: asignacion.bandera,
+    });
+
+    setLoading(false);
+
+    if (dbError) {
+      setError("Hubo un problema al guardar tu registro. Por favor intenta de nuevo.");
+      console.error(dbError);
+      return;
+    }
+
     setMesaAsignada(asignacion);
     setSubmitted(true);
   };
@@ -79,7 +109,6 @@ export function RegistrationSection() {
               Hemos recibido tu solicitud. Pronto te contactaremos con los detalles de Global Women&apos;s 2026.
             </p>
 
-            {/* Mesa asignada */}
             <div className="mt-8 w-full max-w-xs rounded-2xl border border-white/20 bg-white/10 px-6 py-6">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 mb-3">
                 Tu mesa asignada
@@ -126,11 +155,25 @@ export function RegistrationSection() {
               </div>
             ))}
 
+            {error && (
+              <p className="rounded-xl bg-red-500/20 border border-red-400/40 px-4 py-3 text-sm text-red-200">
+                {error}
+              </p>
+            )}
+
             <button
               type="submit"
-              className="mt-2 w-full rounded-full bg-white px-6 py-4 text-base font-semibold text-[#1e3a8a] transition-opacity hover:opacity-90"
+              disabled={loading}
+              className="mt-2 w-full rounded-full bg-white px-6 py-4 text-base font-semibold text-[#1e3a8a] transition-opacity hover:opacity-90 disabled:opacity-60 flex items-center justify-center gap-2"
             >
-              Confirmar mi registro y obtener mi mesa →
+              {loading ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" />
+                  Guardando...
+                </>
+              ) : (
+                "Confirmar mi registro y obtener mi mesa →"
+              )}
             </button>
             <p className="text-center text-xs text-primary-foreground/60">
               Al registrarte aceptas recibir información sobre el evento de CILA Mujeres.

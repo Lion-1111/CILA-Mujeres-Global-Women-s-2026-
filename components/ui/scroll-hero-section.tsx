@@ -79,8 +79,8 @@ export function WordHeroSection({
         {/* Background Image with Dark Overlay */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="/WhatsApp Image 2026-07-28 at 9.49.24 PM.jpeg" 
-            alt="Regístrate ahora" 
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1920&h=1080&fit=crop&q=80" 
+            alt="Edificio corporativo inmobiliario" 
             className="w-full h-full object-cover" 
           />
           <div className="absolute inset-0 bg-[#0f172a]/80" />

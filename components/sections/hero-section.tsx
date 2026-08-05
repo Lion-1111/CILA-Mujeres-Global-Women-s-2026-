@@ -7,26 +7,26 @@ const word = "CILA";
 
 const sideImages = [
   {
-    src: "/images/art-01.png",
-    alt: "Retrato artístico de mujer con flores",
+    src: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=1000&h=1400&fit=crop&q=80",
+    alt: "Alianzas de negocios inmobiliarios",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/art-07.png",
-    alt: "Retrato artístico en acuarela de mujer",
+    src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&h=1400&fit=crop&q=80",
+    alt: "Propiedad inmobiliaria moderna",
     position: "left",
     span: 1,
   },
   {
-    src: "/images/art-03.png",
-    alt: "Retrato artístico de mujer con patrones geométricos",
+    src: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=1000&h=1400&fit=crop&q=80",
+    alt: "Fachada de cristal de edificio moderno",
     position: "right",
     span: 1,
   },
   {
-    src: "/images/art-10.png",
-    alt: "Retrato artístico de mujer con hojas de otoño",
+    src: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1000&h=1400&fit=crop&q=80",
+    alt: "Vista aérea de ciudad latinoamericana",
     position: "right",
     span: 1,
   },
@@ -39,18 +39,18 @@ export function HeroSection() {
   useEffect(() => {
     const handleScroll = () => {
       if (!sectionRef.current) return;
-      
+
       const rect = sectionRef.current.getBoundingClientRect();
       const scrollableHeight = window.innerHeight * 2;
       const scrolled = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolled / scrollableHeight));
-      
+
       setScrollProgress(progress);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -58,10 +58,10 @@ export function HeroSection() {
 
   // Text fades out first (0 to 0.2)
   const textOpacity = Math.max(0, 1 - (scrollProgress / 0.2));
-  
+
   // Image transforms start after text fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
-  
+
   // Smooth interpolations - More balanced distribution
   const centerWidth = 100 - (imageProgress * 80); // 100% to 20% (same as each side image)
   const centerHeight = 100; // Always 100% height
@@ -71,7 +71,7 @@ export function HeroSection() {
   const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
   const borderRadius = 0; // No border radius
   const gap = imageProgress * 8; // 0px to 8px
-  
+
   // Vertical offset for side columns to move them up on mobile
   const sideTranslateY = -(imageProgress * 15); // Move up by 15% when fully expanded
 
@@ -81,13 +81,13 @@ export function HeroSection() {
       <div className="sticky top-0 h-screen overflow-hidden">
         <div className="flex h-full w-full items-center justify-center">
           {/* Bento Grid Container */}
-          <div 
+          <div
             className="relative flex h-full w-full items-stretch justify-center"
             style={{ gap: `${gap}px` }}
           >
-            
+
             {/* Left Column */}
-            <div 
+            <div
               className="flex h-full flex-row will-change-transform"
               style={{
                 width: `${sideWidth}%`,
@@ -97,8 +97,8 @@ export function HeroSection() {
               }}
             >
               {sideImages.filter(img => img.position === "left").map((img, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="relative h-full overflow-hidden will-change-transform"
                   style={{
                     flex: img.span,
@@ -116,7 +116,7 @@ export function HeroSection() {
             </div>
 
             {/* Main Hero Image - Center */}
-            <div 
+            <div
               className="relative overflow-hidden will-change-transform"
               style={{
                 width: `${centerWidth}%`,
@@ -126,7 +126,7 @@ export function HeroSection() {
               }}
             >
               {/* Text Behind - Fades out first */}
-              <div 
+              <div
                 className="absolute inset-0 z-0 flex items-center justify-center"
                 style={{ opacity: textOpacity, transform: 'translateY(-200px)' }}
               >
@@ -146,10 +146,10 @@ export function HeroSection() {
                   ))}
                 </h1>
               </div>
-              
+
               <Image
-                src="/images/art-05.png"
-                alt="Silueta de mujer sobre el agua al atardecer"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&h=1400&fit=crop&q=80"
+                alt="Rascacielos corporativo inmobiliario"
                 fill
                 className="absolute inset-0 z-10 object-cover"
                 priority
@@ -157,7 +157,7 @@ export function HeroSection() {
             </div>
 
             {/* Right Column */}
-            <div 
+            <div
               className="flex h-full flex-row will-change-transform"
               style={{
                 width: `${sideWidth}%`,
@@ -167,8 +167,8 @@ export function HeroSection() {
               }}
             >
               {sideImages.filter(img => img.position === "right").map((img, idx) => (
-                <div 
-                  key={idx} 
+                <div
+                  key={idx}
                   className="relative h-full overflow-hidden will-change-transform"
                   style={{
                     flex: img.span,
@@ -190,7 +190,7 @@ export function HeroSection() {
       </div>
 
       {/* Tagline Section - Fixed at bottom */}
-      <div 
+      <div
         className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 flex flex-col items-center px-6 pb-12 text-center md:px-12 md:pb-16 lg:px-20 lg:pb-20"
         style={{ opacity: textOpacity }}
       >

@@ -1,26 +1,22 @@
 "use client";
 
-import { CircularTestimonials } from "@/components/ui/circular-testimonials";
+import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
 
-const representatives = [
-  {
-    quote: "Nos enorgullece ser parte de este evento y conectar con líderes de toda la región para fortalecer nuestra comunidad y seguir creciendo juntas.",
-    name: "Elena Rodríguez",
-    designation: "Presidenta CILA 2026",
-    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1376&auto=format&fit=crop",
-  },
-  {
-    quote: "Este espacio es vital para el desarrollo sostenible, la innovación y la colaboración en el sector inmobiliario a nivel latinoamericano y mundial.",
-    name: "Sofía Martínez",
-    designation: "Directora de Alianzas Internacionales",
-    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1361&auto=format&fit=crop",
-  },
-  {
-    quote: "Invitamos a todas las mujeres profesionales a sumarse a esta iniciativa que transforma el liderazgo y el futuro en nuestra industria.",
-    name: "Carolina Silva",
-    designation: "Coordinadora General del Evento",
-    src: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=1364&auto=format&fit=crop",
-  },
+const slides: CoverflowSlide[] = [
+  { src: "/images/1.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/2.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/3.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/4.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/5.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/6.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/7.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/8.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/9.jpeg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/10.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/11.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/12.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/13.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/14.jpeg", alt: "Representante CILA Mujeres" },
 ];
 
 export function FeaturedProductsSection() {
@@ -28,38 +24,33 @@ export function FeaturedProductsSection() {
     <section id="representantes" className="relative bg-background py-20 md:py-32">
       <div className="px-4 md:px-12 lg:px-20">
         {/* Encabezado */}
-        <div className="mx-auto mb-10 max-w-7xl md:mb-14">
+        <div className="mx-auto mb-10 max-w-7xl text-center md:mb-14">
           <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            Ceremonia
+            Representantes
           </span>
           <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-5xl">
-            Representantes de la ceremonia
+            Mujeres que lideran
           </h2>
-          <p className="mt-4 max-w-2xl leading-relaxed text-muted-foreground">
-            Espacio reservado para presentar a las participantes y representantes de
-            la organización. Muy pronto revelaremos a las mujeres que darán vida a
-            Global Women&apos;s 2026.
+          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+            Las representantes de CILA Mujeres que darán vida a Global Women&apos;s 2026.
+            Arrastra o usa las flechas para explorarlas.
           </p>
         </div>
 
-        {/* Carrusel Circular de Testimonios/Representantes */}
+        {/* Coverflow Carousel */}
         <div className="mx-auto w-full max-w-7xl">
-          <CircularTestimonials
-            testimonials={representatives}
-            autoplay={true}
-            colors={{
-              name: "currentColor",
-              designation: "#888888",
-              testimony: "currentColor",
-              arrowBackground: "#141414",
-              arrowForeground: "#f1f1f7",
-              arrowHoverBackground: "#bd1b5f", // Color acento
-            }}
-            fontSizes={{
-              name: "24px",
-              designation: "16px",
-              quote: "18px",
-            }}
+          <CoverflowCarousel
+            slides={slides}
+            cardWidth="clamp(200px, 28vw, 380px)"
+            rotate={48}
+            depth={0.5}
+            perspective={2.8}
+            fade={0.08}
+            showNavigation
+            showPagination
+            loop
+            label="Representantes CILA Mujeres 2026"
+            cardClassName="rounded-3xl shadow-2xl"
           />
         </div>
       </div>

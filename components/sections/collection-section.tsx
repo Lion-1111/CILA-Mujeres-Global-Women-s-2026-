@@ -6,24 +6,24 @@ import { useRef, useState } from "react";
 import { AnimatedScroll } from "@/components/ui/animated-scroll";
 
 const paisesCircuito = [
-  { pais: "España",          code: "es", mesa: 1 },
-  { pais: "México",          code: "mx", mesa: 2 },
-  { pais: "Brasil",          code: "br", mesa: 3 },
-  { pais: "Colombia",        code: "co", mesa: 4 },
-  { pais: "Argentina",       code: "ar", mesa: 5 },
-  { pais: "Costa Rica",      code: "cr", mesa: 6 },
-  { pais: "Uruguay",         code: "uy", mesa: 7 },
-  { pais: "Paraguay",        code: "py", mesa: 8 },
+  { pais: "España", code: "es", mesa: 1 },
+  { pais: "México", code: "mx", mesa: 2 },
+  { pais: "Brasil", code: "br", mesa: 3 },
+  { pais: "Colombia", code: "co", mesa: 4 },
+  { pais: "Argentina", code: "ar", mesa: 5 },
+  { pais: "Costa Rica", code: "cr", mesa: 6 },
+  { pais: "Uruguay", code: "uy", mesa: 7 },
+  { pais: "Paraguay", code: "py", mesa: 8 },
   { pais: "Rep. Dominicana", code: "do", mesa: 9 },
-  { pais: "Bolivia",         code: "bo", mesa: 10 },
-  { pais: "Venezuela",       code: "ve", mesa: 11 },
-  { pais: "Ecuador",         code: "ec", mesa: 12 },
-  { pais: "Panamá",          code: "pa", mesa: 13 },
-  { pais: "El Salvador",     code: "sv", mesa: 14 },
-  { pais: "Chile",           code: "cl", mesa: 15 },
-  { pais: "Perú",            code: "pe", mesa: 16 },
-  { pais: "Guatemala",       code: "gt", mesa: 17 },
-  { pais: "Honduras",        code: "hn", mesa: 18 },
+  { pais: "Bolivia", code: "bo", mesa: 10 },
+  { pais: "Venezuela", code: "ve", mesa: 11 },
+  { pais: "Ecuador", code: "ec", mesa: 12 },
+  { pais: "Panamá", code: "pa", mesa: 13 },
+  { pais: "El Salvador", code: "sv", mesa: 14 },
+  { pais: "Chile", code: "cl", mesa: 15 },
+  { pais: "Perú", code: "pe", mesa: 16 },
+  { pais: "Guatemala", code: "gt", mesa: 17 },
+  { pais: "Honduras", code: "hn", mesa: 18 },
 ];
 
 const program = [
@@ -33,7 +33,7 @@ const program = [
     name: "Registro & Networking",
     description:
       "Registro de asistentes y primer espacio de networking para conectar con mujeres líderes de toda la región.",
-    image: "/images/art-01.png",
+    image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 2,
@@ -41,7 +41,7 @@ const program = [
     name: "Apertura Oficial",
     description:
       "Ceremonia de apertura con mensajes de bienvenida de las representantes de cada país participante.",
-    image: "/images/art-09.png",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const program = [
     name: "Presentación de Países",
     description:
       "Presentación oficial de todas las delegaciones participantes en el encuentro internacional.",
-    image: "/images/art-10.png",
+    image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 4,
@@ -57,7 +57,7 @@ const program = [
     name: "Circuito Internacional de Negocios",
     description:
       "Rotación por las mesas país del Circuito Internacional de Negocios: alianzas y oportunidades en tiempo real.",
-    image: "/images/art-07.png",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 5,
@@ -65,7 +65,7 @@ const program = [
     name: "Cierre & Lanzamiento Global Women’s 365",
     description:
       "Cierre del encuentro y lanzamiento oficial de Global Women\u2019s 365 — la continuidad de esta comunidad durante todo el año.",
-    image: "/images/art-03.png",
+    image: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=800&h=1200&fit=crop&q=80",
   },
 ];
 
@@ -106,7 +106,7 @@ function ScrollWordReveal({ text, className = "" }: { text: string; className?: 
   });
 
   const words = text.split(" ");
-  
+
   // Palabras que queremos resaltar en negrita
   const boldWords = ["18", "mesas", "redondas,", "rotan", "entre", "las", "mesas", "alianza", "real,"];
 
@@ -117,7 +117,7 @@ function ScrollWordReveal({ text, className = "" }: { text: string; className?: 
         const end = start + 1 / words.length;
         const opacity = useTransform(scrollYProgress, [start, end], [0.2, 1]);
         const color = useTransform(scrollYProgress, [start, end], ["var(--muted-foreground)", "var(--foreground)"]);
-        
+
         // Remove trailing commas/periods for bold check
         const cleanWord = word.replace(/[.,]/g, "");
         const isBold = boldWords.includes(word) || boldWords.includes(cleanWord);
@@ -173,23 +173,21 @@ function CountryTicker() {
             key={i}
             whileHover={{ scale: 1.05, y: -2 }}
             transition={{ type: "spring", stiffness: 400, damping: 25 }}
-            className="group flex shrink-0 items-center gap-4 rounded-full border border-border/80 bg-background/80 px-4 py-3 pr-8 shadow-sm backdrop-blur-md cursor-default transition-all hover:border-accent/40 hover:bg-accent/5 hover:shadow-md hover:shadow-accent/10"
+            className="group flex shrink-0 items-center gap-5 rounded-full border border-border/80 bg-background/80 p-3 pr-8 shadow-sm backdrop-blur-md cursor-default transition-all hover:border-accent/40 hover:bg-accent/5 hover:shadow-md hover:shadow-accent/10"
           >
-            {/* Real Flag Image (Circular) */}
-            <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-border/50 group-hover:ring-accent/40 transition-colors">
-              <img 
-                src={`https://flagcdn.com/w160/${p.code}.png`} 
-                alt={`Bandera de ${p.pais}`} 
+            {/* Real Flag Image (Circular) - Larger size */}
+            <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-4 ring-background shadow-[0_0_10px_rgba(0,0,0,0.1)] group-hover:ring-accent/20 transition-all">
+              <img
+                src={`https://flagcdn.com/w160/${p.code}.png`}
+                alt={`Bandera de ${p.pais}`}
                 className="h-full w-full object-cover"
                 loading="lazy"
               />
+              <div className="absolute inset-0 rounded-full shadow-inner ring-1 ring-inset ring-black/10 pointer-events-none"></div>
             </div>
-            
-            <div className="flex flex-col items-start justify-center">
-              <span className="text-[0.60rem] font-bold uppercase tracking-[0.2em] text-accent">
-                Mesa {p.mesa}
-              </span>
-              <span className="text-sm font-semibold text-foreground">
+
+            <div className="flex items-center justify-center">
+              <span className="text-lg font-serif font-semibold text-foreground">
                 {p.pais}
               </span>
             </div>
@@ -270,7 +268,7 @@ export function CollectionSection() {
                   { val: "66", lbl: "Minutos", delay: 0.2 },
                   { val: "🔄", lbl: "Rotación libre", delay: 0.3 },
                 ].map((s) => (
-                  <motion.div 
+                  <motion.div
                     key={s.lbl}
                     initial={{ opacity: 0, scale: 0.8, rotate: -8 }}
                     whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
@@ -319,7 +317,7 @@ export function CollectionSection() {
                   viewport={{ once: true, margin: "-20px" }}
                   transition={{ duration: 0.5, delay: 0.25 + i * 0.15 }}
                 >
-                  <motion.span 
+                  <motion.span
                     className="mt-1 font-serif text-5xl font-bold bg-gradient-to-b from-accent to-accent/10 bg-clip-text text-transparent leading-none shrink-0"
                     whileHover={{ scale: 1.1, rotate: -5 }}
                     transition={{ type: "spring", stiffness: 300 }}

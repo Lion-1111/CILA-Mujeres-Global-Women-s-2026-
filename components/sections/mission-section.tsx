@@ -128,42 +128,6 @@ export function MissionSection() {
         </div>
       </div>
 
-      {/* Comisiones */}
-      <div className="border-t border-border px-6 py-16 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-6xl flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-              Comisiones
-            </span>
-            <h2 className="mt-2 font-serif text-2xl leading-snug text-foreground md:text-3xl">
-              Comisiones CILA Mujeres
-            </h2>
-          </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-foreground/5"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-            Descargar
-          </a>
-        </div>
-      </div>
-
     </section>
   );
 }
