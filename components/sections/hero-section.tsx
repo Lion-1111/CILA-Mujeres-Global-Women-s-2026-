@@ -13,20 +13,20 @@ const sideImages = [
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1000&h=1400&fit=crop&q=80",
-    alt: "Propiedad inmobiliaria moderna",
+    src: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&h=1400&fit=crop&q=80",
+    alt: "Edificio corporativo",
     position: "left",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=1000&h=1400&fit=crop&q=80",
-    alt: "Fachada de cristal de edificio moderno",
+    src: "/images/imoviliaria%201.jpg",
+    alt: "Edificio corporativo moderno",
     position: "right",
     span: 1,
   },
   {
-    src: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=1000&h=1400&fit=crop&q=80",
-    alt: "Vista aérea de ciudad latinoamericana",
+    src: "/images/imoviliariafinal.jpg",
+    alt: "Fachada de cristal de edificio moderno",
     position: "right",
     span: 1,
   },
@@ -148,8 +148,8 @@ export function HeroSection() {
               </div>
 
               <Image
-                src="/images/mapa-latinoamerica.png"
-                alt="Mapa de Latinoamérica con banderas"
+                src="/images/central%20definitive.png"
+                alt="Imagen central del evento"
                 fill
                 className="absolute inset-0 z-10 object-cover"
                 priority

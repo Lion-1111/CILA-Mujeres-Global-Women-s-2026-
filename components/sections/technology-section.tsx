@@ -64,18 +64,7 @@ function ScrollRevealText({ text }: { text: string }) {
   );
 }
 
-const sideImages = [
-  {
-    src: "/images/art-12.png",
-    alt: "Retrato artístico de mujer sonriendo",
-    position: "left",
-  },
-  {
-    src: "/images/art-13.png",
-    alt: "Obra artística en blanco y negro",
-    position: "right",
-  },
-];
+// Side images removed based on user request
 
 const textCycles = [
   "Inspiración.",
@@ -132,14 +121,10 @@ export function TechnologySection() {
   // Image transforms start after title fades (0.2 to 1)
   const imageProgress = Math.max(0, Math.min(1, (scrollProgress - 0.2) / 0.8));
 
-  // Smooth interpolations
-  const centerWidth = 100 - (imageProgress * 58); // 100% to 42%
-  const centerHeight = 100 - (imageProgress * 30); // 100% to 70%
-  const sideWidth = imageProgress * 22; // 0% to 22%
-  const sideOpacity = imageProgress;
-  const sideTranslateLeft = -100 + (imageProgress * 100); // -100% to 0%
-  const sideTranslateRight = 100 - (imageProgress * 100); // 100% to 0%
-  const gap = imageProgress * 16; // 0px to 16px
+  // Smooth interpolations (Adjusted for no side images)
+  const centerWidth = 100 - (imageProgress * 10); // 100% to 90% (slight cinematic shrink)
+  const centerHeight = 100 - (imageProgress * 10); // 100% to 90%
+  const gap = 0;
 
   // Calculate grayscale for text section based on textProgress
   const grayscaleAmount = Math.round((1 - textProgress) * 100);
@@ -155,28 +140,7 @@ export function TechnologySection() {
             style={{ gap: `${gap}px`, padding: `${imageProgress * 16}px` }}
           >
 
-            {/* Left Column */}
-            <div
-              className="relative overflow-hidden will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                height: "100%",
-                transform: `translateX(${sideTranslateLeft}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "left").map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img.src || "/placeholder.svg"}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-              ))}
-            </div>
-
-            {/* Main Center Image */}
+            {/* Center Image Container */}
             <div
               className="relative overflow-hidden will-change-transform"
               style={{
@@ -186,49 +150,37 @@ export function TechnologySection() {
               }}
             >
               {/* Layered Images - Progressive Fade In */}
-              {/* Image 1 - Base layer - Sunrise/Sunset with sun rays */}
+              {/* Image 1 - Base (Inspiración) */}
               <Image
-                src="/images/art-08.png"
-                alt="Obra artística de mujer sosteniendo un corazón"
+                src="/images/inspirazion%20femenina.jpg"
+                alt="Inspiración - CILA Mujeres"
                 fill
                 className="object-cover"
                 style={{
-                  opacity: scrollProgress < 0.25 ? 1 : 1,
+                  opacity: 1,
                 }}
               />
 
-              {/* Image 2 - Daytime scene - Fades in during first text cycle */}
+              {/* Image 2 - Comunidad */}
               <Image
-                src="/images/art-09.png"
-                alt="Obra artística de mujer con flores"
+                src="/images/comunidad2.jpg"
+                alt="Comunidad - CILA Mujeres"
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.1) / 0.2)),
+                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.25) / 0.15)),
                   transition: 'opacity 0.3s ease',
                 }}
               />
 
-              {/* Image 3 - Dusk/Evening - Fades in during second text cycle */}
+              {/* Image 3 - Liderazgo Femenino */}
               <Image
-                src="/images/art-02.png"
-                alt="Obra artística de rostro dorado"
+                src="/images/liderazgo%20femenino%202.jpg"
+                alt="Liderazgo Femenino - CILA Mujeres"
                 fill
                 className="absolute inset-0 object-cover"
                 style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.4) / 0.2)),
-                  transition: 'opacity 0.3s ease',
-                }}
-              />
-
-              {/* Image 4 - Night with stars - Fades in during third text cycle */}
-              <Image
-                src="/images/art-06.png"
-                alt="Obra artística de mujer con velo azul"
-                fill
-                className="absolute inset-0 object-cover"
-                style={{
-                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.7) / 0.2)),
+                  opacity: Math.max(0, Math.min(1, (scrollProgress - 0.6) / 0.15)),
                   transition: 'opacity 0.3s ease',
                 }}
               />
@@ -296,26 +248,7 @@ export function TechnologySection() {
               </div>
             </div>
 
-            {/* Right Column */}
-            <div
-              className="relative overflow-hidden will-change-transform"
-              style={{
-                width: `${sideWidth}%`,
-                height: "100%",
-                transform: `translateX(${sideTranslateRight}%)`,
-                opacity: sideOpacity,
-              }}
-            >
-              {sideImages.filter(img => img.position === "right").map((img, idx) => (
-                <Image
-                  key={idx}
-                  src={img.src || "/placeholder.svg"}
-                  alt={img.alt}
-                  fill
-                  className="object-cover"
-                />
-              ))}
-            </div>
+            {/* Right Column removed */}
 
           </div>
         </div>

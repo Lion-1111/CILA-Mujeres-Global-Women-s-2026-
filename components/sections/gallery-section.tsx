@@ -67,11 +67,6 @@ export function GallerySection() {
             <div className="w-full h-full px-4">
               <CoverflowCarousel
                 slides={images.map(img => ({ src: img, alt: "Momento CILA Mujeres" }))}
-                autoplay={true}
-                autoplaySpeed={3000}
-                showNavigation={false}
-                showPagination={true}
-                loop={true}
                 cardClassName="rounded-2xl"
               />
             </div>

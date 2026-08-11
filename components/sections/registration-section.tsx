@@ -58,6 +58,8 @@ export function RegistrationSection() {
       empresa:  (form.elements.namedItem("empresa")  as HTMLInputElement).value,
       email:    (form.elements.namedItem("email")    as HTMLInputElement).value,
       telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
+      necesidad: (form.elements.namedItem("necesidad") as HTMLInputElement).value,
+      ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
     const asignacion = assignMesa();

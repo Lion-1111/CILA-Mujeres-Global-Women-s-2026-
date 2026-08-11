@@ -33,7 +33,7 @@ const program = [
     name: "Apertura Oficial",
     description:
       "Ceremonia de apertura con mensajes de bienvenida de las representantes de cada país participante.",
-    image: "/images/art-06.png",
+    image: "/images/apertura%20oficial.jpg",
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const program = [
     name: "Presentación de Países",
     description:
       "Presentación oficial de todas las delegaciones participantes en el encuentro internacional.",
-    image: "/images/art-03.png",
+    image: "/images/presentacion%20de%20paises.jpg",
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ const program = [
     name: "Circuito Internacional de Negocios",
     description:
       "Rotación por las mesas país del Circuito Internacional de Negocios: alianzas y oportunidades en tiempo real.",
-    image: "/images/art-07.png",
+    image: "/images/circulo%20de%20negocios.jpg",
   },
   {
     id: 5,
@@ -57,7 +57,7 @@ const program = [
     name: "Cierre & Lanzamiento 2026 - 365",
     description:
       "Taller de negocios CILA Mujeres",
-    image: "/images/art-05.png",
+    image: "/images/cierre%20y%20lanzamiento.jpeg",
   },
 ];
 

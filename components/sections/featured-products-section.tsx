@@ -32,9 +32,8 @@ export function FeaturedProductsSection() {
           <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-5xl">
             Mujeres que lideran
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground">
+          <p className="mx-auto mt-4 max-w-2xl text-lg md:text-xl leading-relaxed text-muted-foreground">
             Las representantes de CILA Mujeres que darán vida a Global Women&apos;s 2026.
-            Arrastra o usa las flechas para explorarlas.
           </p>
         </div>
 
