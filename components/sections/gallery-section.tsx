@@ -44,8 +44,8 @@ export function GallerySection() {
         <div className="w-full relative h-[450px] md:h-[600px] mt-16 md:mt-24">
           <InfiniteGallery
             images={images}
-            speed={1.5}
-            visibleCount={11}
+            speed={0.5}
+            visibleCount={12}
             className="w-full h-full"
           />
         </div>
