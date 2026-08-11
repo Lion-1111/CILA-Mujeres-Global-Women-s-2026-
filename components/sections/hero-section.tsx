@@ -148,8 +148,8 @@ export function HeroSection() {
               </div>
 
               <Image
-                src="/images/mapa-latinoamerica.png"
-                alt="Mapa de Latinoamérica con banderas"
+                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&h=1400&fit=crop&q=80"
+                alt="Rascacielos corporativo inmobiliario"
                 fill
                 className="absolute inset-0 z-10 object-cover"
                 priority
@@ -197,13 +197,13 @@ export function HeroSection() {
         <span className="mb-3 inline-block rounded-full bg-accent/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
           CILA Mujeres
         </span>
-        <p className="mx-auto max-w-4xl font-serif text-5xl leading-[1.1] text-white md:text-6xl lg:text-[6rem] lg:leading-[1.1]">
+        <p className="mx-auto max-w-3xl font-serif text-4xl leading-tight text-white md:text-5xl lg:text-[3.5rem] lg:leading-tight">
           GLOBAL WOMEN&apos;S 2026
         </p>
-        <p className="mt-6 text-xl md:text-2xl font-medium italic text-sky-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <p className="mt-4 text-lg font-medium italic text-sky-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
           Connecting Latin America and the World
         </p>
-        <p className="mt-8 text-sm font-medium uppercase tracking-[0.3em] text-white/60">
+        <p className="mt-5 text-xs font-medium uppercase tracking-[0.2em] text-white/60">
           Fortalecemos, inspiramos y transformamos el liderazgo femenino
         </p>
       </div>
