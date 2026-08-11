@@ -3,6 +3,7 @@
 import InfiniteGallery from "@/components/ui/3d-gallery-photography";
 
 const images = [
+  "/images/IMG_2035.JPG.jpeg",
   "/images/fto1.jpeg",
   "/images/fto2.jpeg",
   "/images/fto3.jpeg",
@@ -18,9 +19,9 @@ const images = [
   "/images/IMG_1993.JPG.jpeg",
   "/images/IMG_1994.JPG.jpeg",
   "/images/IMG_1995.JPG.jpeg",
-  "/images/IMG_2035.JPG.jpeg",
   "/images/IMG_2133.JPG.jpeg",
   "/images/IMG_2135.JPG.jpeg",
+  "/images/IMG_2035.JPG.jpeg",
 ];
 
 export function GallerySection() {
@@ -51,8 +52,8 @@ export function GallerySection() {
         <div className="w-full relative h-[450px] md:h-[600px] mt-16 md:mt-24">
           <InfiniteGallery
             images={images}
-            speed={0.5}
-            visibleCount={18}
+            speed={0.25}
+            visibleCount={19}
             className="w-full h-full"
           />
         </div>
