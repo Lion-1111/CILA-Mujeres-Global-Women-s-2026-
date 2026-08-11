@@ -11,7 +11,6 @@ const images = [
   "/images/IMG_1995.JPG.jpeg",
   "/images/IMG_2133.JPG.jpeg",
   "/images/IMG_2135.JPG.jpeg",
-  "/images/cierre y lanzamiento.jpeg",
   "/images/foos paragaleria.jpeg",
   "/images/fotos para galeria.jpeg",
 ];
