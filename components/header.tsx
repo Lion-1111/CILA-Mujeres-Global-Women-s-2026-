@@ -31,7 +31,7 @@ export function Header() {
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white shadow-sm"}`}
     >
       {/* Mobile top bar */}
-      <div className="relative flex items-center justify-between px-5 py-4 md:hidden">
+      <div className="relative flex min-h-24 items-center justify-between px-5 md:hidden">
         {/* Hamburger */}
         <button
           type="button"
