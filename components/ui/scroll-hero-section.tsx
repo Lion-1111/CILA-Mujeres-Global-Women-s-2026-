@@ -24,7 +24,7 @@ export function WordHeroSection({
   theme = 'light',
   animate = true,
   hue = 210,
-  startVh = 25,
+  startVh = 50,
   spaceVh = 5,
   debug = false,
   taglineHTML = `en el Circuito de Negocios.<br /><a href="#registro" class="cila-link">Regístrate ahora</a>`,
