@@ -16,9 +16,10 @@ const footerLinks = {
     { label: "Ceremonia", href: "#representantes" },
   ],
   contacto: [
-    { label: "Instagram", href: "#" },
-    { label: "Facebook", href: "#" },
-    { label: "WhatsApp", href: "#" },
+    { label: "Instagram", href: "https://www.instagram.com/cila.mujeres/", target: "_blank", rel: "noopener noreferrer" },
+    { label: "Facebook", href: "https://www.facebook.com/cila.mujeres", target: "_blank", rel: "noopener noreferrer" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/cila-confederacion-inmobiliaria-latinoamericana", target: "_blank", rel: "noopener noreferrer" },
+    { label: "Twitter (X)", href: "https://x.com/ConfederaCila", target: "_blank", rel: "noopener noreferrer" },
   ],
 };
 
@@ -74,12 +75,14 @@ export function FooterSection() {
 
           {/* Contacto */}
           <div>
-            <h4 className="mb-4 text-sm font-medium text-foreground">Contacto</h4>
+            <h4 className="mb-4 text-sm font-medium text-foreground">Redes Sociales</h4>
             <ul className="space-y-3">
               {footerLinks.contacto.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
+                    target={link.target}
+                    rel={link.rel}
                     className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                   >
                     {link.label}
@@ -101,24 +104,38 @@ export function FooterSection() {
 
 
           {/* Social Links */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6">
             <Link
-              href="#"
+              href="https://www.instagram.com/cila.mujeres/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Instagram
             </Link>
             <Link
-              href="#"
+              href="https://www.facebook.com/cila.mujeres"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
-              Twitter
+              Facebook
             </Link>
             <Link
-              href="#"
+              href="https://www.linkedin.com/in/cila-confederacion-inmobiliaria-latinoamericana"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
-              YouTube
+              LinkedIn
+            </Link>
+            <Link
+              href="https://x.com/ConfederaCila"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              X (Twitter)
             </Link>
           </div>
         </div>
