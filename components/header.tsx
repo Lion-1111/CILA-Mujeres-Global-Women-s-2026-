@@ -30,7 +30,37 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white shadow-sm"}`}
     >
-      <div className="flex items-center justify-between transition-all duration-300 px-6 py-3 md:px-12 lg:px-20">
+      {/* Mobile top bar */}
+      <div className="flex items-center justify-between px-6 py-3 md:hidden">
+        {/* Hamburger */}
+        <button
+          type="button"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="transition-colors text-gray-700 z-10"
+          aria-label="Abrir menú"
+        >
+          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+
+        {/* Logo centrado */}
+        <Link href="#hero" aria-label="CILA Mujeres — inicio" className="absolute left-1/2 -translate-x-1/2">
+          <span className="relative flex h-14 w-40">
+            <Image
+              src="/images/Captura de pantalla 2026-08-11 110713.png"
+              alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
+              fill
+              className="object-contain mix-blend-multiply"
+              sizes="160px"
+            />
+          </span>
+        </Link>
+
+        {/* Placeholder derecha para equilibrar */}
+        <div className="w-7" />
+      </div>
+
+      {/* Desktop top bar */}
+      <div className="hidden md:flex items-center justify-between transition-all duration-300 px-12 py-3 lg:px-20">
         {/* Logo */}
         <Link href="#hero" className="flex items-center gap-3" aria-label="CILA Mujeres — inicio">
           <span className="relative h-14 w-48 flex-shrink-0">
@@ -38,14 +68,14 @@ export function Header() {
               src="/images/Captura de pantalla 2026-08-11 110713.png"
               alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
-              className="object-contain mix-blend-multiply scale-110 md:scale-125"
+              className="object-contain mix-blend-multiply scale-125"
               sizes="192px"
             />
           </span>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="flex items-center gap-8">
           {navLinks.map((link) => (
             <Link
               key={link.href}
@@ -58,7 +88,7 @@ export function Header() {
         </nav>
 
         {/* CTA */}
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="flex items-center gap-6">
           <Link
             href="#registro"
             className="px-6 py-2 text-sm font-semibold transition-all rounded bg-[#1e3a8a] text-white hover:bg-blue-700 shadow-md"
@@ -66,16 +96,6 @@ export function Header() {
             Registro
           </Link>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="transition-colors md:hidden text-gray-700"
-          aria-label="Abrir menú"
-        >
-          {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
       </div>
 
       {/* Mobile Menu */}
