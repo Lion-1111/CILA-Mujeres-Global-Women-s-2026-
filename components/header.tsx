@@ -31,32 +31,32 @@ export function Header() {
       className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white shadow-sm"}`}
     >
       {/* Mobile top bar */}
-      <div className="flex items-center justify-between px-6 py-3 md:hidden">
+      <div className="relative flex items-center justify-between px-5 py-4 md:hidden">
         {/* Hamburger */}
         <button
           type="button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="transition-colors text-gray-700 z-10"
+          className="transition-colors text-gray-700 z-10 flex-shrink-0"
           aria-label="Abrir menú"
         >
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Logo centrado */}
+        {/* Logo centrado absolutamente */}
         <Link href="#hero" aria-label="CILA Mujeres — inicio" className="absolute left-1/2 -translate-x-1/2">
-          <span className="relative flex h-14 w-40">
+          <span className="relative block h-20 w-44">
             <Image
               src="/images/Captura de pantalla 2026-08-11 110713.png"
               alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
               className="object-contain mix-blend-multiply"
-              sizes="160px"
+              sizes="176px"
             />
           </span>
         </Link>
 
         {/* Placeholder derecha para equilibrar */}
-        <div className="w-7" />
+        <div className="w-7 flex-shrink-0" />
       </div>
 
       {/* Desktop top bar */}
