@@ -42,7 +42,7 @@ export function Header() {
           {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
 
-        {/* Logo centrado absolutamente */}
+        {/* Logo centrado */}
         <Link href="#hero" aria-label="CILA Mujeres — inicio" className="absolute left-1/2 -translate-x-1/2">
           <span className="relative block h-20 w-44">
             <Image
@@ -55,12 +55,12 @@ export function Header() {
           </span>
         </Link>
 
-        {/* Placeholder derecha para equilibrar */}
+        {/* Placeholder derecha */}
         <div className="w-7 flex-shrink-0" />
       </div>
 
       {/* Desktop top bar */}
-      <div className="hidden md:flex items-center justify-between transition-all duration-300 px-12 py-3 lg:px-20">
+      <div className="hidden md:flex items-center justify-between px-12 py-3 lg:px-20">
         {/* Logo */}
         <Link href="#hero" className="flex items-center gap-3" aria-label="CILA Mujeres — inicio">
           <span className="relative h-14 w-48 flex-shrink-0">
