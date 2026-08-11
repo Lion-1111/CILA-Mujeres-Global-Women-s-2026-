@@ -14,6 +14,7 @@ const images = [
   "/images/fto9.jpeg",
   "/images/fto10.jpeg",
   "/images/fto11.jpeg",
+  "/images/victoria irun.jpeg",
 ];
 
 export function GallerySection() {
@@ -45,7 +46,7 @@ export function GallerySection() {
           <InfiniteGallery 
             images={images}
             speed={1.5}
-            visibleCount={11}
+            visibleCount={12}
             className="w-full h-full"
           />
         </div>
