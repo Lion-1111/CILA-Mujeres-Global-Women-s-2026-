@@ -66,13 +66,14 @@ export function AnimatedScroll({ pages }: { pages: AnimatedScrollPage[] }) {
                 Opposing directions for each half
               */}
 
-              {/* IMAGE half — slides from bottom on enter, exits up */}
+              {/* IMAGE half */}
               <motion.div
                 className="absolute top-0 left-0 w-full h-[50%] md:w-1/2 md:h-full"
                 animate={{
                   y: isActive ? '0%' : isPast ? '-100%' : '100%',
+                  opacity: isActive ? 1 : 0.3,
                 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div
                   className="w-full h-full bg-cover bg-center"
@@ -80,33 +81,34 @@ export function AnimatedScroll({ pages }: { pages: AnimatedScrollPage[] }) {
                 />
               </motion.div>
 
-              {/* TEXT half — slides from top on enter, exits down */}
+              {/* TEXT half */}
               <motion.div
                 className="absolute bottom-0 right-0 w-full h-[50%] md:top-0 md:left-1/2 md:w-1/2 md:h-full bg-background"
                 animate={{
                   y: isActive ? '0%' : isPast ? '100%' : '-100%',
+                  opacity: isActive ? 1 : 0.3,
                 }}
-                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <div className="flex flex-col items-start justify-center h-full px-8 py-10 md:px-16 md:py-20 border-t md:border-t-0 md:border-l border-border/40">
                   <motion.span
                     className="text-xs font-bold uppercase tracking-[0.25em] text-accent mb-3"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
+                    transition={{ duration: 0.6, delay: 0.35 }}
                   >
                     {page.subtitle}
                   </motion.span>
                   <motion.h2
                     className="text-2xl md:text-4xl lg:text-5xl font-serif text-foreground mb-4 md:mb-6 leading-tight"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 15 }}
-                    transition={{ duration: 0.5, delay: 0.4 }}
+                    transition={{ duration: 0.6, delay: 0.45 }}
                   >
                     {page.heading}
                   </motion.h2>
                   <motion.p
                     className="text-sm md:text-base text-muted-foreground max-w-sm leading-relaxed"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 15 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
+                    transition={{ duration: 0.6, delay: 0.55 }}
                   >
                     {page.description}
                   </motion.p>

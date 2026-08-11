@@ -89,7 +89,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
   
-  const descriptionText = "Global Women's 2026 es el encuentro que reunirá a representantes de Latinoamérica, empresarios inmobiliarios, desarrolladores, inversionistas, fondos de inversión, empresas PropTech, instituciones financieras, cámaras empresariales e invitados especiales. Brasil, 27 de agosto de 2026.";
+  const descriptionText = "Global Women's 2026 es el encuentro que reunirá a representantes de Latinoamérica y el mundo, empresarios inmobiliarios, desarrolladores, inversionistas, fondos de inversión, empresas PropTech, instituciones financieras, cámaras empresariales e invitados especiales. Brasil, 27 de agosto de 2026.";
 
   useEffect(() => {
     const handleScroll = () => {

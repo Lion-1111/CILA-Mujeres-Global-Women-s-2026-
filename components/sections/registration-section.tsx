@@ -10,6 +10,8 @@ const fields = [
   { id: "empresa", label: "Empresa u organización", type: "text", autoComplete: "organization", placeholder: "Nombre de tu empresa" },
   { id: "email", label: "Correo electrónico", type: "email", autoComplete: "email", placeholder: "nombre@correo.com" },
   { id: "telefono", label: "WhatsApp / teléfono", type: "tel", autoComplete: "tel", placeholder: "+52 ..." },
+  { id: "necesidad", label: "¿Qué producto o alianza inmobiliaria necesitas?", type: "text", autoComplete: "off", placeholder: "Ej. Busco inversionistas, propiedades..." },
+  { id: "ofrecimiento", label: "¿Qué producto o alianza inmobiliaria nos compartirás?", type: "text", autoComplete: "off", placeholder: "Ej. Ofrezco desarrollos exclusivos..." },
 ] as const;
 
 const mesas = [
