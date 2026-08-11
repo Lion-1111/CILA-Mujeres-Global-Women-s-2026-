@@ -44,10 +44,10 @@ export function MissionSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              <span className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent">
                 Misión
               </span>
-              <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
+              <h2 className="mt-3 text-center font-serif text-3xl leading-tight text-foreground md:text-4xl">
                 Nuestra misión
               </h2>
               <p className="mt-6 leading-relaxed text-muted-foreground text-justify">
@@ -72,10 +72,10 @@ export function MissionSection() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
             >
-              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+              <span className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent">
                 Visión
               </span>
-              <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
+              <h2 className="mt-3 text-center font-serif text-3xl leading-tight text-foreground md:text-4xl">
                 Nuestra visión
               </h2>
               <p className="mt-6 leading-relaxed text-muted-foreground text-justify">
@@ -90,10 +90,10 @@ export function MissionSection() {
       {/* Valores */}
       <div className="border-t border-border px-6 py-20 md:px-12 md:py-28 lg:px-20">
         <div className="mx-auto max-w-6xl">
-          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          <span className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent">
             Valores
           </span>
-          <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
+          <h2 className="mt-3 text-center font-serif text-3xl leading-tight text-foreground md:text-4xl">
             Lo que nos guía
           </h2>
 
@@ -107,23 +107,48 @@ export function MissionSection() {
               visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
             }}
           >
-            {valores.map((valor) => (
-              <motion.div
-                key={valor.label}
-                className="bg-background px-8 py-10"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-                }}
-              >
-                <h3 className="font-serif text-xl text-foreground">
-                  {valor.label}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {valor.description}
-                </p>
-              </motion.div>
-            ))}
+            {valores.map((valor, i) => {
+              // Colores sutiles para los orbes de cada tarjeta
+              const orbColors = [
+                "from-blue-400/20 to-cyan-300/20",
+                "from-amber-400/20 to-yellow-600/20",
+                "from-emerald-400/20 to-teal-600/20"
+              ];
+              
+              return (
+                <motion.div
+                  key={valor.label}
+                  className="group relative overflow-hidden bg-background px-8 py-16 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(0,0,0,0.1)] hover:z-10"
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+                  }}
+                >
+                  {/* Orbe animado de fondo (simula 3D/luz) */}
+                  <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-gradient-to-br blur-3xl transition-transform duration-1000 group-hover:scale-150 group-hover:rotate-45 opacity-60 mix-blend-multiply" 
+                       style={{ backgroundImage: `linear-gradient(to bottom right, var(--tw-gradient-stops))` }}
+                  />
+                  <div className={`absolute -top-24 -right-24 h-64 w-64 rounded-full bg-gradient-to-br ${orbColors[i]} blur-3xl transition-all duration-1000 group-hover:scale-150 group-hover:rotate-45`} />
+                  
+                  {/* Número decorativo tenue */}
+                  <div className="absolute -left-4 -bottom-10 text-[120px] font-serif font-bold text-black/[0.02] select-none transition-transform duration-700 group-hover:-translate-y-4">
+                    0{i + 1}
+                  </div>
+
+                  <div className="relative z-10 flex flex-col items-center">
+                    {/* Pequeño acento decorativo en lugar de icono */}
+                    <div className="mb-6 h-1 w-12 rounded-full bg-accent/40 transition-all duration-500 group-hover:w-24 group-hover:bg-accent" />
+                    
+                    <h3 className="text-center font-serif text-2xl text-foreground transition-colors duration-300 group-hover:text-[#1e3a8a]">
+                      {valor.label}
+                    </h3>
+                    <p className="mt-4 text-justify text-sm leading-relaxed text-muted-foreground/80 transition-colors duration-300 group-hover:text-muted-foreground">
+                      {valor.description}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </div>

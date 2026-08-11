@@ -34,6 +34,16 @@ export function WordHeroSection({
     // We don't pollute documentElement, we will apply these to the container style directly via React.
   }, []);
 
+  const itemColors = [
+    "#1e3a8a", // 0: Azul
+    "#d4af37", // 1: Dorado
+    "#22c55e", // 2: Verde
+    "#eab308", // 3: Amarillo
+    "#e11d48", // 4: Rosa mexicano
+    "#10b981", // 5: Verde esmeralda
+    "#d4af37", // 6: Dorado
+  ];
+
   return (
     <div
       className="word-hero-wrapper relative w-full bg-background overflow-hidden"
@@ -61,7 +71,14 @@ export function WordHeroSection({
           {/* Visible cycling words (aria-hidden) */}
           <ul aria-hidden="true" className="word-hero-ul">
             {items.map((word, i) => (
-              <li key={i} className="word-hero-li" style={{ ['--i' as any]: i } as React.CSSProperties}>
+              <li 
+                key={i} 
+                className="word-hero-li" 
+                style={{ 
+                  ['--i' as any]: i, 
+                  ['--item-accent' as any]: itemColors[i % itemColors.length] 
+                } as React.CSSProperties}
+              >
                 {word}
               </li>
             ))}
@@ -172,7 +189,7 @@ export function WordHeroSection({
           background: linear-gradient(
               180deg,
               var(--dimmed) 0 calc(var(--start) - 0.6em),
-              var(--accent) calc(var(--start) - 0.55em) calc(var(--start) + 0.55em),
+              var(--item-accent, var(--accent)) calc(var(--start) - 0.55em) calc(var(--start) + 0.55em),
               var(--dimmed) calc(var(--start) + 0.5em)
             );
           background-attachment: fixed;

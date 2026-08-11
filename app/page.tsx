@@ -5,7 +5,7 @@ import { MissionSection } from "@/components/sections/mission-section";
 import { FeaturedProductsSection } from "@/components/sections/featured-products-section";
 import { TechnologySection } from "@/components/sections/technology-section";
 import { GallerySection } from "@/components/sections/gallery-section";
-import { RepresentativesStackSection } from "@/components/sections/representatives-stack";
+import { RepresentativesGridOnly, RepresentativesCarouselOnly } from "@/components/sections/representatives-stack";
 import { CollectionSection } from "@/components/sections/collection-section";
 import { EditorialSection } from "@/components/sections/editorial-section";
 import { RegistrationSection } from "@/components/sections/registration-section";
@@ -19,15 +19,18 @@ export default function Home() {
       <HeroSection />
       <PhilosophySection />
       <MissionSection />
-      <FeaturedProductsSection />
-      <TechnologySection />
+      {/* 3. El Directorio Animado en 3D (GSAP) */}
+      <RepresentativesCarouselOnly />
       
+      {/* Comunidad / Inspiración (Imágenes con animación) */}
+      <TechnologySection />
+
+      {/* 2. El Carrusel 3D animado */}
+      <FeaturedProductsSection />
+
       {/* Dynamic Intro to the Business Circuit */}
       <WordHeroSection />
-      
-      {/* 16 Representantes Animation Stack */}
-      <RepresentativesStackSection />
-      
+
       <CollectionSection />
       <EditorialSection />
       <GallerySection />

@@ -35,7 +35,21 @@ const mesas = [
   { mesa: 18, pais: "Honduras",        bandera: "🇭🇳" },
 ];
 
-function assignMesa(): typeof mesas[number] {
+function assignMesa(inputPais: string): typeof mesas[number] {
+  const normalized = inputPais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
+  
+  const matchedMesa = mesas.find(m => {
+    const mesaPais = m.pais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (mesaPais === "rep. dominicana" && normalized.includes("dominicana")) return true;
+    if (normalized === mesaPais) return true;
+    return normalized.includes(mesaPais);
+  });
+
+  if (matchedMesa) {
+    return matchedMesa;
+  }
+
+  // Si no hay coincidencia exacta o es otro país, asigna una aleatoria
   const index = Math.floor(Date.now() / 1000) % mesas.length;
   return mesas[index];
 }
@@ -45,6 +59,7 @@ export function RegistrationSection() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [mesaAsignada, setMesaAsignada] = useState<typeof mesas[number] | null>(null);
+  const [registeredName, setRegisteredName] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,7 +77,7 @@ export function RegistrationSection() {
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
-    const asignacion = assignMesa();
+    const asignacion = assignMesa(data.pais);
 
     const { error: dbError } = await supabase.from("registros").insert({
       ...data,
@@ -80,6 +95,7 @@ export function RegistrationSection() {
     }
 
     setMesaAsignada(asignacion);
+    setRegisteredName(data.nombre.split(" ")[0]); // Use first name for a friendlier welcome
     setSubmitted(true);
   };
 
@@ -101,38 +117,41 @@ export function RegistrationSection() {
 
         {submitted && mesaAsignada ? (
           <div
-            className="mt-10 flex flex-col items-center rounded-2xl bg-primary-foreground/10 px-6 py-12 text-center"
+            className="mt-10 flex flex-col items-center rounded-2xl bg-primary-foreground/10 px-6 py-12 text-center shadow-lg backdrop-blur-sm border border-white/10"
             role="status"
             aria-live="polite"
           >
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/20">
-              <Check size={28} className="text-white" aria-hidden="true" />
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/20 mb-2">
+              <Check size={32} className="text-white" aria-hidden="true" />
             </span>
-            <h3 className="mt-5 font-serif text-2xl">¡Gracias por registrarte!</h3>
-            <p className="mt-2 max-w-md text-sm leading-relaxed text-primary-foreground/80">
-              Hemos recibido tu solicitud. Pronto te contactaremos con los detalles de Global Women&apos;s 2026.
+            <h3 className="mt-4 font-serif text-3xl text-white">¡Bienvenida(o), {registeredName}!</h3>
+            <p className="mt-3 max-w-md text-base leading-relaxed text-primary-foreground/90">
+              Es un honor contar contigo. Tu registro ha sido exitoso y hemos reservado tu lugar en Global Women&apos;s 2026.
             </p>
 
-            <div className="mt-8 w-full max-w-xs rounded-2xl border border-white/20 bg-white/10 px-6 py-6">
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 mb-3">
+            <div className="mt-8 w-full max-w-sm rounded-2xl border border-white/20 bg-white/10 px-8 py-6 shadow-md relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <span className="text-8xl">{mesaAsignada.bandera}</span>
+              </div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 mb-4 relative z-10">
                 Tu mesa asignada
               </p>
-              <div className="flex items-center justify-center gap-4">
-                <span className="text-5xl leading-none">{mesaAsignada.bandera}</span>
+              <div className="flex items-center justify-start gap-5 relative z-10">
+                <span className="text-6xl drop-shadow-md leading-none">{mesaAsignada.bandera}</span>
                 <div className="text-left">
-                  <p className="font-serif text-2xl font-bold">{mesaAsignada.pais}</p>
-                  <p className="text-sm text-primary-foreground/70">Mesa {mesaAsignada.mesa} · Circuito de Negocios</p>
+                  <p className="font-serif text-3xl font-bold text-white">{mesaAsignada.pais}</p>
+                  <p className="text-sm text-primary-foreground/80 mt-1 font-medium">Mesa {mesaAsignada.mesa} · Circuito de Negocios</p>
                 </div>
               </div>
-              <p className="mt-4 text-xs text-primary-foreground/60">
-                Recibirás la confirmación y el detalle de tu mesa por correo y WhatsApp.
+              <p className="mt-5 text-sm text-primary-foreground/70 text-left border-t border-white/10 pt-4 relative z-10">
+                Pronto recibirás la confirmación oficial y tu código de acceso por correo y WhatsApp.
               </p>
             </div>
 
             <button
               type="button"
-              onClick={() => { setSubmitted(false); setMesaAsignada(null); }}
-              className="mt-6 rounded-full border border-primary-foreground/30 px-5 py-2 text-sm font-medium transition-colors hover:bg-primary-foreground/10"
+              onClick={() => { setSubmitted(false); setMesaAsignada(null); setRegisteredName(null); }}
+              className="mt-8 rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-medium transition-colors hover:bg-white hover:text-[#1e3a8a]"
             >
               Registrar a otra persona
             </button>

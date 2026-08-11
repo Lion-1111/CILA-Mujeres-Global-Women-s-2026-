@@ -229,7 +229,7 @@ export function CollectionSection() {
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="text-xs font-semibold uppercase tracking-[0.2em] text-accent"
+                className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent"
               >
                 13:06 – 14:12
               </motion.span>
@@ -238,19 +238,19 @@ export function CollectionSection() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-5xl mb-8"
+                className="mt-3 text-center font-serif text-3xl leading-tight text-foreground md:text-5xl mb-8"
               >
                 Circuito Internacional de Negocios
               </motion.h2>
 
               <ScrollWordReveal
                 text="Imagina un meetup de negocios — pero con estructura. Son 18 mesas redondas, cada una con la placa de un país del directorio CILA."
-                className="text-xl md:text-2xl leading-relaxed font-serif"
+                className="text-justify text-xl md:text-2xl leading-relaxed font-serif"
               />
               <div className="h-4"></div>
               <ScrollWordReveal
                 text="Los asistentes rotan entre las mesas — cada conversación es una oportunidad de alianza real, en tiempo real."
-                className="text-xl md:text-2xl leading-relaxed font-serif"
+                className="text-justify text-xl md:text-2xl leading-relaxed font-serif"
               />
 
               {/* Mini stats */}
@@ -285,10 +285,10 @@ export function CollectionSection() {
               transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
             >
               <div className="rounded-3xl bg-secondary/20 border border-border/50 p-8 md:p-10 backdrop-blur-sm">
-                <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
+                <h3 className="text-center font-serif text-2xl md:text-3xl text-foreground mb-4">
                   Dinámica del Circuito
                 </h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">
+                <p className="text-justify text-muted-foreground leading-relaxed text-lg">
                   Al registrarte, recibes una asignación de mesa inicial. A lo largo del circuito, tendrás conversaciones reales y directas con representantes de cada país.
                   <br /><br />
                   Cuando el tiempo lo indique, el grupo rotará a la siguiente mesa, permitiéndote multiplicar tu red de contactos y formar alianzas internacionales en una sola tarde.
