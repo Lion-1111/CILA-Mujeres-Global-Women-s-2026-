@@ -98,7 +98,7 @@ export function FooterSection() {
             2026 CILA Mujeres. Todos los derechos reservados.
           </p>
 
-          
+
 
           {/* Social Links */}
           <div className="flex items-center gap-4">

@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import InfiniteGallery from "@/components/ui/3d-gallery-photography";
+import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 
 const images = [
   "/images/IMG_2035.JPG.jpeg",
@@ -25,10 +27,21 @@ const images = [
 ];
 
 export function GallerySection() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <section
       id="galeria"
-      className="relative h-[350vh] md:h-[1000vh]"
+      className="relative h-[100vh] md:h-[1000vh]"
       style={{
         background: "linear-gradient(180deg, #0d0d0d 0%, #111 100%)",
       }}
@@ -49,13 +62,27 @@ export function GallerySection() {
         </div>
 
         {/* Contenedor de la galería */}
-        <div className="w-full relative h-[450px] md:h-[600px] mt-16 md:mt-24">
-          <InfiniteGallery
-            images={images}
-            speed={0.25}
-            visibleCount={19}
-            className="w-full h-full"
-          />
+        <div className="w-full relative h-[450px] md:h-[600px] mt-24 md:mt-24">
+          {isMobile ? (
+            <div className="w-full h-full px-4">
+              <CoverflowCarousel
+                slides={images.map(img => ({ src: img, alt: "Momento CILA Mujeres" }))}
+                autoplay={true}
+                autoplaySpeed={3000}
+                showNavigation={false}
+                showPagination={true}
+                loop={true}
+                cardClassName="rounded-2xl"
+              />
+            </div>
+          ) : (
+            <InfiniteGallery
+              images={images}
+              speed={0.25}
+              visibleCount={19}
+              className="w-full h-full"
+            />
+          )}
         </div>
 
         {/* Indicador de scroll */}
