@@ -11,7 +11,7 @@ const valores = [
   {
     label: "Excelencia Profesional",
     description:
-      "Actuamos con responsabilidad, rigor y los más altos estándares del sector inmobiliario.",
+      "Actuamos con responsabilidad, armonía y los más altos estándares del sector inmobiliario.",
   },
   {
     label: "Representatividad Femenina",
@@ -50,7 +50,7 @@ export function MissionSection() {
               <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
                 Nuestra misión
               </h2>
-              <p className="mt-6 leading-relaxed text-muted-foreground">
+              <p className="mt-6 leading-relaxed text-muted-foreground text-justify">
                 Fortalecer el liderazgo femenino en el sector inmobiliario a nivel global, impulsando alianzas y negocios internacionales con ética y profesionalismo como pilares de acción, convencidas de que el talento y la capacidad de las mujeres son transformadores.
               </p>
             </motion.div>
@@ -78,7 +78,7 @@ export function MissionSection() {
               <h2 className="mt-3 font-serif text-3xl leading-tight text-foreground md:text-4xl">
                 Nuestra visión
               </h2>
-              <p className="mt-6 leading-relaxed text-muted-foreground">
+              <p className="mt-6 leading-relaxed text-muted-foreground text-justify">
                 Ser la plataforma internacional que represente el talento femenino del sector inmobiliario hacia nuevos horizontes, convirtiendo relaciones en oportunidades de alto valor, estableciendo referentes de excelencia global, consolidando una comunidad sólida que conecte continentes con innovación, integridad, profundo sentido humano y un firme compromiso con la sostenibilidad y el equilibrio ecológico.
               </p>
             </motion.div>
