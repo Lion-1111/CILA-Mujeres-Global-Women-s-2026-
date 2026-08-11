@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import InfiniteGallery from "@/components/ui/3d-gallery-photography";
 import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 
@@ -26,18 +25,9 @@ const images = [
   "/images/IMG_2035.JPG.jpeg",
 ];
 
+const slides = images.map((img) => ({ src: img, alt: "Momento CILA Mujeres" }));
+
 export function GallerySection() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
   return (
     <section
       id="galeria"
@@ -48,7 +38,7 @@ export function GallerySection() {
     >
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden border-t border-white/10">
 
-        {/* Header - posicionado absoluto para que flote sobre la galería */}
+        {/* Header */}
         <div className="text-center absolute top-20 left-0 right-0 z-10 pointer-events-none px-6">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
             Galería
@@ -61,23 +51,25 @@ export function GallerySection() {
           </p>
         </div>
 
-        {/* Contenedor de la galería */}
-        <div className="w-full relative h-[450px] md:h-[600px] mt-24 md:mt-24">
-          {isMobile ? (
-            <div className="w-full h-full px-4">
-              <CoverflowCarousel
-                slides={images.map(img => ({ src: img, alt: "Momento CILA Mujeres" }))}
-                cardClassName="rounded-2xl"
-              />
-            </div>
-          ) : (
-            <InfiniteGallery
-              images={images}
-              speed={0.25}
-              visibleCount={19}
-              className="w-full h-full"
-            />
-          )}
+        {/* Galería — versión móvil: CoverflowCarousel 3D */}
+        <div className="block md:hidden w-full h-[450px] px-4 mt-32">
+          <CoverflowCarousel
+            slides={slides}
+            cardClassName="rounded-2xl"
+            cardWidth="clamp(200px, 70vw, 300px)"
+            rotate={40}
+            depth={0.5}
+          />
+        </div>
+
+        {/* Galería — versión desktop: InfiniteGallery 3D */}
+        <div className="hidden md:block w-full relative h-[600px] mt-24">
+          <InfiniteGallery
+            images={images}
+            speed={0.25}
+            visibleCount={19}
+            className="w-full h-full"
+          />
         </div>
 
         {/* Indicador de scroll */}
