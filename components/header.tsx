@@ -27,19 +27,19 @@ export function Header() {
   }, []);
 
   return (
-    <header 
-      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white/95 shadow-sm"}`}
+    <header
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${isScrolled ? "bg-white shadow-md" : "bg-white shadow-sm"}`}
     >
       <div className="flex items-center justify-between transition-all duration-300 px-6 py-3 md:px-12 lg:px-20">
         {/* Logo */}
         <Link href="#hero" className="flex items-center gap-3" aria-label="CILA Mujeres — inicio">
-          <span className="relative h-14 w-36 overflow-hidden rounded-lg bg-white px-1 py-1 flex-shrink-0 shadow-md">
+          <span className="relative h-14 w-48 flex-shrink-0">
             <Image
-              src="/images/cila-logo.png"
+              src="/images/Captura de pantalla 2026-08-11 110713.png"
               alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
-              className="object-contain"
-              sizes="144px"
+              className="object-contain mix-blend-multiply scale-110 md:scale-125"
+              sizes="192px"
             />
           </span>
         </Link>

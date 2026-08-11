@@ -5,24 +5,15 @@ import { CoverflowCarousel } from "@/components/ui/coverflow-carousel";
 
 const images = [
   "/images/IMG_2035.JPG.jpeg",
-  "/images/fto1.jpeg",
-  "/images/fto2.jpeg",
-  "/images/fto3.jpeg",
-  "/images/fto4.jpeg",
-  "/images/fto5.jpeg",
-  "/images/fto6.jpeg",
-  "/images/fto7.jpeg",
-  "/images/fto8.jpeg",
-  "/images/fto9.jpeg",
-  "/images/fto10.jpeg",
-  "/images/fto11.jpeg",
   "/images/IMG_1992.JPG.jpeg",
   "/images/IMG_1993.JPG.jpeg",
   "/images/IMG_1994.JPG.jpeg",
   "/images/IMG_1995.JPG.jpeg",
   "/images/IMG_2133.JPG.jpeg",
   "/images/IMG_2135.JPG.jpeg",
-  "/images/IMG_2035.JPG.jpeg",
+  "/images/cierre y lanzamiento.jpeg",
+  "/images/foos paragaleria.jpeg",
+  "/images/fotos para galeria.jpeg",
 ];
 
 const slides = images.map((img) => ({ src: img, alt: "Momento CILA Mujeres" }));
@@ -67,7 +58,7 @@ export function GallerySection() {
           <InfiniteGallery
             images={images}
             speed={0.25}
-            visibleCount={19}
+            visibleCount={9}
             className="w-full h-full"
           />
         </div>

@@ -148,7 +148,7 @@ export function HeroSection() {
               </div>
 
               <Image
-                src="/images/central%20definitive.png"
+                src="/images/ultimafotosentral.png"
                 alt="Imagen central del evento"
                 fill
                 className="absolute inset-0 z-10 object-cover"
@@ -191,19 +191,19 @@ export function HeroSection() {
 
       {/* Tagline Section - Fixed at bottom */}
       <div
-        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 flex flex-col items-center px-6 pb-12 text-center md:px-12 md:pb-16 lg:px-20 lg:pb-20"
+        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 flex flex-col items-center px-6 pb-4 text-center md:px-12 md:pb-8 lg:px-20 lg:pb-10"
         style={{ opacity: textOpacity }}
       >
-        <span className="mb-3 inline-block rounded-full bg-accent/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
+        <span className="mb-4 inline-block rounded-full border border-white/30 bg-black/20 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md shadow-xl">
           CILA Mujeres
         </span>
-        <p className="mx-auto max-w-4xl font-serif text-4xl leading-[1.1] text-white md:text-6xl lg:text-[6rem] lg:leading-[1.1]">
+        <p className="mx-auto max-w-4xl font-serif text-4xl leading-[1.1] text-white [text-shadow:0_2px_10px_rgba(0,0,0,0.8),0_0_20px_rgba(0,0,0,0.6)] md:text-6xl lg:text-[5.5rem] lg:leading-[1.1]">
           GLOBAL WOMEN&apos;S 2026
         </p>
-        <p className="mt-6 text-xl md:text-2xl font-medium italic text-sky-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+        <p className="mt-5 text-xl md:text-2xl font-medium italic text-sky-300 drop-shadow-[0_4px_6px_rgba(0,0,0,0.9)]">
           Connecting Latin America and the World
         </p>
-        <p className="mt-8 text-sm font-medium uppercase tracking-[0.3em] text-white/60">
+        <p className="mt-6 text-xs md:text-sm font-medium uppercase tracking-[0.3em] text-white/80 drop-shadow-lg">
           Fortalecemos, inspiramos y transformamos el liderazgo femenino
         </p>
       </div>
