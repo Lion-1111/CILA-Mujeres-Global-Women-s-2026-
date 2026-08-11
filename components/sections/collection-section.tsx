@@ -28,12 +28,20 @@ const paisesCircuito = [
 
 const program = [
   {
+    id: 1,
+    day: "11:00 – 12:00",
+    name: "Registro & Networking",
+    description:
+      "Registro de asistentes y primer espacio de networking para conectar con mujeres líderes de toda la región.",
+    image: "https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800&h=1200&fit=crop&q=80",
+  },
+  {
     id: 2,
     day: "12:00 – 12:42",
     name: "Apertura Oficial",
     description:
       "Ceremonia de apertura con mensajes de bienvenida de las representantes de cada país participante.",
-    image: "/images/art-06.png",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 3,
@@ -41,7 +49,7 @@ const program = [
     name: "Presentación de Países",
     description:
       "Presentación oficial de todas las delegaciones participantes en el encuentro internacional.",
-    image: "/images/art-03.png",
+    image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 4,
@@ -49,15 +57,15 @@ const program = [
     name: "Circuito Internacional de Negocios",
     description:
       "Rotación por las mesas país del Circuito Internacional de Negocios: alianzas y oportunidades en tiempo real.",
-    image: "/images/art-07.png",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=1200&fit=crop&q=80",
   },
   {
     id: 5,
     day: "14:12 – 14:30",
-    name: "Cierre & Lanzamiento 2026 - 365",
+    name: "Cierre & Lanzamiento Global Women’s 365",
     description:
-      "Taller de negocios CILA Mujeres",
-    image: "/images/art-05.png",
+      "Cierre del encuentro y lanzamiento oficial de Global Women\u2019s 365 — la continuidad de esta comunidad durante todo el año.",
+    image: "https://images.unsplash.com/photo-1479839672679-a46483c0e7c8?w=800&h=1200&fit=crop&q=80",
   },
 ];
 
@@ -249,7 +257,7 @@ export function CollectionSection() {
               />
               <div className="h-4"></div>
               <ScrollWordReveal
-                text="Los asistentes rotan entre las mesas — cada conversación es una oportunidad de alianza real, en tiempo real."
+                text="Las asistentes rotan entre las mesas — cada conversación es una oportunidad de alianza real, en tiempo real."
                 className="text-xl md:text-2xl leading-relaxed font-serif"
               />
 
@@ -258,7 +266,7 @@ export function CollectionSection() {
                 {[
                   { val: "18", lbl: "Mesas país", delay: 0.1 },
                   { val: "66", lbl: "Minutos", delay: 0.2 },
-                  { val: "🔄", lbl: "Rotación siguiendo la ruta de negocios de Latinoamérica", delay: 0.3 },
+                  { val: "🔄", lbl: "Rotación libre", delay: 0.3 },
                 ].map((s) => (
                   <motion.div
                     key={s.lbl}
@@ -276,24 +284,54 @@ export function CollectionSection() {
               </div>
             </div>
 
-            {/* Right: Steps summarized */}
+            {/* Right: Steps */}
             <motion.div
-              className="mt-8 md:mt-0 flex flex-col justify-center h-full"
+              className="space-y-10 mt-8 md:mt-0"
               initial={{ opacity: 0, x: 24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
             >
-              <div className="rounded-3xl bg-secondary/20 border border-border/50 p-8 md:p-10 backdrop-blur-sm">
-                <h3 className="font-serif text-2xl md:text-3xl text-foreground mb-4">
-                  Dinámica del Circuito
-                </h3>
-                <p className="text-muted-foreground leading-relaxed text-lg">
-                  Al registrarte, recibes una asignación de mesa inicial. A lo largo del circuito, tendrás conversaciones reales y directas con representantes de cada país. 
-                  <br /><br />
-                  Cuando el tiempo lo indique, el grupo rotará a la siguiente mesa, permitiéndote multiplicar tu red de contactos y formar alianzas internacionales en una sola tarde.
-                </p>
-              </div>
+              {[
+                {
+                  num: "01",
+                  title: "Llega y encuentra tu mesa",
+                  desc: "Al registrarte recibirás tu asignación de mesa/país. La placa te estará esperando.",
+                },
+                {
+                  num: "02",
+                  title: "Platica, conecta, negocia",
+                  desc: "Cada mesa es una conversación real con representantes inmobiliarios de ese país.",
+                },
+                {
+                  num: "03",
+                  title: "Rota y amplía tu red",
+                  desc: "Cuando el tiempo lo indique, cambias de mesa — múltiples alianzas en una sola tarde.",
+                },
+              ].map((step, i) => (
+                <motion.div
+                  key={step.num}
+                  className="flex gap-6 group"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.5, delay: 0.25 + i * 0.15 }}
+                >
+                  <motion.span
+                    className="mt-1 font-serif text-5xl font-bold bg-gradient-to-b from-accent to-accent/10 bg-clip-text text-transparent leading-none shrink-0"
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {step.num}
+                  </motion.span>
+                  <div>
+                    <h4 className="font-semibold text-lg text-foreground">
+                      <LetterReveal text={step.title} delay={0.3 + i * 0.15} />
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+                  </div>
+                </motion.div>
+              ))}
             </motion.div>
           </div>
 

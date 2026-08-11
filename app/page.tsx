@@ -20,13 +20,13 @@ export default function Home() {
       <MissionSection />
       <FeaturedProductsSection />
       <TechnologySection />
+      <GallerySection />
       
       {/* Dynamic Intro to the Business Circuit */}
       <WordHeroSection />
       
       <CollectionSection />
       <EditorialSection />
-      <GallerySection />
       <RegistrationSection />
       <FooterSection />
     </main>

@@ -10,7 +10,6 @@ const navLinks = [
   { href: "#programa", label: "Programa" },
   { href: "#galeria", label: "Galería" },
   { href: "#representantes", label: "Representantes" },
-  { href: "#sumate", label: "Súmate a la pantalla CILA" },
 ];
 
 export function Header() {
