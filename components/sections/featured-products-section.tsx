@@ -3,21 +3,23 @@
 import { CoverflowCarousel, CoverflowSlide } from "@/components/ui/coverflow-carousel";
 
 const slides: CoverflowSlide[] = [
-  { src: "/images/1.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/2.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/3.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/4.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/5.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/6.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/7.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/8.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/9.jpeg",  alt: "Representante CILA Mujeres" },
-  { src: "/images/10.jpeg", alt: "Representante CILA Mujeres" },
-  { src: "/images/11.jpeg", alt: "Representante CILA Mujeres" },
-  { src: "/images/12.jpeg", alt: "Representante CILA Mujeres" },
-  { src: "/images/13.jpeg", alt: "Representante CILA Mujeres" },
-  { src: "/images/14.jpeg", alt: "Representante CILA Mujeres" },
-  { src: "/images/victoria irun.jpeg", alt: "Victoria Irun - Representante CILA Mujeres" },
+  { src: "/images/1.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/2.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/3.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/4.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/5.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/6.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/7.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/8.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/9.jpg",  alt: "Representante CILA Mujeres" },
+  { src: "/images/10.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/11.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/12.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/13.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/14.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/15.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/16.jpg", alt: "Representante CILA Mujeres" },
+  { src: "/images/victoria irun.jpeg", alt: "Victoria Irún - Representante CILA Mujeres" },
 ];
 
 export function FeaturedProductsSection() {
