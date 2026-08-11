@@ -24,7 +24,6 @@ const paisesCircuito = [
   { pais: "Perú", code: "pe", mesa: 16 },
   { pais: "Guatemala", code: "gt", mesa: 17 },
   { pais: "Honduras", code: "hn", mesa: 18 },
-  { pais: "Victoria Irun", image: "/images/victoria irun.jpeg", mesa: 19 },
 ];
 
 const program = [
@@ -101,7 +100,7 @@ function ScrollWordReveal({ text, className = "" }: { text: string; className?: 
   const words = text.split(" ");
 
   // Palabras que queremos resaltar en negrita
-  const boldWords = ["19", "mesas", "redondas,", "rotan", "entre", "las", "mesas", "alianza", "real,"];
+  const boldWords = ["18", "mesas", "redondas,", "rotan", "entre", "las", "mesas", "alianza", "real,"];
 
   return (
     <p ref={container} className={className}>
@@ -171,7 +170,7 @@ function CountryTicker() {
             {/* Real Flag Image (Circular) - Larger size */}
             <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full ring-4 ring-background shadow-[0_0_10px_rgba(0,0,0,0.1)] group-hover:ring-accent/20 transition-all">
               <img
-                src={(p as any).image || `https://flagcdn.com/w160/${p.code}.png`}
+                src={`https://flagcdn.com/w160/${p.code}.png`}
                 alt={`Bandera de ${p.pais}`}
                 className="h-full w-full object-cover"
                 loading="lazy"
@@ -245,7 +244,7 @@ export function CollectionSection() {
               </motion.h2>
 
               <ScrollWordReveal
-                text="Imagina un meetup de negocios — pero con estructura. Son 19 mesas redondas, cada una con la placa de un país del directorio CILA."
+                text="Imagina un meetup de negocios — pero con estructura. Son 18 mesas redondas, cada una con la placa de un país del directorio CILA."
                 className="text-xl md:text-2xl leading-relaxed font-serif"
               />
               <div className="h-4"></div>
@@ -257,7 +256,7 @@ export function CollectionSection() {
               {/* Mini stats */}
               <div className="mt-10 flex flex-wrap gap-4">
                 {[
-                  { val: "19", lbl: "Mesas país", delay: 0.1 },
+                  { val: "18", lbl: "Mesas país", delay: 0.1 },
                   { val: "66", lbl: "Minutos", delay: 0.2 },
                   { val: "🔄", lbl: "Rotación siguiendo la ruta de negocios de Latinoamérica", delay: 0.3 },
                 ].map((s) => (
@@ -290,7 +289,7 @@ export function CollectionSection() {
                   Dinámica del Circuito
                 </h3>
                 <p className="text-muted-foreground leading-relaxed text-lg">
-                  Al registrarte, recibes una asignación de mesa inicial. A lo largo del circuito, tendrás conversaciones reales y directas con representantes de cada país. 
+                  Al registrarte, recibes una asignación de mesa inicial. A lo largo del circuito, tendrás conversaciones reales y directas con representantes de cada país.
                   <br /><br />
                   Cuando el tiempo lo indique, el grupo rotará a la siguiente mesa, permitiéndote multiplicar tu red de contactos y formar alianzas internacionales en una sola tarde.
                 </p>
@@ -301,7 +300,7 @@ export function CollectionSection() {
           {/* Ticker carousel */}
           <div className="mt-16">
             <p className="mb-6 text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Las 19 mesas país
+              Las 18 mesas país
             </p>
             <CountryTicker />
           </div>

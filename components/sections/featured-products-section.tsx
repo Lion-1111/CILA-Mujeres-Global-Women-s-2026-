@@ -17,6 +17,7 @@ const slides: CoverflowSlide[] = [
   { src: "/images/12.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/13.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/14.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/victoria irun.jpeg", alt: "Victoria Irun - Representante CILA Mujeres" },
 ];
 
 export function FeaturedProductsSection() {

@@ -14,7 +14,6 @@ const images = [
   "/images/fto9.jpeg",
   "/images/fto10.jpeg",
   "/images/fto11.jpeg",
-  "/images/victoria irun.jpeg",
 ];
 
 export function GallerySection() {
@@ -27,7 +26,7 @@ export function GallerySection() {
       }}
     >
       <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden border-t border-white/10">
-        
+
         {/* Header - posicionado absoluto para que flote sobre la galería */}
         <div className="text-center absolute top-20 left-0 right-0 z-10 pointer-events-none px-6">
           <span className="text-xs font-semibold uppercase tracking-[0.25em] text-white/40">
@@ -43,10 +42,10 @@ export function GallerySection() {
 
         {/* Contenedor de la galería */}
         <div className="w-full relative h-[450px] md:h-[600px] mt-16 md:mt-24">
-          <InfiniteGallery 
+          <InfiniteGallery
             images={images}
             speed={1.5}
-            visibleCount={12}
+            visibleCount={11}
             className="w-full h-full"
           />
         </div>
