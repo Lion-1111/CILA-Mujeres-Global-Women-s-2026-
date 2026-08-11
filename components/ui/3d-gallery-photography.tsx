@@ -1,6 +1,6 @@
 "use client";
 import type React from "react";
-import { useRef, useMemo, useCallback, useState, useEffect } from "react";
+import { useRef, useMemo, useCallback, useState, useEffect, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
@@ -165,7 +165,14 @@ function GalleryScene({
   const [, forceRender] = useState(0);
 
   const normalizedImages = useMemo(
-    () => images.map((img) => (typeof img === "string" ? { src: img, alt: "" } : img)),
+    () => images.map((img) => {
+      const src = typeof img === "string" ? img : img.src;
+      const alt = typeof img === "string" ? "" : (img.alt || "");
+      const optimizedSrc = src.startsWith('/') && !src.includes('_next/image')
+        ? `/_next/image?url=${encodeURIComponent(src)}&w=1080&q=75`
+        : src;
+      return { src: optimizedSrc, alt };
+    }),
     [images],
   );
 
@@ -434,13 +441,15 @@ export default function InfiniteGallery({
   return (
     <div className={className} style={style}>
       <Canvas camera={{ position: [0, 0, 4], fov: 72 }} dpr={[1, 2]}>
-        <GalleryScene
-          images={images}
-          speed={speed}
-          visibleCount={visibleCount}
-          fadeSettings={fadeSettings}
-          blurSettings={blurSettings}
-        />
+        <Suspense fallback={null}>
+          <GalleryScene
+            images={images}
+            speed={speed}
+            visibleCount={visibleCount}
+            fadeSettings={fadeSettings}
+            blurSettings={blurSettings}
+          />
+        </Suspense>
       </Canvas>
     </div>
   );
