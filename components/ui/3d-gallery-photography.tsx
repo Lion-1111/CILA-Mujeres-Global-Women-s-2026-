@@ -165,14 +165,7 @@ function GalleryScene({
   const [, forceRender] = useState(0);
 
   const normalizedImages = useMemo(
-    () => images.map((img) => {
-      const src = typeof img === "string" ? img : img.src;
-      const alt = typeof img === "string" ? "" : (img.alt || "");
-      const optimizedSrc = src.startsWith('/') && !src.includes('_next/image')
-        ? `/_next/image?url=${encodeURIComponent(src)}&w=1080&q=75`
-        : src;
-      return { src: optimizedSrc, alt };
-    }),
+    () => images.map((img) => (typeof img === "string" ? { src: img, alt: "" } : img)),
     [images],
   );
 
