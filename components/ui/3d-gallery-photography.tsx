@@ -140,7 +140,7 @@ function ImagePlane({
       onPointerEnter={() => setIsHovered(true)}
       onPointerLeave={() => setIsHovered(false)}
     >
-      <planeGeometry args={[1, 1, 32, 32]} />
+      <planeGeometry args={[1, 1, 8, 8]} />
     </mesh>
   );
 }
@@ -433,7 +433,7 @@ export default function InfiniteGallery({
 
   return (
     <div className={className} style={style}>
-      <Canvas camera={{ position: [0, 0, 4], fov: 72 }} dpr={[1, 2]}>
+      <Canvas camera={{ position: [0, 0, 4], fov: 72 }} dpr={[1, 1.5]}>
         <Suspense fallback={null}>
           <GalleryScene
             images={images}

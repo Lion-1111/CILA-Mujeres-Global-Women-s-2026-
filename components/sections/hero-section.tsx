@@ -197,7 +197,7 @@ export function HeroSection() {
         <span className="mb-3 inline-block rounded-full bg-accent/90 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-accent-foreground">
           CILA Mujeres
         </span>
-        <p className="mx-auto max-w-4xl font-serif text-5xl leading-[1.1] text-white md:text-6xl lg:text-[6rem] lg:leading-[1.1]">
+        <p className="mx-auto max-w-4xl font-serif text-4xl leading-[1.1] text-white md:text-6xl lg:text-[6rem] lg:leading-[1.1]">
           GLOBAL WOMEN&apos;S 2026
         </p>
         <p className="mt-6 text-xl md:text-2xl font-medium italic text-sky-300 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
