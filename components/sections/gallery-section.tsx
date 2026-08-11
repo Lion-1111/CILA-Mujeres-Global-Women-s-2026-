@@ -28,7 +28,7 @@ export function GallerySection() {
   return (
     <section
       id="galeria"
-      className="relative h-[250vh]"
+      className="relative h-[1000vh]"
       style={{
         background: "linear-gradient(180deg, #0d0d0d 0%, #111 100%)",
       }}

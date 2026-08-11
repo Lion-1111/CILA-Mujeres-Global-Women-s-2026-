@@ -49,7 +49,7 @@ export function FeaturedProductsSection() {
             fade={0.08}
             showNavigation
             showPagination
-            loop
+            loop={false}
             label="Representantes CILA Mujeres 2026"
             cardClassName="rounded-3xl shadow-2xl"
           />
