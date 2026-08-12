@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase, type Registro } from "@/lib/supabase";
-import { LogOut, RefreshCw, Users, Search, Download } from "lucide-react";
+import { LogOut, RefreshCw, Users, Search, Download, X } from "lucide-react";
 
 const ADMIN_PASSWORD = "cila2026admin";
 
@@ -15,6 +15,9 @@ export default function AdminPage() {
   const [registros, setRegistros] = useState<Registro[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalContent, setModalContent] = useState("");
 
   // Check if already logged in via sessionStorage
   useEffect(() => {
@@ -212,7 +215,7 @@ export default function AdminPage() {
         {/* Table */}
         <div className="rounded-2xl border border-white/10 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full text-xs">
               <thead>
                 <tr className="bg-white/5 border-b border-white/10">
                   <th className="text-left px-4 py-3 text-white/50 font-medium">#</th>
@@ -222,8 +225,8 @@ export default function AdminPage() {
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Empresa</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Email</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Teléfono</th>
-                  <th className="text-left px-4 py-3 text-white/50 font-medium">Necesidad</th>
-                  <th className="text-left px-4 py-3 text-white/50 font-medium">Ofrecimiento</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Necesidad</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Ofrecimiento</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Mesa</th>
                 </tr>
               </thead>
@@ -257,8 +260,30 @@ export default function AdminPage() {
                       <td className="px-4 py-3 text-white/70">{r.empresa}</td>
                       <td className="px-4 py-3 text-blue-300">{r.email}</td>
                       <td className="px-4 py-3 text-white/70">{r.telefono}</td>
-                        <td className="px-4 py-3 text-white/70">{(r as any).necesidad ?? ""}</td>
-                        <td className="px-4 py-3 text-white/70">{(r as any).ofrecimiento ?? ""}</td>
+                        <td className="px-4 py-3 text-white/70">
+                          <div className="max-w-[220px] truncate inline-block align-middle">{(r as any).necesidad ?? ""}</div>
+                          {(r as any).necesidad ? (
+                            <button
+                              type="button"
+                              onClick={() => { setModalTitle("Necesidad"); setModalContent((r as any).necesidad); setModalOpen(true); }}
+                              className="ml-2 text-white/60 hover:text-white text-xs underline"
+                            >
+                              Ver
+                            </button>
+                          ) : null}
+                        </td>
+                        <td className="px-4 py-3 text-white/70">
+                          <div className="max-w-[220px] truncate inline-block align-middle">{(r as any).ofrecimiento ?? ""}</div>
+                          {(r as any).ofrecimiento ? (
+                            <button
+                              type="button"
+                              onClick={() => { setModalTitle("Ofrecimiento"); setModalContent((r as any).ofrecimiento); setModalOpen(true); }}
+                              className="ml-2 text-white/60 hover:text-white text-xs underline"
+                            >
+                              Ver
+                            </button>
+                          ) : null}
+                        </td>
                         <td className="px-4 py-3">
                           <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium">
                             {r.mesa_bandera} {r.mesa_pais}
@@ -274,6 +299,20 @@ export default function AdminPage() {
         <p className="text-white/30 text-xs mt-4 text-right">
           Mostrando {filtered.length} de {registros.length} registros
         </p>
+        {modalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="absolute inset-0 bg-black/60" onClick={() => setModalOpen(false)} />
+            <div className="relative z-10 max-w-2xl w-full bg-[#0b1220] rounded-2xl border border-white/10 p-6 text-white shadow-lg">
+              <div className="flex items-start justify-between">
+                <h3 className="text-lg font-semibold">{modalTitle}</h3>
+                <button onClick={() => setModalOpen(false)} className="p-1 rounded hover:bg-white/5"><X /></button>
+              </div>
+              <div className="mt-4 max-h-72 overflow-auto text-sm whitespace-pre-wrap text-white/90">
+                {modalContent}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );
