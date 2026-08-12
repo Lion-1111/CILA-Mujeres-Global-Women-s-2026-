@@ -14,6 +14,8 @@ export type Registro = {
   empresa: string;
   email: string;
   telefono: string;
+  necesidad?: string;
+  ofrecimiento?: string;
   mesa_numero: number;
   mesa_pais: string;
   mesa_bandera: string;

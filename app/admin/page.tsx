@@ -57,7 +57,7 @@ export default function AdminPage() {
   };
 
   const exportCSV = () => {
-    const headers = ["ID", "Fecha", "Nombre", "País", "Empresa", "Email", "Teléfono", "Mesa #", "Mesa País"];
+    const headers = ["ID", "Fecha", "Nombre", "País", "Empresa", "Email", "Teléfono", "Necesidad", "Ofrecimiento", "Mesa #", "Mesa País"];
     const rows = registros.map((r) => [
       r.id,
       new Date(r.created_at).toLocaleString("es-MX"),
@@ -66,6 +66,9 @@ export default function AdminPage() {
       r.empresa,
       r.email,
       r.telefono,
+      // Asegurar que las columnas existan y evitar comas internas rompan el CSV
+      (r as any).necesidad ? String((r as any).necesidad).replace(/\n/g, " ").replace(/,/g, ";") : "",
+      (r as any).ofrecimiento ? String((r as any).ofrecimiento).replace(/\n/g, " ").replace(/,/g, ";") : "",
       r.mesa_numero,
       r.mesa_pais,
     ]);
@@ -219,6 +222,8 @@ export default function AdminPage() {
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Empresa</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Email</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Teléfono</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium">Necesidad</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium">Ofrecimiento</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Mesa</th>
                 </tr>
               </thead>
@@ -252,11 +257,13 @@ export default function AdminPage() {
                       <td className="px-4 py-3 text-white/70">{r.empresa}</td>
                       <td className="px-4 py-3 text-blue-300">{r.email}</td>
                       <td className="px-4 py-3 text-white/70">{r.telefono}</td>
-                      <td className="px-4 py-3">
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium">
-                          {r.mesa_bandera} {r.mesa_pais}
-                        </span>
-                      </td>
+                        <td className="px-4 py-3 text-white/70">{(r as any).necesidad ?? ""}</td>
+                        <td className="px-4 py-3 text-white/70">{(r as any).ofrecimiento ?? ""}</td>
+                        <td className="px-4 py-3">
+                          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium">
+                            {r.mesa_bandera} {r.mesa_pais}
+                          </span>
+                        </td>
                     </tr>
                   ))
                 )}
