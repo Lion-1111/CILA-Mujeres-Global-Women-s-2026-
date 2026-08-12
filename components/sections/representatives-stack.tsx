@@ -22,7 +22,7 @@ const directoryData: Member[] = [
   { id: 6, name: "Marta Faustino", country: "Brasil", role: "Vocal", img: "/images/6.jpg" },
   { id: 7, name: "Claudia Castillo", country: "República Dominicana", role: "Vocal", img: "/images/7.jpg" },
   { id: 8, name: "Zorayda Galardo", country: "Nicaragua", role: "Vocal", img: "/images/8.jpg" },
-  { id: 9, name: "Rubí Sánchez", country: "Perú", role: "Vocal", img: "/images/9.jpg" },
+  { id: 9, name: "Rubí Sánchez", country: "Perú", role: "Vocal", img: "/images/sustituir por madelina flores .jpeg" },
   { id: 10, name: "Viviana Olmos", country: "Bolivia", role: "Vocal", img: "/images/10.jpg" },
   { id: 11, name: "Emma Vega", country: "Ecuador", role: "Vocal", img: "/images/11.jpg" },
   { id: 12, name: "Nery Carrión", country: "Panamá", role: "Vocal", img: "/images/12.jpg" },
