@@ -29,7 +29,7 @@ const paisesCircuito = [
 const program = [
   {
     id: 2,
-    day: "12:40 – 13:20",
+    day: "10:30 – 11:10",
     name: "Apertura Oficial",
     description:
       "Ceremonia de apertura con mensajes de bienvenida de las representantes de cada país participante.",
@@ -37,7 +37,7 @@ const program = [
   },
   {
     id: 3,
-    day: "13:20 – 13:35",
+    day: "11:10 – 11:25",
     name: "Presentación de Países",
     description:
       "Presentación oficial de todas las delegaciones participantes en el encuentro internacional.",
@@ -45,7 +45,7 @@ const program = [
   },
   {
     id: 4,
-    day: "13:35 – 15:35",
+    day: "11:25 – 12:50",
     name: "Circuito Internacional de Negocios",
     description:
       "Rotación por las mesas país del Circuito Internacional de Negocios: alianzas y oportunidades en tiempo real.",
@@ -53,7 +53,7 @@ const program = [
   },
   {
     id: 5,
-    day: "15:35 – 15:45",
+    day: "12:50 – 13:00",
     name: "Cierre & Lanzamiento 2026 - 365",
     description:
       "Taller de negocios CILA Mujeres",
@@ -231,7 +231,7 @@ export function CollectionSection() {
                 viewport={{ once: true }}
                 className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent"
               >
-                13:35 – 15:35
+                11:25 – 12:50
               </motion.span>
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}

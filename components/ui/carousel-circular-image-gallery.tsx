@@ -89,8 +89,7 @@ export function ImageGallery({ images }: { images: ImageData[] }) {
   return (
     <div className="flex w-full items-center justify-center font-sans">
       <div className="relative h-[88vmin] w-[80vmin] max-h-[660px] max-w-[600px] overflow-hidden rounded-[20px] shadow-[0_2.8px_2.2px_rgba(0,0,0,0.02),0_6.7px_5.3px_rgba(0,0,0,0.028),0_12.5px_10px_rgba(0,0,0,0.035),0_22.3px_17.9px_rgba(0,0,0,0.042),0_41.8px_33.4px_rgba(0,0,0,0.05),0_100px_80px_rgba(0,0,0,0.07)] bg-[#0A1A2F]">
-        {gsapReady &&
-          images.map((image, i) => (
+        {images.map((image, i) => (
             <div
               key={image.url}
               className="absolute left-0 top-0 h-full w-full"

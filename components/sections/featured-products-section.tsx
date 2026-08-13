@@ -11,11 +11,13 @@ const slides: CoverflowSlide[] = [
   { src: "/images/6.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/7.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/8.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/9.png", alt: "Rubí Sánchez - Representante CILA Mujeres" },
   { src: "/images/9.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/10.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/11.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/12.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/13.jpeg", alt: "Representante CILA Mujeres" },
+  { src: "/images/14.jpg", alt: "Cinthia Castañeda - Representante CILA Mujeres" },
   { src: "/images/14.jpeg", alt: "Representante CILA Mujeres" },
   { src: "/images/victoria irun.jpeg", alt: "Victoria Irun - Representante CILA Mujeres" },
 ];
