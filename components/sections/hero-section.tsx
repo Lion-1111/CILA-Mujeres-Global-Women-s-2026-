@@ -148,7 +148,7 @@ export function HeroSection() {
               </div>
 
               <Image
-                src="/images/logo final.png"
+                src="/images/foto central final.png"
                 alt="Imagen central del evento"
                 fill
                 className="absolute inset-0 z-10 object-cover"
