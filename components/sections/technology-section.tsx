@@ -36,7 +36,17 @@ function ScrollRevealText({ text }: { text: string }) {
   return (
     <p
       ref={containerRef}
-      className="text-3xl font-semibold leading-snug text-white md:text-4xl lg:text-5xl"
+      style={{
+        textAlign: 'justify',
+        textJustify: 'inter-word',
+        hyphens: 'auto',
+        wordSpacing: 'normal',
+        letterSpacing: '-0.01em',
+        maxWidth: '1180px',
+        margin: '0 auto',
+        textWrap: 'pretty',
+      }}
+      className="text-[clamp(2.1rem,3.8vw,4.6rem)] font-medium leading-[0.9] tracking-[-0.04em] text-white"
     >
       {words.map((word, index) => {
         // Calculate blur and opacity based on scroll progress
@@ -53,7 +63,7 @@ function ScrollRevealText({ text }: { text: string }) {
               opacity: wordOpacity,
               filter: `blur(${wordBlur}px)`,
               transition: 'opacity 0.1s linear, filter 0.1s linear',
-              marginRight: '0.3em',
+              marginRight: '0.12em',
             }}
           >
             {word}
@@ -78,7 +88,7 @@ export function TechnologySection() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [textProgress, setTextProgress] = useState(0);
 
-  const descriptionText = "Global Women's 2026 es el encuentro que reunirá a representantes de Latinoamérica y el mundo, empresarios inmobiliarios, desarrolladores, inversionistas, fondos de inversión, empresas PropTech, instituciones financieras, cámaras empresariales e invitados especiales. Brasil, 27 de agosto de 2026.";
+  const descriptionText = "Global Women's 2026 es el encuentro que reunirá a representantes de Latinoamérica y el mundo, empresarios inmobiliarios, desarrolladores, inversionistas, fondos de inversión, empresas PropTech, instituciones financieras, cámaras empresariales e invitados especiales. Brasil, 28 de agosto de 2026.";
 
   useEffect(() => {
     const handleScroll = () => {

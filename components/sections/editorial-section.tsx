@@ -4,7 +4,7 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 
 const specs = [
-  { label: "Fecha", value: "27 AGO" },
+  { label: "Fecha", value: "28 AGO" },
   { label: "Mesas", value: "18" },
   { label: "Horario", value: "12–14h" },
   { label: "Edición", value: "2026" },

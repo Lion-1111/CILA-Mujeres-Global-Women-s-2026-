@@ -103,7 +103,17 @@ function ScrollWordReveal({ text, className = "" }: { text: string; className?: 
   const boldWords = ["18", "mesas", "redondas,", "rotan", "entre", "las", "mesas", "alianza", "real,"];
 
   return (
-    <p ref={container} className={className}>
+    <p
+      ref={container}
+      className={className}
+      style={{
+        textAlign: 'justify',
+        textJustify: 'inter-word',
+        hyphens: 'auto',
+        wordSpacing: 'normal',
+        textWrap: 'pretty',
+      }}
+    >
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;
@@ -225,20 +235,26 @@ export function CollectionSection() {
 
             {/* Left: Description */}
             <div className="relative">
-              <motion.span
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent"
-              >
-                11:25 – 12:50
-              </motion.span>
+              <div className="mb-4 flex items-center justify-center gap-3">
+                <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-blue-700">
+                  Horario
+                </span>
+                <motion.time
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  className="inline-flex items-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold tracking-[0.18em] text-slate-900 shadow-sm"
+                >
+                  11:25 – 12:50
+                </motion.time>
+              </div>
+
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
-                className="mt-3 text-center font-serif text-3xl leading-tight text-foreground md:text-5xl mb-8"
+                className="mb-8 text-center font-serif text-3xl leading-tight text-foreground md:text-5xl"
               >
                 Circuito Internacional de Negocios
               </motion.h2>
@@ -257,7 +273,7 @@ export function CollectionSection() {
               <div className="mt-10 flex flex-wrap gap-4">
                 {[
                   { val: "18", lbl: "Mesas país", delay: 0.1 },
-                  { val: "120", lbl: "Minutos", delay: 0.2 },
+                  { val: "180", lbl: "Minutos", delay: 0.2 },
                   { val: "🔄", lbl: "Rotación siguiendo la ruta de negocios de Latinoamérica", delay: 0.3 },
                 ].map((s) => (
                   <motion.div
