@@ -29,7 +29,7 @@ const paisesCircuito = [
 const program = [
   {
     id: 2,
-    day: "12:00 – 12:42",
+    day: "12:40 – 13:20",
     name: "Apertura Oficial",
     description:
       "Ceremonia de apertura con mensajes de bienvenida de las representantes de cada país participante.",
@@ -37,7 +37,7 @@ const program = [
   },
   {
     id: 3,
-    day: "12:42 – 13:06",
+    day: "13:20 – 13:35",
     name: "Presentación de Países",
     description:
       "Presentación oficial de todas las delegaciones participantes en el encuentro internacional.",
@@ -45,7 +45,7 @@ const program = [
   },
   {
     id: 4,
-    day: "13:06 – 14:12",
+    day: "13:35 – 15:35",
     name: "Circuito Internacional de Negocios",
     description:
       "Rotación por las mesas país del Circuito Internacional de Negocios: alianzas y oportunidades en tiempo real.",
@@ -53,7 +53,7 @@ const program = [
   },
   {
     id: 5,
-    day: "14:12 – 14:30",
+    day: "15:35 – 15:45",
     name: "Cierre & Lanzamiento 2026 - 365",
     description:
       "Taller de negocios CILA Mujeres",
@@ -231,7 +231,7 @@ export function CollectionSection() {
                 viewport={{ once: true }}
                 className="block text-center text-xs font-semibold uppercase tracking-[0.2em] text-accent"
               >
-                13:06 – 14:12
+                13:35 – 15:35
               </motion.span>
               <motion.h2
                 initial={{ opacity: 0, x: -20 }}
@@ -257,7 +257,7 @@ export function CollectionSection() {
               <div className="mt-10 flex flex-wrap gap-4">
                 {[
                   { val: "18", lbl: "Mesas país", delay: 0.1 },
-                  { val: "66", lbl: "Minutos", delay: 0.2 },
+                  { val: "120", lbl: "Minutos", delay: 0.2 },
                   { val: "🔄", lbl: "Rotación siguiendo la ruta de negocios de Latinoamérica", delay: 0.3 },
                 ].map((s) => (
                   <motion.div

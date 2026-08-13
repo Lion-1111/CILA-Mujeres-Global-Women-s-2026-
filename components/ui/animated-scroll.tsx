@@ -90,23 +90,23 @@ export function AnimatedScroll({ pages }: { pages: AnimatedScrollPage[] }) {
                 }}
                 transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="flex flex-col items-start justify-center h-full px-8 py-10 md:px-16 md:py-20 border-t md:border-t-0 md:border-l border-border/40">
+                <div className="flex flex-col items-center justify-center h-full px-8 py-10 md:px-16 md:py-20 border-t md:border-t-0 md:border-l border-border/40">
                   <motion.span
-                    className="text-xs font-bold uppercase tracking-[0.25em] text-accent mb-3"
+                    className="text-xs font-bold uppercase tracking-[0.25em] text-accent mb-3 px-3 py-1 border border-border rounded-md bg-background/60"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 10 }}
                     transition={{ duration: 0.6, delay: 0.35 }}
                   >
                     {page.subtitle}
                   </motion.span>
                   <motion.h2
-                    className="text-2xl md:text-4xl lg:text-5xl font-serif text-foreground mb-4 md:mb-6 leading-tight"
+                    className="text-2xl md:text-4xl lg:text-5xl font-serif text-foreground mb-4 md:mb-6 leading-tight text-center"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 15 }}
                     transition={{ duration: 0.6, delay: 0.45 }}
                   >
                     {page.heading}
                   </motion.h2>
                   <motion.p
-                    className="text-sm md:text-base text-muted-foreground max-w-sm leading-relaxed"
+                    className="text-base md:text-lg text-muted-foreground max-w-prose leading-relaxed text-justify"
                     animate={{ opacity: isActive ? 1 : 0, y: isActive ? 0 : 15 }}
                     transition={{ duration: 0.6, delay: 0.55 }}
                   >

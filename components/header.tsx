@@ -46,10 +46,10 @@ export function Header() {
         <Link href="#hero" aria-label="CILA Mujeres — inicio" className="absolute left-1/2 -translate-x-1/2">
           <span className="relative block h-20 w-44">
             <Image
-              src="/images/Captura de pantalla 2026-08-11 110713.png"
+              src="/images/logo en fondo blanco de cila.png"
               alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
-              className="object-contain mix-blend-multiply"
+              className="object-contain"
               sizes="176px"
             />
           </span>
@@ -65,10 +65,10 @@ export function Header() {
         <Link href="#hero" className="flex items-center gap-3" aria-label="CILA Mujeres — inicio">
           <span className="relative h-14 w-48 flex-shrink-0">
             <Image
-              src="/images/Captura de pantalla 2026-08-11 110713.png"
+              src="/images/logo en fondo blanco de cila.png"
               alt="CILA Mujeres — Confederación Inmobiliaria Latinoamericana"
               fill
-              className="object-contain mix-blend-multiply scale-125"
+              className="object-contain scale-125"
               sizes="192px"
             />
           </span>

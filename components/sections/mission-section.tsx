@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Globe, Award, Users } from "lucide-react";
 
 const valores = [
   {
