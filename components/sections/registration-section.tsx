@@ -4,9 +4,36 @@ import { useState } from "react";
 import { Check, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
+const paises = [
+  "Argentina",
+  "Bolivia",
+  "Brasil",
+  "Canadá",
+  "Chile",
+  "Colombia",
+  "Costa Rica",
+  "Cuba",
+  "Ecuador",
+  "El Salvador",
+  "España",
+  "Estados Unidos",
+  "Guatemala",
+  "Honduras",
+  "México",
+  "Nicaragua",
+  "Panamá",
+  "Paraguay",
+  "Perú",
+  "Puerto Rico",
+  "Rep. Dominicana",
+  "Uruguay",
+  "Venezuela",
+  "Otro país / Otra región"
+];
+
 const fields = [
   { id: "nombre", label: "Nombre completo", type: "text", autoComplete: "name", placeholder: "Tu nombre y apellidos" },
-  { id: "pais", label: "País", type: "text", autoComplete: "country-name", placeholder: "¿Desde dónde nos acompañas?" },
+  { id: "pais", label: "País", type: "select", autoComplete: "country-name", placeholder: "Selecciona tu país..." },
   { id: "empresa", label: "Empresa u organización", type: "text", autoComplete: "organization", placeholder: "Nombre de tu empresa" },
   { id: "email", label: "Correo electrónico", type: "email", autoComplete: "email", placeholder: "nombre@correo.com" },
   { id: "telefono", label: "WhatsApp / teléfono", type: "tel", autoComplete: "tel", placeholder: "+52 ..." },
@@ -15,29 +42,29 @@ const fields = [
 ] as const;
 
 const mesas = [
-  { mesa: 1,  pais: "España",          bandera: "🇪🇸" },
-  { mesa: 2,  pais: "México",          bandera: "🇲🇽" },
-  { mesa: 3,  pais: "Brasil",          bandera: "🇧🇷" },
-  { mesa: 4,  pais: "Colombia",        bandera: "🇨🇴" },
-  { mesa: 5,  pais: "Argentina",       bandera: "🇦🇷" },
-  { mesa: 6,  pais: "Costa Rica",      bandera: "🇨🇷" },
-  { mesa: 7,  pais: "Uruguay",         bandera: "🇺🇾" },
-  { mesa: 8,  pais: "Paraguay",        bandera: "🇵🇾" },
-  { mesa: 9,  pais: "Rep. Dominicana", bandera: "🇩🇴" },
-  { mesa: 10, pais: "Bolivia",         bandera: "🇧🇴" },
-  { mesa: 11, pais: "Venezuela",       bandera: "🇻🇪" },
-  { mesa: 12, pais: "Ecuador",         bandera: "🇪🇨" },
-  { mesa: 13, pais: "Panamá",          bandera: "🇵🇦" },
-  { mesa: 14, pais: "El Salvador",     bandera: "🇸🇻" },
-  { mesa: 15, pais: "Chile",           bandera: "🇨🇱" },
-  { mesa: 16, pais: "Perú",            bandera: "🇵🇪" },
-  { mesa: 17, pais: "Guatemala",       bandera: "🇬🇹" },
-  { mesa: 18, pais: "Honduras",        bandera: "🇭🇳" },
+  { mesa: 1, pais: "España", bandera: "🇪🇸" },
+  { mesa: 2, pais: "México", bandera: "🇲🇽" },
+  { mesa: 3, pais: "Brasil", bandera: "🇧🇷" },
+  { mesa: 4, pais: "Colombia", bandera: "🇨🇴" },
+  { mesa: 5, pais: "Argentina", bandera: "🇦🇷" },
+  { mesa: 6, pais: "Costa Rica", bandera: "🇨🇷" },
+  { mesa: 7, pais: "Uruguay", bandera: "🇺🇾" },
+  { mesa: 8, pais: "Paraguay", bandera: "🇵🇾" },
+  { mesa: 9, pais: "Rep. Dominicana", bandera: "🇩🇴" },
+  { mesa: 10, pais: "Bolivia", bandera: "🇧🇴" },
+  { mesa: 11, pais: "Venezuela", bandera: "🇻🇪" },
+  { mesa: 12, pais: "Ecuador", bandera: "🇪🇨" },
+  { mesa: 13, pais: "Panamá", bandera: "🇵🇦" },
+  { mesa: 14, pais: "El Salvador", bandera: "🇸🇻" },
+  { mesa: 15, pais: "Chile", bandera: "🇨🇱" },
+  { mesa: 16, pais: "Perú", bandera: "🇵🇪" },
+  { mesa: 17, pais: "Guatemala", bandera: "🇬🇹" },
+  { mesa: 18, pais: "Honduras", bandera: "🇭🇳" },
 ];
 
 function assignMesa(inputPais: string): typeof mesas[number] {
   const normalized = inputPais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
-  
+
   const matchedMesa = mesas.find(m => {
     const mesaPais = m.pais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (mesaPais === "rep. dominicana" && normalized.includes("dominicana")) return true;
@@ -49,9 +76,12 @@ function assignMesa(inputPais: string): typeof mesas[number] {
     return matchedMesa;
   }
 
-  // Si no hay coincidencia exacta o es otro país, asigna una aleatoria
-  const index = Math.floor(Date.now() / 1000) % mesas.length;
-  return mesas[index];
+  // Si no hay coincidencia exacta o es otro país, asigna Mesa Internacional
+  return {
+    mesa: 19,
+    pais: "Internacional",
+    bandera: "🌐"
+  };
 }
 
 export function RegistrationSection() {
@@ -68,10 +98,10 @@ export function RegistrationSection() {
 
     const form = e.currentTarget;
     const data = {
-      nombre:   (form.elements.namedItem("nombre")   as HTMLInputElement).value,
-      pais:     (form.elements.namedItem("pais")     as HTMLInputElement).value,
-      empresa:  (form.elements.namedItem("empresa")  as HTMLInputElement).value,
-      email:    (form.elements.namedItem("email")    as HTMLInputElement).value,
+      nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
+      pais: (form.elements.namedItem("pais") as HTMLInputElement).value,
+      empresa: (form.elements.namedItem("empresa") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
       telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
       necesidad: (form.elements.namedItem("necesidad") as HTMLInputElement).value,
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
@@ -81,8 +111,8 @@ export function RegistrationSection() {
 
     const { error: dbError } = await supabase.from("registros").insert({
       ...data,
-      mesa_numero:  asignacion.mesa,
-      mesa_pais:    asignacion.pais,
+      mesa_numero: asignacion.mesa,
+      mesa_pais: asignacion.pais,
       mesa_bandera: asignacion.bandera,
     });
 
@@ -166,15 +196,41 @@ export function RegistrationSection() {
                 >
                   {field.label}
                 </label>
-                <input
-                  id={field.id}
-                  name={field.id}
-                  type={field.type}
-                  autoComplete={field.autoComplete}
-                  placeholder={field.placeholder}
-                  required
-                  className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground placeholder:text-primary-foreground/50 outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20"
-                />
+                {field.type === "select" ? (
+                  <div className="relative">
+                    <select
+                      id={field.id}
+                      name={field.id}
+                      required
+                      defaultValue=""
+                      className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 appearance-none"
+                    >
+                      <option value="" disabled className="text-black">
+                        {field.placeholder}
+                      </option>
+                      {paises.map((pais) => (
+                        <option key={pais} value={pais} className="text-black">
+                          {pais}
+                        </option>
+                      ))}
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white">
+                      <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                      </svg>
+                    </div>
+                  </div>
+                ) : (
+                  <input
+                    id={field.id}
+                    name={field.id}
+                    type={field.type}
+                    autoComplete={field.autoComplete}
+                    placeholder={field.placeholder}
+                    required
+                    className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground placeholder:text-primary-foreground/50 outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20"
+                  />
+                )}
               </div>
             ))}
 
