@@ -15,7 +15,7 @@ export type Registro = {
   telefono: string;
   necesidad?: string;
   ofrecimiento?: string;
-  mesa_numero: number;
+  mesa_numero: number | string;
   mesa_pais: string;
   mesa_bandera: string;
 };

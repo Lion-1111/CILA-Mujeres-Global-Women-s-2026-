@@ -222,12 +222,12 @@ export default function AdminPage() {
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Fecha</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Nombre</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">País</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium">Mesa Asignada</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Empresa</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Email</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Teléfono</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Necesidad</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Ofrecimiento</th>
-                  <th className="text-left px-4 py-3 text-white/50 font-medium">Mesa</th>
                 </tr>
               </thead>
               <tbody>
@@ -257,6 +257,16 @@ export default function AdminPage() {
                       </td>
                       <td className="px-4 py-3 font-medium text-white">{r.nombre}</td>
                       <td className="px-4 py-3 text-white/80">{r.pais}</td>
+                      <td className="px-4 py-3">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 px-3 py-1.5 text-xs font-semibold text-blue-200">
+                          {r.mesa_bandera?.startsWith("http") ? (
+                            <img src={r.mesa_bandera} alt="bandera" className="w-4 h-3 object-cover rounded-sm" />
+                          ) : (
+                            <span>{r.mesa_bandera}</span>
+                          )}
+                          Mesa {r.mesa_numero} ({r.mesa_pais})
+                        </span>
+                      </td>
                       <td className="px-4 py-3 text-white/70">{r.empresa}</td>
                       <td className="px-4 py-3 text-blue-300">{r.email}</td>
                       <td className="px-4 py-3 text-white/70">{r.telefono}</td>
@@ -283,11 +293,6 @@ export default function AdminPage() {
                               Ver
                             </button>
                           ) : null}
-                        </td>
-                        <td className="px-4 py-3">
-                          <span className="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium">
-                            {r.mesa_bandera} {r.mesa_pais}
-                          </span>
                         </td>
                     </tr>
                   ))

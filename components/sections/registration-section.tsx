@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Check, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
@@ -72,9 +72,22 @@ const mesas = [
   { mesa: 18, pais: "Honduras",        codigo: "hn" },
 ];
 
-type MesaAsignada = typeof mesas[number] | { mesa: 19; pais: "Internacional"; codigo: "global" };
+type MesaAsignada = 
+  | typeof mesas[number] 
+  | { mesa: number; pais: string; codigo: string }
+  | { mesa: string; pais: string; codigo: string };
 
-function assignMesa(inputPais: string): MesaAsignada {
+const VIP_CODES = ["01", "011", "001", "0001"];
+const INT_MESAS = [19, 20, 21];
+
+function assignMesa(inputPais: string, vipCode?: string | null): MesaAsignada {
+  const flagCode = paisCodigo[inputPais] || "global";
+
+  // 1. Asignar Mesa VIP si el código es válido
+  if (vipCode && VIP_CODES.includes(vipCode)) {
+    return { mesa: vipCode, pais: "Invitado Especial", codigo: flagCode };
+  }
+
   const normalized = inputPais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
   const matchedMesa = mesas.find(m => {
@@ -86,7 +99,13 @@ function assignMesa(inputPais: string): MesaAsignada {
 
   if (matchedMesa) return matchedMesa;
 
-  return { mesa: 19, pais: "Internacional", codigo: "global" };
+  // 3. Si no tiene mesa propia, asignar una de las 3 Mesas Internacionales al azar
+  const randomIntMesa = INT_MESAS[Math.floor(Math.random() * INT_MESAS.length)];
+  
+  // Si eligió "Otro país", sí decimos "Internacional", si no, dejamos su país
+  const displayPais = inputPais === "Otro país / Otra región" ? "Internacional" : inputPais;
+  
+  return { mesa: randomIntMesa, pais: displayPais, codigo: flagCode };
 }
 
 export function RegistrationSection() {
@@ -96,6 +115,16 @@ export function RegistrationSection() {
   const [mesaAsignada, setMesaAsignada]   = useState<MesaAsignada | null>(null);
   const [registeredName, setRegisteredName] = useState<string | null>(null);
   const [selectedPais, setSelectedPais]   = useState<string>("");
+  const [vipCode, setVipCode]             = useState<string | null>(null);
+
+  useEffect(() => {
+    // Detectar si el usuario entró con un link VIP (ej. ?vip=01)
+    if (typeof window !== "undefined") {
+      const searchParams = new URLSearchParams(window.location.search);
+      const vip = searchParams.get("vip");
+      if (vip) setVipCode(vip);
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -113,7 +142,9 @@ export function RegistrationSection() {
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
-    const asignacion = assignMesa(data.pais);
+    const asignacion = assignMesa(data.pais, vipCode);
+    
+    // Asignar el icono correspondiente si es Global (🌐) o la bandera real
     const bandera = asignacion.codigo === "global" ? "🌐" : `https://flagcdn.com/w80/${asignacion.codigo}.png`;
 
     const { error: dbError } = await supabase.from("registros").insert({
