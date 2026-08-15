@@ -132,9 +132,19 @@ export function RegistrationSection() {
     setError(null);
 
     const form = e.currentTarget;
+    let inputPaisStr = (form.elements.namedItem("pais") as HTMLInputElement).value;
+    
+    // Si eligió "Otro país", leer el cuadro de texto adicional
+    if (inputPaisStr === "Otro país / Otra región") {
+      const customInput = form.elements.namedItem("customPais") as HTMLInputElement;
+      if (customInput && customInput.value.trim() !== "") {
+        inputPaisStr = customInput.value.trim();
+      }
+    }
+
     const data = {
       nombre:       (form.elements.namedItem("nombre")       as HTMLInputElement).value,
-      pais:         (form.elements.namedItem("pais")         as HTMLInputElement).value,
+      pais:         inputPaisStr,
       empresa:      (form.elements.namedItem("empresa")      as HTMLInputElement).value,
       email:        (form.elements.namedItem("email")        as HTMLInputElement).value,
       telefono:     (form.elements.namedItem("telefono")     as HTMLInputElement).value,
@@ -142,7 +152,7 @@ export function RegistrationSection() {
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
-    const asignacion = assignMesa(data.pais, vipCode);
+    const asignacion = assignMesa(inputPaisStr, vipCode);
     
     // Asignar el icono correspondiente si es Global (🌐) o la bandera real
     const bandera = asignacion.codigo === "global" ? "🌐" : `https://flagcdn.com/w80/${asignacion.codigo}.png`;
@@ -261,7 +271,8 @@ export function RegistrationSection() {
                   {field.label}
                 </label>
                 {field.type === "select" ? (
-                  <div className="relative">
+                  <React.Fragment>
+                    <div className="relative">
                     {/* Preview de bandera en tiempo real */}
                     {flagUrl && (
                       <div className="absolute inset-y-0 left-3 flex items-center z-10 pointer-events-none">
@@ -297,6 +308,17 @@ export function RegistrationSection() {
                       </svg>
                     </div>
                   </div>
+                  {/* Cuadro de texto para país personalizado si eligió "Otro país" */}
+                  {field.id === "pais" && selectedPais === "Otro país / Otra región" && (
+                    <input
+                      type="text"
+                      name="customPais"
+                      required
+                      placeholder="Escribe tu país o región"
+                      className="mt-2 w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 placeholder:text-white/50"
+                    />
+                  )}
+                </React.Fragment>
                 ) : (
                   <input
                     id={field.id}
