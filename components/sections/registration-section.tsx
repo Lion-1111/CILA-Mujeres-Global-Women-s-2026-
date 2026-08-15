@@ -1,68 +1,80 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Check, Loader2 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
-const paises = [
-  "Argentina",
-  "Bolivia",
-  "Brasil",
-  "Canadá",
-  "Chile",
-  "Colombia",
-  "Costa Rica",
-  "Cuba",
-  "Ecuador",
-  "El Salvador",
-  "España",
-  "Estados Unidos",
-  "Guatemala",
-  "Honduras",
-  "México",
-  "Nicaragua",
-  "Panamá",
-  "Paraguay",
-  "Perú",
-  "Puerto Rico",
-  "Rep. Dominicana",
-  "Uruguay",
-  "Venezuela",
-  "Otro país / Otra región"
-];
+// Mapeo país → código ISO para flagcdn.com
+const paisCodigo: Record<string, string> = {
+  "Argentina":              "ar",
+  "Bolivia":                "bo",
+  "Brasil":                 "br",
+  "Canadá":                 "ca",
+  "Chile":                  "cl",
+  "Colombia":               "co",
+  "Costa Rica":             "cr",
+  "Cuba":                   "cu",
+  "Ecuador":                "ec",
+  "El Salvador":            "sv",
+  "España":                 "es",
+  "Estados Unidos":         "us",
+  "Guatemala":              "gt",
+  "Honduras":               "hn",
+  "México":                 "mx",
+  "Nicaragua":              "ni",
+  "Panamá":                 "pa",
+  "Paraguay":               "py",
+  "Perú":                   "pe",
+  "Puerto Rico":            "pr",
+  "Rep. Dominicana":        "do",
+  "Uruguay":                "uy",
+  "Venezuela":              "ve",
+};
+
+function getFlagUrl(pais: string, size: number = 80): string {
+  const code = paisCodigo[pais];
+  if (!code) return "";
+  return `https://flagcdn.com/w${size}/${code}.png`;
+}
+
+const paises = Object.keys(paisCodigo).sort((a, b) => a.localeCompare(b, "es"));
+paises.push("Otro país / Otra región");
 
 const fields = [
-  { id: "nombre", label: "Nombre completo", type: "text", autoComplete: "name", placeholder: "Tu nombre y apellidos" },
-  { id: "pais", label: "País", type: "select", autoComplete: "country-name", placeholder: "Selecciona tu país..." },
-  { id: "empresa", label: "Empresa u organización", type: "text", autoComplete: "organization", placeholder: "Nombre de tu empresa" },
-  { id: "email", label: "Correo electrónico", type: "email", autoComplete: "email", placeholder: "nombre@correo.com" },
-  { id: "telefono", label: "WhatsApp / teléfono", type: "tel", autoComplete: "tel", placeholder: "+52 ..." },
-  { id: "necesidad", label: "¿Qué producto o alianza inmobiliaria necesitas?", type: "text", autoComplete: "off", placeholder: "Ej. Busco inversionistas, propiedades..." },
-  { id: "ofrecimiento", label: "¿Qué producto o alianza inmobiliaria nos compartirás?", type: "text", autoComplete: "off", placeholder: "Ej. Ofrezco desarrollos exclusivos..." },
+  { id: "nombre",       label: "Nombre completo",                                    type: "text",   autoComplete: "name",         placeholder: "Tu nombre y apellidos" },
+  { id: "pais",         label: "País",                                                type: "select", autoComplete: "country-name", placeholder: "Selecciona tu país..." },
+  { id: "empresa",      label: "Empresa u organización",                              type: "text",   autoComplete: "organization", placeholder: "Nombre de tu empresa" },
+  { id: "email",        label: "Correo electrónico",                                  type: "email",  autoComplete: "email",        placeholder: "nombre@correo.com" },
+  { id: "telefono",     label: "WhatsApp / teléfono",                                 type: "tel",    autoComplete: "tel",          placeholder: "+52 ..." },
+  { id: "necesidad",    label: "¿Qué producto o alianza inmobiliaria necesitas?",     type: "text",   autoComplete: "off",          placeholder: "Ej. Busco inversionistas, propiedades..." },
+  { id: "ofrecimiento", label: "¿Qué producto o alianza inmobiliaria nos compartirás?", type: "text", autoComplete: "off",         placeholder: "Ej. Ofrezco desarrollos exclusivos..." },
 ] as const;
 
 const mesas = [
-  { mesa: 1, pais: "España", bandera: "🇪🇸" },
-  { mesa: 2, pais: "México", bandera: "🇲🇽" },
-  { mesa: 3, pais: "Brasil", bandera: "🇧🇷" },
-  { mesa: 4, pais: "Colombia", bandera: "🇨🇴" },
-  { mesa: 5, pais: "Argentina", bandera: "🇦🇷" },
-  { mesa: 6, pais: "Costa Rica", bandera: "🇨🇷" },
-  { mesa: 7, pais: "Uruguay", bandera: "🇺🇾" },
-  { mesa: 8, pais: "Paraguay", bandera: "🇵🇾" },
-  { mesa: 9, pais: "Rep. Dominicana", bandera: "🇩🇴" },
-  { mesa: 10, pais: "Bolivia", bandera: "🇧🇴" },
-  { mesa: 11, pais: "Venezuela", bandera: "🇻🇪" },
-  { mesa: 12, pais: "Ecuador", bandera: "🇪🇨" },
-  { mesa: 13, pais: "Panamá", bandera: "🇵🇦" },
-  { mesa: 14, pais: "El Salvador", bandera: "🇸🇻" },
-  { mesa: 15, pais: "Chile", bandera: "🇨🇱" },
-  { mesa: 16, pais: "Perú", bandera: "🇵🇪" },
-  { mesa: 17, pais: "Guatemala", bandera: "🇬🇹" },
-  { mesa: 18, pais: "Honduras", bandera: "🇭🇳" },
+  { mesa: 1,  pais: "España",          codigo: "es" },
+  { mesa: 2,  pais: "México",          codigo: "mx" },
+  { mesa: 3,  pais: "Brasil",          codigo: "br" },
+  { mesa: 4,  pais: "Colombia",        codigo: "co" },
+  { mesa: 5,  pais: "Argentina",       codigo: "ar" },
+  { mesa: 6,  pais: "Costa Rica",      codigo: "cr" },
+  { mesa: 7,  pais: "Uruguay",         codigo: "uy" },
+  { mesa: 8,  pais: "Paraguay",        codigo: "py" },
+  { mesa: 9,  pais: "Rep. Dominicana", codigo: "do" },
+  { mesa: 10, pais: "Bolivia",         codigo: "bo" },
+  { mesa: 11, pais: "Venezuela",       codigo: "ve" },
+  { mesa: 12, pais: "Ecuador",         codigo: "ec" },
+  { mesa: 13, pais: "Panamá",          codigo: "pa" },
+  { mesa: 14, pais: "El Salvador",     codigo: "sv" },
+  { mesa: 15, pais: "Chile",           codigo: "cl" },
+  { mesa: 16, pais: "Perú",            codigo: "pe" },
+  { mesa: 17, pais: "Guatemala",       codigo: "gt" },
+  { mesa: 18, pais: "Honduras",        codigo: "hn" },
 ];
 
-function assignMesa(inputPais: string): typeof mesas[number] {
+type MesaAsignada = typeof mesas[number] | { mesa: 19; pais: "Internacional"; codigo: "global" };
+
+function assignMesa(inputPais: string): MesaAsignada {
   const normalized = inputPais.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
   const matchedMesa = mesas.find(m => {
@@ -72,24 +84,18 @@ function assignMesa(inputPais: string): typeof mesas[number] {
     return normalized.includes(mesaPais);
   });
 
-  if (matchedMesa) {
-    return matchedMesa;
-  }
+  if (matchedMesa) return matchedMesa;
 
-  // Si no hay coincidencia exacta o es otro país, asigna Mesa Internacional
-  return {
-    mesa: 19,
-    pais: "Internacional",
-    bandera: "🌐"
-  };
+  return { mesa: 19, pais: "Internacional", codigo: "global" };
 }
 
 export function RegistrationSection() {
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [mesaAsignada, setMesaAsignada] = useState<typeof mesas[number] | null>(null);
+  const [submitted, setSubmitted]         = useState(false);
+  const [loading, setLoading]             = useState(false);
+  const [error, setError]                 = useState<string | null>(null);
+  const [mesaAsignada, setMesaAsignada]   = useState<MesaAsignada | null>(null);
   const [registeredName, setRegisteredName] = useState<string | null>(null);
+  const [selectedPais, setSelectedPais]   = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -98,22 +104,23 @@ export function RegistrationSection() {
 
     const form = e.currentTarget;
     const data = {
-      nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
-      pais: (form.elements.namedItem("pais") as HTMLInputElement).value,
-      empresa: (form.elements.namedItem("empresa") as HTMLInputElement).value,
-      email: (form.elements.namedItem("email") as HTMLInputElement).value,
-      telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
-      necesidad: (form.elements.namedItem("necesidad") as HTMLInputElement).value,
+      nombre:       (form.elements.namedItem("nombre")       as HTMLInputElement).value,
+      pais:         (form.elements.namedItem("pais")         as HTMLInputElement).value,
+      empresa:      (form.elements.namedItem("empresa")      as HTMLInputElement).value,
+      email:        (form.elements.namedItem("email")        as HTMLInputElement).value,
+      telefono:     (form.elements.namedItem("telefono")     as HTMLInputElement).value,
+      necesidad:    (form.elements.namedItem("necesidad")    as HTMLInputElement).value,
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
     const asignacion = assignMesa(data.pais);
+    const bandera = asignacion.codigo === "global" ? "🌐" : `https://flagcdn.com/w80/${asignacion.codigo}.png`;
 
     const { error: dbError } = await supabase.from("registros").insert({
       ...data,
-      mesa_numero: asignacion.mesa,
-      mesa_pais: asignacion.pais,
-      mesa_bandera: asignacion.bandera,
+      mesa_numero:  asignacion.mesa,
+      mesa_pais:    asignacion.pais,
+      mesa_bandera: bandera,
     });
 
     setLoading(false);
@@ -125,9 +132,11 @@ export function RegistrationSection() {
     }
 
     setMesaAsignada(asignacion);
-    setRegisteredName(data.nombre.split(" ")[0]); // Use first name for a friendlier welcome
+    setRegisteredName(data.nombre.split(" ")[0]);
     setSubmitted(true);
   };
+
+  const flagUrl = selectedPais ? getFlagUrl(selectedPais) : null;
 
   return (
     <section id="registro" className="bg-gradient-to-br from-[#1e3a8a] via-[#1e40af] to-[#15803d] text-primary-foreground">
@@ -160,14 +169,38 @@ export function RegistrationSection() {
             </p>
 
             <div className="mt-8 w-full max-w-sm rounded-2xl border border-white/20 bg-white/10 px-8 py-6 shadow-md relative overflow-hidden">
+              {/* Watermark bandera */}
               <div className="absolute top-0 right-0 p-4 opacity-10">
-                <span className="text-8xl">{mesaAsignada.bandera}</span>
+                {mesaAsignada.codigo === "global" ? (
+                  <span className="text-8xl">🌐</span>
+                ) : (
+                  <Image
+                    src={`https://flagcdn.com/w160/${mesaAsignada.codigo}.png`}
+                    alt={mesaAsignada.pais}
+                    width={120}
+                    height={90}
+                    className="object-cover rounded"
+                  />
+                )}
               </div>
+
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 mb-4 relative z-10">
                 Tu mesa asignada
               </p>
+
               <div className="flex items-center justify-start gap-5 relative z-10">
-                <span className="text-6xl drop-shadow-md leading-none">{mesaAsignada.bandera}</span>
+                {/* Bandera principal */}
+                {mesaAsignada.codigo === "global" ? (
+                  <span className="text-6xl drop-shadow-md leading-none">🌐</span>
+                ) : (
+                  <Image
+                    src={`https://flagcdn.com/w80/${mesaAsignada.codigo}.png`}
+                    alt={mesaAsignada.pais}
+                    width={80}
+                    height={54}
+                    className="rounded-md shadow-md object-cover"
+                  />
+                )}
                 <div className="text-left">
                   <p className="font-serif text-3xl font-bold text-white">{mesaAsignada.pais}</p>
                   <p className="text-sm text-primary-foreground/80 mt-1 font-medium">Mesa {mesaAsignada.mesa} · Circuito de Negocios</p>
@@ -180,7 +213,7 @@ export function RegistrationSection() {
 
             <button
               type="button"
-              onClick={() => { setSubmitted(false); setMesaAsignada(null); setRegisteredName(null); }}
+              onClick={() => { setSubmitted(false); setMesaAsignada(null); setRegisteredName(null); setSelectedPais(""); }}
               className="mt-8 rounded-full border border-primary-foreground/30 px-6 py-3 text-sm font-medium transition-colors hover:bg-white hover:text-[#1e3a8a]"
             >
               Registrar a otra persona
@@ -198,12 +231,25 @@ export function RegistrationSection() {
                 </label>
                 {field.type === "select" ? (
                   <div className="relative">
+                    {/* Preview de bandera en tiempo real */}
+                    {flagUrl && (
+                      <div className="absolute inset-y-0 left-3 flex items-center z-10 pointer-events-none">
+                        <Image
+                          src={flagUrl}
+                          alt={selectedPais}
+                          width={28}
+                          height={20}
+                          className="rounded-sm object-cover shadow"
+                        />
+                      </div>
+                    )}
                     <select
                       id={field.id}
                       name={field.id}
                       required
-                      defaultValue=""
-                      className="w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 appearance-none"
+                      value={selectedPais}
+                      onChange={(e) => setSelectedPais(e.target.value)}
+                      className={`w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 py-3 pr-10 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 appearance-none ${flagUrl ? "pl-12" : "pl-4"}`}
                     >
                       <option value="" disabled className="text-black">
                         {field.placeholder}
