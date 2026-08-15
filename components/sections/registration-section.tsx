@@ -271,7 +271,7 @@ export function RegistrationSection() {
                   {field.label}
                 </label>
                 {field.type === "select" ? (
-                  <React.Fragment>
+                  <>
                     <div className="relative">
                     {/* Preview de bandera en tiempo real */}
                     {flagUrl && (
@@ -318,7 +318,7 @@ export function RegistrationSection() {
                       className="mt-2 w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 placeholder:text-white/50"
                     />
                   )}
-                </React.Fragment>
+                  </>
                 ) : (
                   <input
                     id={field.id}
