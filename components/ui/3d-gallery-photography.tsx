@@ -21,13 +21,13 @@ interface BlurSettings {
 interface InfiniteGalleryProps {
   images: ImageItem[];
   speed?: number;
-  zSpacing?: number;
   visibleCount?: number;
-  falloff?: { near: number; far: number };
   fadeSettings?: FadeSettings;
   blurSettings?: BlurSettings;
   className?: string;
   style?: React.CSSProperties;
+  /** When provided, drives the gallery from page scroll progress (0→1). No autoplay. */
+  progressRef?: React.RefObject<number>;
 }
 
 const DEFAULT_DEPTH_RANGE = 50;
@@ -149,6 +149,7 @@ function GalleryScene({
   images,
   speed = 1,
   visibleCount = 8,
+  progressRef,
   fadeSettings = {
     fadeIn: { start: 0.05, end: 0.15 },
     fadeOut: { start: 0.85, end: 0.95 },
@@ -159,9 +160,18 @@ function GalleryScene({
     maxBlur: 3.0,
   },
 }: Omit<InfiniteGalleryProps, "className" | "style">) {
+  // Two modes:
+  // 1. progressRef provided → scroll-driven, no autoplay
+  // 2. No progressRef → classic autoplay + wheel/touch interaction
   const scrollVelocity = useRef(0);
-  const autoPlay = useRef(true);
+  const autoPlay = useRef(!progressRef);
   const lastInteraction = useRef(Date.now());
+  const touchStartY = useRef(0);
+
+  // For smooth progress-driven animation
+  const smoothedZ = useRef(0);  // current smoothed z offset (0 → depthRange)
+  const prevSmoothedZ = useRef(0);
+
   const [, forceRender] = useState(0);
 
   const normalizedImages = useMemo(
@@ -218,17 +228,44 @@ function GalleryScene({
     }));
   }, [depthRange, spatialPositions, totalImages, visibleCount]);
 
+  // --- Wheel / Touch / Keyboard (only used in autoplay/manual mode) ---
   const handleWheel = useCallback(
     (event: WheelEvent) => {
-      scrollVelocity.current += event.deltaY * 0.01 * speed;
+      if (progressRef) return; // ignore in scroll-driven mode
+      event.preventDefault();
+      scrollVelocity.current += event.deltaY * 0.015 * speed;
       autoPlay.current = false;
       lastInteraction.current = Date.now();
     },
-    [speed],
+    [speed, progressRef],
+  );
+
+  const handleTouchStart = useCallback(
+    (event: TouchEvent) => {
+      if (progressRef) return;
+      touchStartY.current = event.touches[0]?.clientY ?? 0;
+      autoPlay.current = false;
+      lastInteraction.current = Date.now();
+    },
+    [progressRef],
+  );
+
+  const handleTouchMove = useCallback(
+    (event: TouchEvent) => {
+      if (progressRef) return;
+      const currentY = event.touches[0]?.clientY ?? 0;
+      const deltaY = touchStartY.current - currentY;
+      scrollVelocity.current += deltaY * 0.05 * speed;
+      touchStartY.current = currentY;
+      autoPlay.current = false;
+      lastInteraction.current = Date.now();
+    },
+    [speed, progressRef],
   );
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
+      if (progressRef) return;
       if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
         scrollVelocity.current -= 2 * speed;
       } else if (event.key === "ArrowDown" || event.key === "ArrowRight") {
@@ -239,37 +276,56 @@ function GalleryScene({
       autoPlay.current = false;
       lastInteraction.current = Date.now();
     },
-    [speed],
+    [speed, progressRef],
   );
 
   useEffect(() => {
-    const canvas = document.querySelector('canvas');
-    if (canvas) {
-      canvas.addEventListener('wheel', handleWheel, { passive: true });
-      document.addEventListener('keydown', handleKeyDown);
-      return () => {
-        canvas.removeEventListener('wheel', handleWheel);
-        document.removeEventListener('keydown', handleKeyDown);
-      };
-    }
-  }, [handleWheel, handleKeyDown]);
+    const canvas = document.querySelector("canvas");
+    if (!canvas) return;
+    canvas.addEventListener("wheel", handleWheel, { passive: false });
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: true });
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: true });
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      canvas.removeEventListener("wheel", handleWheel);
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleWheel, handleTouchStart, handleTouchMove, handleKeyDown]);
 
   useFrame((state, delta) => {
-    if (Date.now() - lastInteraction.current > 3000) autoPlay.current = true;
-    if (autoPlay.current) scrollVelocity.current += 0.3 * delta;
-    scrollVelocity.current *= 0.95;
+    let frameVelocity = 0;
+
+    if (progressRef) {
+      // ── SCROLL-DRIVEN MODE ──
+      // Map progress (0→1) to z (0→depthRange). Lerp for smoothness.
+      const targetZ = (progressRef.current ?? 0) * depthRange;
+      smoothedZ.current = THREE.MathUtils.lerp(smoothedZ.current, targetZ, 0.08);
+      // Derive per-frame velocity from the smoothed z delta
+      const zDelta = smoothedZ.current - prevSmoothedZ.current;
+      prevSmoothedZ.current = smoothedZ.current;
+      // Convert to velocity units the plane loop expects (vel * delta * 10)
+      frameVelocity = delta > 0 ? zDelta / (delta * 10) : 0;
+    } else {
+      // ── AUTOPLAY / MANUAL MODE ──
+      if (Date.now() - lastInteraction.current > 3000) autoPlay.current = true;
+      if (autoPlay.current) scrollVelocity.current += 0.3 * delta;
+      scrollVelocity.current *= 0.92;
+      frameVelocity = scrollVelocity.current;
+    }
 
     const time = state.clock.getElapsedTime();
     materials.forEach((material) => {
       u(material)["time"]!.value = time;
-      u(material)["scrollForce"]!.value = scrollVelocity.current;
+      u(material)["scrollForce"]!.value = frameVelocity;
     });
 
     const imageAdvance = totalImages > 0 ? visibleCount % totalImages || totalImages : 0;
     const totalRange = depthRange;
 
     planesData.current.forEach((plane, i) => {
-      let newZ = plane.z + scrollVelocity.current * delta * 10;
+      let newZ = plane.z + frameVelocity * delta * 10;
       let wrapsForward = 0;
       let wrapsBackward = 0;
 
@@ -401,6 +457,7 @@ export default function InfiniteGallery({
   visibleCount = 8,
   className = "h-96 w-full",
   style,
+  progressRef,
   fadeSettings = {
     fadeIn: { start: 0.05, end: 0.25 },
     fadeOut: { start: 0.4, end: 0.43 },
@@ -439,6 +496,7 @@ export default function InfiniteGallery({
             images={images}
             speed={speed}
             visibleCount={visibleCount}
+            progressRef={progressRef}
             fadeSettings={fadeSettings}
             blurSettings={blurSettings}
           />
@@ -447,4 +505,3 @@ export default function InfiniteGallery({
     </div>
   );
 }
-
