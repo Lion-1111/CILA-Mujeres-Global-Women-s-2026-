@@ -240,42 +240,69 @@ export default function AdminPage() {
       <main className="max-w-7xl mx-auto px-6 py-8">
         {/* Stats */}
         {(() => {
+          const MAX_CUPO = 200;
           const dupGroups = getDuplicateGroups(registros);
           const dupEmailCount = Object.keys(dupGroups).length;
           const uniqueCount = new Set(registros.map((r) => r.email.trim().toLowerCase())).size;
+          const cupoRestante = MAX_CUPO - uniqueCount;
+          const pct = Math.min(100, Math.round((uniqueCount / MAX_CUPO) * 100));
           return (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div className="flex flex-col gap-4 mb-8">
+              {/* Barra de cupo */}
               <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <Users size={20} className="text-blue-400" />
-                  <span className="text-white/60 text-sm">Total registros</span>
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-white/60 text-sm font-medium">Cupo del evento</span>
+                  <span className={`text-sm font-bold ${cupoRestante <= 0 ? "text-red-400" : "text-green-400"}`}>
+                    {cupoRestante <= 0 ? "¡Cupo completo!" : `${cupoRestante} lugares disponibles`}
+                  </span>
                 </div>
-                <p className="text-4xl font-bold text-white">{registros.length}</p>
+                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+                  <div
+                    className={`h-3 rounded-full transition-all ${pct >= 100 ? "bg-red-500" : pct >= 80 ? "bg-yellow-400" : "bg-green-400"}`}
+                    style={{ width: `${pct}%` }}
+                  />
+                </div>
+                <div className="flex justify-between mt-2 text-xs text-white/40">
+                  <span>{uniqueCount} personas únicas registradas</span>
+                  <span>Meta: {MAX_CUPO}</span>
+                </div>
               </div>
-              <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <CheckCircle2 size={20} className="text-green-400" />
-                  <span className="text-white/60 text-sm">Correos únicos</span>
+
+              {/* Tarjetas */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Users size={20} className="text-blue-400" />
+                    <span className="text-white/60 text-sm">Total filas</span>
+                  </div>
+                  <p className="text-4xl font-bold text-white">{registros.length}</p>
                 </div>
-                <p className="text-4xl font-bold text-green-400">{uniqueCount}</p>
-              </div>
-              <div className={`rounded-2xl border p-6 ${dupEmailCount > 0 ? "bg-red-900/20 border-red-500/40" : "bg-white/5 border-white/10"}`}>
-                <div className="flex items-center gap-3 mb-2">
-                  <AlertTriangle size={20} className={dupEmailCount > 0 ? "text-red-400" : "text-white/30"} />
-                  <span className="text-white/60 text-sm">Correos duplicados</span>
+                <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <CheckCircle2 size={20} className="text-green-400" />
+                    <span className="text-white/60 text-sm">Únicos reales</span>
+                  </div>
+                  <p className="text-4xl font-bold text-green-400">{uniqueCount}</p>
                 </div>
-                <p className={`text-4xl font-bold ${dupEmailCount > 0 ? "text-red-400" : "text-white"}`}>{dupEmailCount}</p>
-              </div>
-              <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="text-lg">🌎</span>
-                  <span className="text-white/60 text-sm">Países representados</span>
+                <div className={`rounded-2xl border p-6 ${dupEmailCount > 0 ? "bg-red-900/20 border-red-500/40" : "bg-white/5 border-white/10"}`}>
+                  <div className="flex items-center gap-3 mb-2">
+                    <AlertTriangle size={20} className={dupEmailCount > 0 ? "text-red-400" : "text-white/30"} />
+                    <span className="text-white/60 text-sm">Duplicados</span>
+                  </div>
+                  <p className={`text-4xl font-bold ${dupEmailCount > 0 ? "text-red-400" : "text-white"}`}>{dupEmailCount}</p>
                 </div>
-                <p className="text-4xl font-bold text-white">{new Set(registros.map((r) => r.pais)).size}</p>
+                <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-lg">🌎</span>
+                    <span className="text-white/60 text-sm">Países</span>
+                  </div>
+                  <p className="text-4xl font-bold text-white">{new Set(registros.map((r) => r.pais)).size}</p>
+                </div>
               </div>
             </div>
           );
         })()}
+
 
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
