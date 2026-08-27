@@ -266,16 +266,14 @@ export function RegistrationSection() {
 
   const renderFormulario = () => (
     <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-5">
-      {/* Indicador de cupo disponible */}
       {cupoRestante !== null && cupoRestante > 0 && (
-        <div className="flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 px-4 py-2.5 text-sm text-primary-foreground/80">
-          <Users size={15} className="text-white/60" />
+        <div className="flex items-center justify-center gap-2 rounded-xl bg-red-500/10 border border-red-500/20 px-4 py-2.5 text-sm text-white">
+          <Users size={15} className="text-red-400" />
           <span>
-            <strong className="text-white font-semibold">{cupoRestante}</strong> {cupoRestante === 1 ? "lugar disponible" : "lugares disponibles"} de {MAX_CUPO}
+            <strong className="font-semibold text-red-400">Últimos lugares</strong> disponibles
           </span>
         </div>
       )}
-
       {FIELDS.map((field) => (
         <div key={field.id} className="flex flex-col gap-2">
           <label htmlFor={field.id} className="text-sm font-medium text-primary-foreground/90">
