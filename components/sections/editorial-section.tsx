@@ -6,7 +6,7 @@ import Image from "next/image";
 const specs = [
   { label: "Fecha", value: "28 AGO" },
   { label: "Mesas", value: "18" },
-  { label: "Horario", value: "12–14h" },
+  { label: "Horario", value: "10–13h" },
   { label: "Edición", value: "2026" },
 ];
 
