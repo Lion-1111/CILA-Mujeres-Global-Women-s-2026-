@@ -363,7 +363,7 @@ function GalleryScene({
         opacity =
           1 -
           (normalizedPosition - fadeSettings.fadeOut.start) /
-            (fadeSettings.fadeOut.end - fadeSettings.fadeOut.start);
+          (fadeSettings.fadeOut.end - fadeSettings.fadeOut.start);
       }
       opacity = Math.max(0, Math.min(1, opacity));
 

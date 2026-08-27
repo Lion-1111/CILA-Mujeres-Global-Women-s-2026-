@@ -7,29 +7,29 @@ import { supabase } from "@/lib/supabase";
 
 // Mapeo país → código ISO para flagcdn.com
 const paisCodigo: Record<string, string> = {
-  "Argentina":              "ar",
-  "Bolivia":                "bo",
-  "Brasil":                 "br",
-  "Canadá":                 "ca",
-  "Chile":                  "cl",
-  "Colombia":               "co",
-  "Costa Rica":             "cr",
-  "Cuba":                   "cu",
-  "Ecuador":                "ec",
-  "El Salvador":            "sv",
-  "España":                 "es",
-  "Estados Unidos":         "us",
-  "Guatemala":              "gt",
-  "Honduras":               "hn",
-  "México":                 "mx",
-  "Nicaragua":              "ni",
-  "Panamá":                 "pa",
-  "Paraguay":               "py",
-  "Perú":                   "pe",
-  "Puerto Rico":            "pr",
-  "Rep. Dominicana":        "do",
-  "Uruguay":                "uy",
-  "Venezuela":              "ve",
+  "Argentina": "ar",
+  "Bolivia": "bo",
+  "Brasil": "br",
+  "Canadá": "ca",
+  "Chile": "cl",
+  "Colombia": "co",
+  "Costa Rica": "cr",
+  "Cuba": "cu",
+  "Ecuador": "ec",
+  "El Salvador": "sv",
+  "España": "es",
+  "Estados Unidos": "us",
+  "Guatemala": "gt",
+  "Honduras": "hn",
+  "México": "mx",
+  "Nicaragua": "ni",
+  "Panamá": "pa",
+  "Paraguay": "py",
+  "Perú": "pe",
+  "Puerto Rico": "pr",
+  "Rep. Dominicana": "do",
+  "Uruguay": "uy",
+  "Venezuela": "ve",
 };
 
 function getFlagUrl(pais: string, size: number = 80): string {
@@ -42,38 +42,38 @@ const paises = Object.keys(paisCodigo).sort((a, b) => a.localeCompare(b, "es"));
 paises.push("Otro país / Otra región");
 
 const fields = [
-  { id: "nombre",       label: "Nombre completo",                                    type: "text",   autoComplete: "name",         placeholder: "Tu nombre y apellidos" },
-  { id: "pais",         label: "País",                                                type: "select", autoComplete: "country-name", placeholder: "Selecciona tu país..." },
-  { id: "empresa",      label: "Empresa u organización",                              type: "text",   autoComplete: "organization", placeholder: "Nombre de tu empresa" },
-  { id: "email",        label: "Correo electrónico",                                  type: "email",  autoComplete: "email",        placeholder: "nombre@correo.com" },
-  { id: "telefono",     label: "WhatsApp / teléfono",                                 type: "tel",    autoComplete: "tel",          placeholder: "+52 ..." },
-  { id: "necesidad",    label: "¿Qué producto o alianza inmobiliaria necesitas?",     type: "text",   autoComplete: "off",          placeholder: "Ej. Busco inversionistas, propiedades..." },
-  { id: "ofrecimiento", label: "¿Qué producto o alianza inmobiliaria nos compartirás?", type: "text", autoComplete: "off",         placeholder: "Ej. Ofrezco desarrollos exclusivos..." },
+  { id: "nombre", label: "Nombre completo", type: "text", autoComplete: "name", placeholder: "Tu nombre y apellidos" },
+  { id: "pais", label: "País", type: "select", autoComplete: "country-name", placeholder: "Selecciona tu país..." },
+  { id: "empresa", label: "Empresa u organización", type: "text", autoComplete: "organization", placeholder: "Nombre de tu empresa" },
+  { id: "email", label: "Correo electrónico", type: "email", autoComplete: "email", placeholder: "nombre@correo.com" },
+  { id: "telefono", label: "WhatsApp / teléfono", type: "tel", autoComplete: "tel", placeholder: "+52 ..." },
+  { id: "necesidad", label: "¿Qué producto o alianza inmobiliaria necesitas?", type: "text", autoComplete: "off", placeholder: "Ej. Busco inversionistas, propiedades..." },
+  { id: "ofrecimiento", label: "¿Qué producto o alianza inmobiliaria nos compartirás?", type: "text", autoComplete: "off", placeholder: "Ej. Ofrezco desarrollos exclusivos..." },
 ] as const;
 
 const mesas = [
-  { mesa: 1,  pais: "España",          codigo: "es" },
-  { mesa: 2,  pais: "México",          codigo: "mx" },
-  { mesa: 3,  pais: "Brasil",          codigo: "br" },
-  { mesa: 4,  pais: "Colombia",        codigo: "co" },
-  { mesa: 5,  pais: "Argentina",       codigo: "ar" },
-  { mesa: 6,  pais: "Costa Rica",      codigo: "cr" },
-  { mesa: 7,  pais: "Uruguay",         codigo: "uy" },
-  { mesa: 8,  pais: "Paraguay",        codigo: "py" },
-  { mesa: 9,  pais: "Rep. Dominicana", codigo: "do" },
-  { mesa: 10, pais: "Bolivia",         codigo: "bo" },
-  { mesa: 11, pais: "Venezuela",       codigo: "ve" },
-  { mesa: 12, pais: "Ecuador",         codigo: "ec" },
-  { mesa: 13, pais: "Panamá",          codigo: "pa" },
-  { mesa: 14, pais: "El Salvador",     codigo: "sv" },
-  { mesa: 15, pais: "Chile",           codigo: "cl" },
-  { mesa: 16, pais: "Perú",            codigo: "pe" },
-  { mesa: 17, pais: "Guatemala",       codigo: "gt" },
-  { mesa: 18, pais: "Honduras",        codigo: "hn" },
+  { mesa: 1, pais: "España", codigo: "es" },
+  { mesa: 2, pais: "México", codigo: "mx" },
+  { mesa: 3, pais: "Brasil", codigo: "br" },
+  { mesa: 4, pais: "Colombia", codigo: "co" },
+  { mesa: 5, pais: "Argentina", codigo: "ar" },
+  { mesa: 6, pais: "Costa Rica", codigo: "cr" },
+  { mesa: 7, pais: "Uruguay", codigo: "uy" },
+  { mesa: 8, pais: "Paraguay", codigo: "py" },
+  { mesa: 9, pais: "Rep. Dominicana", codigo: "do" },
+  { mesa: 10, pais: "Bolivia", codigo: "bo" },
+  { mesa: 11, pais: "Venezuela", codigo: "ve" },
+  { mesa: 12, pais: "Ecuador", codigo: "ec" },
+  { mesa: 13, pais: "Panamá", codigo: "pa" },
+  { mesa: 14, pais: "El Salvador", codigo: "sv" },
+  { mesa: 15, pais: "Chile", codigo: "cl" },
+  { mesa: 16, pais: "Perú", codigo: "pe" },
+  { mesa: 17, pais: "Guatemala", codigo: "gt" },
+  { mesa: 18, pais: "Honduras", codigo: "hn" },
 ];
 
-type MesaAsignada = 
-  | typeof mesas[number] 
+type MesaAsignada =
+  | typeof mesas[number]
   | { mesa: number; pais: string; codigo: string }
   | { mesa: string; pais: string; codigo: string };
 
@@ -101,21 +101,21 @@ function assignMesa(inputPais: string, vipCode?: string | null): MesaAsignada {
 
   // 3. Si no tiene mesa propia, asignar una de las 3 Mesas Internacionales al azar
   const randomIntMesa = INT_MESAS[Math.floor(Math.random() * INT_MESAS.length)];
-  
+
   // Si eligió "Otro país", sí decimos "Internacional", si no, dejamos su país
   const displayPais = inputPais === "Otro país / Otra región" ? "Internacional" : inputPais;
-  
+
   return { mesa: randomIntMesa, pais: displayPais, codigo: flagCode };
 }
 
 export function RegistrationSection() {
-  const [submitted, setSubmitted]         = useState(false);
-  const [loading, setLoading]             = useState(false);
-  const [error, setError]                 = useState<string | null>(null);
-  const [mesaAsignada, setMesaAsignada]   = useState<MesaAsignada | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [mesaAsignada, setMesaAsignada] = useState<MesaAsignada | null>(null);
   const [registeredName, setRegisteredName] = useState<string | null>(null);
-  const [selectedPais, setSelectedPais]   = useState<string>("");
-  const [vipCode, setVipCode]             = useState<string | null>(null);
+  const [selectedPais, setSelectedPais] = useState<string>("");
+  const [vipCode, setVipCode] = useState<string | null>(null);
 
   useEffect(() => {
     // Detectar si el usuario entró con un link VIP (ej. ?vip=01)
@@ -133,7 +133,7 @@ export function RegistrationSection() {
 
     const form = e.currentTarget;
     let inputPaisStr = (form.elements.namedItem("pais") as HTMLInputElement).value;
-    
+
     // Si eligió "Otro país", leer el cuadro de texto adicional
     if (inputPaisStr === "Otro país / Otra región") {
       const customInput = form.elements.namedItem("customPais") as HTMLInputElement;
@@ -143,24 +143,43 @@ export function RegistrationSection() {
     }
 
     const data = {
-      nombre:       (form.elements.namedItem("nombre")       as HTMLInputElement).value,
-      pais:         inputPaisStr,
-      empresa:      (form.elements.namedItem("empresa")      as HTMLInputElement).value,
-      email:        (form.elements.namedItem("email")        as HTMLInputElement).value,
-      telefono:     (form.elements.namedItem("telefono")     as HTMLInputElement).value,
-      necesidad:    (form.elements.namedItem("necesidad")    as HTMLInputElement).value,
+      nombre: (form.elements.namedItem("nombre") as HTMLInputElement).value,
+      pais: inputPaisStr,
+      empresa: (form.elements.namedItem("empresa") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      telefono: (form.elements.namedItem("telefono") as HTMLInputElement).value,
+      necesidad: (form.elements.namedItem("necesidad") as HTMLInputElement).value,
       ofrecimiento: (form.elements.namedItem("ofrecimiento") as HTMLInputElement).value,
     };
 
+    // Verificar si el correo ya existe para evitar duplicados
+    const { data: existingUsers, error: checkError } = await supabase
+      .from("registros")
+      .select("email")
+      .eq("email", data.email)
+      .limit(1);
+
+    if (checkError) {
+      setError("Hubo un error al verificar tus datos. Intenta de nuevo.");
+      setLoading(false);
+      return;
+    }
+
+    if (existingUsers && existingUsers.length > 0) {
+      setError("Este correo electrónico ya está registrado. Por favor, utiliza otro.");
+      setLoading(false);
+      return;
+    }
+
     const asignacion = assignMesa(inputPaisStr, vipCode);
-    
+
     // Asignar el icono correspondiente si es Global (🌐) o la bandera real
     const bandera = asignacion.codigo === "global" ? "🌐" : `https://flagcdn.com/w80/${asignacion.codigo}.png`;
 
     const { error: dbError } = await supabase.from("registros").insert({
       ...data,
-      mesa_numero:  asignacion.mesa,
-      mesa_pais:    asignacion.pais,
+      mesa_numero: asignacion.mesa,
+      mesa_pais: asignacion.pais,
       mesa_bandera: bandera,
     });
 
@@ -273,51 +292,51 @@ export function RegistrationSection() {
                 {field.type === "select" ? (
                   <>
                     <div className="relative">
-                    {/* Preview de bandera en tiempo real */}
-                    {flagUrl && (
-                      <div className="absolute inset-y-0 left-3 flex items-center z-10 pointer-events-none">
-                        <Image
-                          src={flagUrl}
-                          alt={selectedPais}
-                          width={28}
-                          height={20}
-                          className="rounded-sm object-cover shadow"
-                        />
-                      </div>
-                    )}
-                    <select
-                      id={field.id}
-                      name={field.id}
-                      required
-                      value={selectedPais}
-                      onChange={(e) => setSelectedPais(e.target.value)}
-                      className={`w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 py-3 pr-10 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 appearance-none ${flagUrl ? "pl-12" : "pl-4"}`}
-                    >
-                      <option value="" disabled className="text-black">
-                        {field.placeholder}
-                      </option>
-                      {paises.map((pais) => (
-                        <option key={pais} value={pais} className="text-black">
-                          {pais}
+                      {/* Preview de bandera en tiempo real */}
+                      {flagUrl && (
+                        <div className="absolute inset-y-0 left-3 flex items-center z-10 pointer-events-none">
+                          <Image
+                            src={flagUrl}
+                            alt={selectedPais}
+                            width={28}
+                            height={20}
+                            className="rounded-sm object-cover shadow"
+                          />
+                        </div>
+                      )}
+                      <select
+                        id={field.id}
+                        name={field.id}
+                        required
+                        value={selectedPais}
+                        onChange={(e) => setSelectedPais(e.target.value)}
+                        className={`w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 py-3 pr-10 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 appearance-none ${flagUrl ? "pl-12" : "pl-4"}`}
+                      >
+                        <option value="" disabled className="text-black">
+                          {field.placeholder}
                         </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white">
-                      <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                      </svg>
+                        {paises.map((pais) => (
+                          <option key={pais} value={pais} className="text-black">
+                            {pais}
+                          </option>
+                        ))}
+                      </select>
+                      <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-white">
+                        <svg className="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                        </svg>
+                      </div>
                     </div>
-                  </div>
-                  {/* Cuadro de texto para país personalizado si eligió "Otro país" */}
-                  {field.id === "pais" && selectedPais === "Otro país / Otra región" && (
-                    <input
-                      type="text"
-                      name="customPais"
-                      required
-                      placeholder="Escribe tu país o región"
-                      className="mt-2 w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 placeholder:text-white/50"
-                    />
-                  )}
+                    {/* Cuadro de texto para país personalizado si eligió "Otro país" */}
+                    {field.id === "pais" && selectedPais === "Otro país / Otra región" && (
+                      <input
+                        type="text"
+                        name="customPais"
+                        required
+                        placeholder="Escribe tu país o región"
+                        className="mt-2 w-full rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 px-4 py-3 text-base text-primary-foreground outline-none transition-colors focus:border-white/60 focus:ring-2 focus:ring-white/20 placeholder:text-white/50"
+                      />
+                    )}
                   </>
                 ) : (
                   <input

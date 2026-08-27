@@ -3,9 +3,30 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase, type Registro } from "@/lib/supabase";
-import { LogOut, RefreshCw, Users, Search, Download, X } from "lucide-react";
+import { LogOut, RefreshCw, Users, Search, Download, X, Trash2, AlertTriangle, CheckCircle2 } from "lucide-react";
 
 const ADMIN_PASSWORD = "cila2026admin";
+
+// ── Helper: encontrar duplicados agrupados por email ──────────────────────────
+function getDuplicateGroups(registros: Registro[]): Record<string, Registro[]> {
+  const byEmail: Record<string, Registro[]> = {};
+  for (const r of registros) {
+    const key = r.email.trim().toLowerCase();
+    if (!byEmail[key]) byEmail[key] = [];
+    byEmail[key].push(r);
+  }
+  // Solo devolver los que tienen más de 1 registro
+  const duplicates: Record<string, Registro[]> = {};
+  for (const [email, group] of Object.entries(byEmail)) {
+    if (group.length > 1) {
+      // Ordenar por created_at ascendente (el primero = el más antiguo = el que se conserva)
+      duplicates[email] = group.sort(
+        (a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      );
+    }
+  }
+  return duplicates;
+}
 
 export default function AdminPage() {
   const router = useRouter();
@@ -18,6 +39,13 @@ export default function AdminPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [modalContent, setModalContent] = useState("");
+  const [deleteConfirm, setDeleteConfirm] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [activeTab, setActiveTab] = useState<"registros" | "duplicados">("registros");
+  const [cleaningDups, setCleaningDups] = useState(false);
+  const [cleanResult, setCleanResult] = useState<{ removed: number } | null>(null);
+  const [dupDeleteConfirm, setDupDeleteConfirm] = useState<number | null>(null);
+  const [dupDeleting, setDupDeleting] = useState(false);
 
   // Check if already logged in via sessionStorage
   useEffect(() => {
@@ -57,6 +85,49 @@ export default function AdminPage() {
     setAuthed(false);
     setPassword("");
     setRegistros([]);
+  };
+
+  const handleDelete = async (id: number) => {
+    setDeleting(true);
+    const { error } = await supabase.from("registros").delete().eq("id", id);
+    if (!error) {
+      setRegistros((prev) => prev.filter((r) => r.id !== id));
+    }
+    setDeleteConfirm(null);
+    setDeleting(false);
+  };
+
+  // Elimina todos los duplicados conservando solo el registro más antiguo por email
+  const cleanDuplicates = async () => {
+    setCleaningDups(true);
+    setCleanResult(null);
+    const groups = getDuplicateGroups(registros);
+    const idsToDelete: number[] = [];
+
+    for (const group of Object.values(groups)) {
+      // group[0] es el más antiguo (se conserva), los demás se eliminan
+      const extras = group.slice(1);
+      for (const r of extras) {
+        idsToDelete.push(r.id);
+      }
+    }
+
+    if (idsToDelete.length === 0) {
+      setCleanResult({ removed: 0 });
+      setCleaningDups(false);
+      return;
+    }
+
+    const { error } = await supabase
+      .from("registros")
+      .delete()
+      .in("id", idsToDelete);
+
+    if (!error) {
+      setRegistros((prev) => prev.filter((r) => !idsToDelete.includes(r.id)));
+      setCleanResult({ removed: idsToDelete.length });
+    }
+    setCleaningDups(false);
   };
 
   const exportCSV = () => {
@@ -168,38 +239,197 @@ export default function AdminPage() {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <Users size={20} className="text-blue-400" />
-              <span className="text-white/60 text-sm">Total registradas</span>
+        {(() => {
+          const dupGroups = getDuplicateGroups(registros);
+          const dupEmailCount = Object.keys(dupGroups).length;
+          const uniqueCount = new Set(registros.map((r) => r.email.trim().toLowerCase())).size;
+          return (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <Users size={20} className="text-blue-400" />
+                  <span className="text-white/60 text-sm">Total registros</span>
+                </div>
+                <p className="text-4xl font-bold text-white">{registros.length}</p>
+              </div>
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <CheckCircle2 size={20} className="text-green-400" />
+                  <span className="text-white/60 text-sm">Correos únicos</span>
+                </div>
+                <p className="text-4xl font-bold text-green-400">{uniqueCount}</p>
+              </div>
+              <div className={`rounded-2xl border p-6 ${dupEmailCount > 0 ? "bg-red-900/20 border-red-500/40" : "bg-white/5 border-white/10"}`}>
+                <div className="flex items-center gap-3 mb-2">
+                  <AlertTriangle size={20} className={dupEmailCount > 0 ? "text-red-400" : "text-white/30"} />
+                  <span className="text-white/60 text-sm">Correos duplicados</span>
+                </div>
+                <p className={`text-4xl font-bold ${dupEmailCount > 0 ? "text-red-400" : "text-white"}`}>{dupEmailCount}</p>
+              </div>
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-lg">🌎</span>
+                  <span className="text-white/60 text-sm">Países representados</span>
+                </div>
+                <p className="text-4xl font-bold text-white">{new Set(registros.map((r) => r.pais)).size}</p>
+              </div>
             </div>
-            <p className="text-4xl font-bold text-white">{registros.length}</p>
-          </div>
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-lg">🌎</span>
-              <span className="text-white/60 text-sm">Países representados</span>
-            </div>
-            <p className="text-4xl font-bold text-white">
-              {new Set(registros.map((r) => r.pais)).size}
-            </p>
-          </div>
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-6">
-            <div className="flex items-center gap-3 mb-2">
-              <span className="text-lg">🏢</span>
-              <span className="text-white/60 text-sm">Último registro</span>
-            </div>
-            <p className="text-base font-semibold text-white truncate">
-              {registros[0]
-                ? new Date(registros[0].created_at).toLocaleString("es-MX", {
-                    day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit",
-                  })
-                : "—"}
-            </p>
-          </div>
+          );
+        })()}
+
+        {/* Tabs */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("registros")}
+            className={`px-5 py-2 rounded-xl text-sm font-medium transition ${
+              activeTab === "registros"
+                ? "bg-white text-[#0f172a]"
+                : "border border-white/20 text-white/60 hover:bg-white/10"
+            }`}
+          >
+            Todos los registros
+          </button>
+          <button
+            onClick={() => { setActiveTab("duplicados"); setCleanResult(null); }}
+            className={`flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-medium transition ${
+              activeTab === "duplicados"
+                ? "bg-red-500 text-white"
+                : "border border-red-500/40 text-red-400 hover:bg-red-500/10"
+            }`}
+          >
+            <AlertTriangle size={14} />
+            Gestionar duplicados
+          </button>
         </div>
 
+        {activeTab === "duplicados" ? (
+          (() => {
+            const groups = getDuplicateGroups(registros);
+            const emails = Object.keys(groups);
+            return (
+              <div>
+                <div className="rounded-2xl border border-red-500/30 bg-red-900/10 p-6 mb-6">
+                  <h2 className="text-lg font-bold text-red-300 mb-1">Correos registrados más de una vez</h2>
+                  <p className="text-sm text-white/50 mb-4">
+                    Se conservará <strong className="text-white">únicamente el primer registro</strong> de cada correo (el más antiguo).
+                    Los registros duplicados serán eliminados permanentemente.
+                  </p>
+                  {cleanResult && (
+                    <div className={`flex items-center gap-2 rounded-xl px-4 py-3 text-sm mb-4 ${
+                      cleanResult.removed > 0
+                        ? "bg-green-900/30 border border-green-500/30 text-green-300"
+                        : "bg-white/5 border border-white/10 text-white/60"
+                    }`}>
+                      <CheckCircle2 size={16} />
+                      {cleanResult.removed > 0
+                        ? `✅ Se eliminaron ${cleanResult.removed} registros duplicados. Ahora hay ${registros.length} registros únicos.`
+                        : "No se encontraron duplicados. La lista ya está limpia."}
+                    </div>
+                  )}
+                  <button
+                    onClick={cleanDuplicates}
+                    disabled={cleaningDups || emails.length === 0}
+                    className="flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-500 transition disabled:opacity-40"
+                  >
+                    {cleaningDups ? (
+                      <><RefreshCw size={15} className="animate-spin" /> Limpiando...</>
+                    ) : emails.length === 0 ? (
+                      <><CheckCircle2 size={15} /> Sin duplicados — lista limpia</>
+                    ) : (
+                      <><Trash2 size={15} /> Eliminar {Object.values(groups).reduce((acc, g) => acc + g.length - 1, 0)} duplicados ({emails.length} correos afectados)</>
+                    )}
+                  </button>
+                </div>
+
+                {emails.length === 0 ? (
+                  <p className="text-center text-white/30 py-12">🎉 No hay correos duplicados en la base de datos.</p>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    {emails.map((email) => {
+                      const group = groups[email];
+                      return (
+                        <div key={email} className="rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+                          <div className="bg-red-900/20 border-b border-red-500/20 px-4 py-2 flex items-center justify-between">
+                            <span className="text-red-300 text-sm font-medium">{email}</span>
+                            <span className="text-xs text-white/40">{group.length} registros</span>
+                          </div>
+                          <table className="w-full text-xs">
+                            <thead>
+                              <tr className="border-b border-white/5">
+                                <th className="text-left px-4 py-2 text-white/40 font-medium">Estado</th>
+                                <th className="text-left px-4 py-2 text-white/40 font-medium">Fecha</th>
+                                <th className="text-left px-4 py-2 text-white/40 font-medium">Nombre</th>
+                                <th className="text-left px-4 py-2 text-white/40 font-medium">País</th>
+                                <th className="text-left px-4 py-2 text-white/40 font-medium">Empresa</th>
+                                <th className="px-4 py-2"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {group.map((r, idx) => (
+                                <tr key={r.id} className={`border-b border-white/5 ${
+                                  idx === 0 ? "bg-green-900/10" : "bg-red-900/10"
+                                }`}>
+                                  <td className="px-4 py-2">
+                                    {idx === 0
+                                      ? <span className="text-green-400 font-semibold">✅ Se conserva</span>
+                                      : <span className="text-red-400">🗑 Se elimina</span>}
+                                  </td>
+                                  <td className="px-4 py-2 text-white/50">
+                                    {new Date(r.created_at).toLocaleString("es-MX", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                                  </td>
+                                  <td className="px-4 py-2 text-white">{r.nombre}</td>
+                                  <td className="px-4 py-2 text-white/70">{r.pais}</td>
+                                  <td className="px-4 py-2 text-white/70">{r.empresa}</td>
+                                  <td className="px-4 py-2">
+                                    {idx !== 0 && (
+                                      dupDeleteConfirm === r.id ? (
+                                        <div className="flex items-center gap-1 whitespace-nowrap">
+                                          <button
+                                            onClick={async () => {
+                                              setDupDeleting(true);
+                                              const { error } = await supabase.from("registros").delete().eq("id", r.id);
+                                              if (!error) setRegistros((prev) => prev.filter((x) => x.id !== r.id));
+                                              setDupDeleteConfirm(null);
+                                              setDupDeleting(false);
+                                            }}
+                                            disabled={dupDeleting}
+                                            className="rounded-lg bg-red-600 px-2 py-1 text-xs font-semibold text-white hover:bg-red-500 transition disabled:opacity-50"
+                                          >
+                                            {dupDeleting ? "..." : "Confirmar"}
+                                          </button>
+                                          <button
+                                            onClick={() => setDupDeleteConfirm(null)}
+                                            className="rounded-lg border border-white/20 px-2 py-1 text-xs text-white/60 hover:bg-white/10 transition"
+                                          >
+                                            Cancelar
+                                          </button>
+                                        </div>
+                                      ) : (
+                                        <button
+                                          onClick={() => setDupDeleteConfirm(r.id)}
+                                          className="flex items-center gap-1 rounded-lg border border-red-500/30 px-2 py-1.5 text-red-400 hover:bg-red-500/20 transition"
+                                          title="Eliminar este registro duplicado"
+                                        >
+                                          <Trash2 size={12} />
+                                          <span>Borrar</span>
+                                        </button>
+                                      )
+                                    )}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })()
+        ) : (
+          <>
         {/* Search */}
         <div className="relative mb-4">
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
@@ -228,18 +458,19 @@ export default function AdminPage() {
                   <th className="text-left px-4 py-3 text-white/50 font-medium">Teléfono</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Necesidad</th>
                   <th className="text-left px-4 py-3 text-white/50 font-medium max-w-[220px]">Ofrecimiento</th>
+                  <th className="text-left px-4 py-3 text-white/50 font-medium">Borrar</th>
                 </tr>
               </thead>
               <tbody>
                 {loading ? (
                   <tr>
-                    <td colSpan={8} className="text-center py-16 text-white/40">
+                    <td colSpan={11} className="text-center py-16 text-white/40">
                       Cargando registros...
                     </td>
                   </tr>
                 ) : filtered.length === 0 ? (
                   <tr>
-                    <td colSpan={8} className="text-center py-16 text-white/40">
+                    <td colSpan={11} className="text-center py-16 text-white/40">
                       {search ? "No hay resultados para tu búsqueda." : "Aún no hay registros."}
                     </td>
                   </tr>
@@ -294,6 +525,33 @@ export default function AdminPage() {
                             </button>
                           ) : null}
                         </td>
+                        <td className="px-4 py-3">
+                          {deleteConfirm === r.id ? (
+                            <div className="flex items-center gap-1">
+                              <button
+                                onClick={() => handleDelete(r.id)}
+                                disabled={deleting}
+                                className="rounded-lg bg-red-600 px-2 py-1 text-xs font-semibold text-white hover:bg-red-500 transition disabled:opacity-50"
+                              >
+                                {deleting ? "..." : "Confirmar"}
+                              </button>
+                              <button
+                                onClick={() => setDeleteConfirm(null)}
+                                className="rounded-lg border border-white/20 px-2 py-1 text-xs text-white/60 hover:bg-white/10 transition"
+                              >
+                                Cancelar
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => setDeleteConfirm(r.id)}
+                              className="flex items-center gap-1 rounded-lg border border-red-500/30 px-2 py-1.5 text-red-400 hover:bg-red-500/10 transition"
+                              title="Borrar registro"
+                            >
+                              <Trash2 size={13} />
+                            </button>
+                          )}
+                        </td>
                     </tr>
                   ))
                 )}
@@ -317,6 +575,8 @@ export default function AdminPage() {
               </div>
             </div>
           </div>
+        )}
+        </>
         )}
       </main>
     </div>

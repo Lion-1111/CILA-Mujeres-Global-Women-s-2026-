@@ -189,9 +189,9 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Tagline Section - Fixed at bottom */}
+      {/* Tagline Section - Fixed at center */}
       <div
-        className="pointer-events-none fixed bottom-0 left-0 right-0 z-10 flex flex-col items-center px-6 pb-4 text-center md:px-12 md:pb-8 lg:px-20 lg:pb-10"
+        className="pointer-events-none fixed inset-0 z-10 flex flex-col items-center justify-center px-6 text-center md:px-12 lg:px-20"
         style={{ opacity: textOpacity }}
       >
         <span className="mb-4 inline-block rounded-full border border-white/30 bg-black/20 px-6 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-white backdrop-blur-md shadow-xl">
